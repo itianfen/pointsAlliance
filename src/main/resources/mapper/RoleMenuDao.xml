@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.RoleMenuDao">
+
+    <resultMap type="com.jx.entity.RoleMenu" id="RoleMenuMap">
+        <result property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="CREATED_TIME" jdbcType="TIMESTAMP"/>
+        <result property="creator" column="CREATOR" jdbcType="VARCHAR"/>
+        <result property="creatorId" column="CREATOR_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateId" column="LAST_UPDATE_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdater" column="LAST_UPDATER" jdbcType="VARCHAR"/>
+        <result property="menuId" column="MENU_ID" jdbcType="VARCHAR"/>
+        <result property="roleId" column="ROLE_ID" jdbcType="VARCHAR"/>
+        <result property="deleted" column="DELETED" jdbcType="INTEGER"/>
+        <result property="spare1" column="SPARE1" jdbcType="VARCHAR"/>
+        <result property="spare2" column="SPARE2" jdbcType="VARCHAR"/>
+        <result property="spare3" column="SPARE3" jdbcType="VARCHAR"/>
+        <result property="spare4" column="SPARE4" jdbcType="VARCHAR"/>
+        <result property="spare5" column="SPARE5" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="RoleMenuMap">
+        select
+          ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, MENU_ID, ROLE_ID, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.role_menu
+        where ID = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="RoleMenuMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, MENU_ID, ROLE_ID,
+        DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.role_menu
+        <!-- 模糊查询 -->
+        <if test="preciseOrFuzzy != 1">
+            <where>
+                <if test="roleMenu.id != null and roleMenu.id != ''">
+                    and ID like CONCAT('%', #{roleMenu.id}, '%')
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="roleMenu.creator != null and roleMenu.creator != ''">
+                    and CREATOR like CONCAT('%', #{roleMenu.creator}, '%')
+                </if>
+                <if test="roleMenu.creatorId != null and roleMenu.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{roleMenu.creatorId}, '%')
+                </if>
+                <if test="roleMenu.lastUpdateId != null and roleMenu.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{roleMenu.lastUpdateId}, '%')
+                </if>
+                <if test="roleMenu.lastUpdater != null and roleMenu.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{roleMenu.lastUpdater}, '%')
+                </if>
+                <if test="roleMenu.menuId != null and roleMenu.menuId != ''">
+                    and MENU_ID like CONCAT('%', #{roleMenu.menuId}, '%')
+                </if>
+                <if test="roleMenu.roleId != null and roleMenu.roleId != ''">
+                    and ROLE_ID like CONCAT('%', #{roleMenu.roleId}, '%')
+                </if>
+                <if test="roleMenu.deleted != null">
+                    and DELETED = #{roleMenu.deleted}
+                </if>
+                <if test="roleMenu.spare1 != null and roleMenu.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{roleMenu.spare1}, '%')
+                </if>
+                <if test="roleMenu.spare2 != null and roleMenu.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{roleMenu.spare2}, '%')
+                </if>
+                <if test="roleMenu.spare3 != null and roleMenu.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{roleMenu.spare3}, '%')
+                </if>
+                <if test="roleMenu.spare4 != null and roleMenu.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{roleMenu.spare4}, '%')
+                </if>
+                <if test="roleMenu.spare5 != null and roleMenu.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{roleMenu.spare5}, '%')
+                </if>
+            </where>
+        </if>
+        <!-- 精确查询 -->
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="roleMenu.id != null and roleMenu.id != ''">
+                    and ID = #{roleMenu.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="roleMenu.creator != null and roleMenu.creator != ''">
+                    and CREATOR = #{roleMenu.creator}
+                </if>
+                <if test="roleMenu.creatorId != null and roleMenu.creatorId != ''">
+                    and CREATOR_ID = #{roleMenu.creatorId}
+                </if>
+                <if test="roleMenu.lastUpdateId != null and roleMenu.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{roleMenu.lastUpdateId}
+                </if>
+                <if test="roleMenu.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{roleMenu.lastUpdateTime}
+                </if>
+                <if test="roleMenu.lastUpdater != null and roleMenu.lastUpdater != ''">
+                    and LAST_UPDATER = #{roleMenu.lastUpdater}
+                </if>
+                <if test="roleMenu.menuId != null and roleMenu.menuId != ''">
+                    and MENU_ID = #{roleMenu.menuId}
+                </if>
+                <if test="roleMenu.roleId != null and roleMenu.roleId != ''">
+                    and ROLE_ID = #{roleMenu.roleId}
+                </if>
+                <if test="roleMenu.deleted != null">
+                    and DELETED = #{roleMenu.deleted}
+                </if>
+                <if test="roleMenu.spare1 != null and roleMenu.spare1 != ''">
+                    and SPARE1 = #{roleMenu.spare1}
+                </if>
+                <if test="roleMenu.spare2 != null and roleMenu.spare2 != ''">
+                    and SPARE2 = #{roleMenu.spare2}
+                </if>
+                <if test="roleMenu.spare3 != null and roleMenu.spare3 != ''">
+                    and SPARE3 = #{roleMenu.spare3}
+                </if>
+                <if test="roleMenu.spare4 != null and roleMenu.spare4 != ''">
+                    and SPARE4 = #{roleMenu.spare4}
+                </if>
+                <if test="roleMenu.spare5 != null and roleMenu.spare5 != ''">
+                    and SPARE5 = #{roleMenu.spare5}
+                </if>
+            </where>
+        </if>
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--根据条件查询总条数-->
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) from points_alliance.role_menu
+        <!-- 模糊查询 -->
+        <if test="preciseOrFuzzy != 1">
+            <where>
+                <if test="roleMenu.id != null and roleMenu.id != ''">
+                    and ID like CONCAT('%', #{roleMenu.id}, '%')
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="roleMenu.creator != null and roleMenu.creator != ''">
+                    and CREATOR like CONCAT('%', #{roleMenu.creator}, '%')
+                </if>
+                <if test="roleMenu.creatorId != null and roleMenu.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{roleMenu.creatorId}, '%')
+                </if>
+                <if test="roleMenu.lastUpdateId != null and roleMenu.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{roleMenu.lastUpdateId}, '%')
+                </if>
+                <if test="roleMenu.lastUpdater != null and roleMenu.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{roleMenu.lastUpdater}, '%')
+                </if>
+                <if test="roleMenu.menuId != null and roleMenu.menuId != ''">
+                    and MENU_ID like CONCAT('%', #{roleMenu.menuId}, '%')
+                </if>
+                <if test="roleMenu.roleId != null and roleMenu.roleId != ''">
+                    and ROLE_ID like CONCAT('%', #{roleMenu.roleId}, '%')
+                </if>
+                <if test="roleMenu.deleted != null">
+                    and DELETED = #{roleMenu.deleted}
+                </if>
+                <if test="roleMenu.spare1 != null and roleMenu.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{roleMenu.spare1}, '%')
+                </if>
+                <if test="roleMenu.spare2 != null and roleMenu.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{roleMenu.spare2}, '%')
+                </if>
+                <if test="roleMenu.spare3 != null and roleMenu.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{roleMenu.spare3}, '%')
+                </if>
+                <if test="roleMenu.spare4 != null and roleMenu.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{roleMenu.spare4}, '%')
+                </if>
+                <if test="roleMenu.spare5 != null and roleMenu.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{roleMenu.spare5}, '%')
+                </if>
+            </where>
+        </if>
+        <!-- 精确查询 -->
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="roleMenu.id != null and roleMenu.id != ''">
+                    and ID = #{roleMenu.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="roleMenu.creator != null and roleMenu.creator != ''">
+                    and CREATOR = #{roleMenu.creator}
+                </if>
+                <if test="roleMenu.creatorId != null and roleMenu.creatorId != ''">
+                    and CREATOR_ID = #{roleMenu.creatorId}
+                </if>
+                <if test="roleMenu.lastUpdateId != null and roleMenu.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{roleMenu.lastUpdateId}
+                </if>
+                <if test="roleMenu.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{roleMenu.lastUpdateTime}
+                </if>
+                <if test="roleMenu.lastUpdater != null and roleMenu.lastUpdater != ''">
+                    and LAST_UPDATER = #{roleMenu.lastUpdater}
+                </if>
+                <if test="roleMenu.menuId != null and roleMenu.menuId != ''">
+                    and MENU_ID = #{roleMenu.menuId}
+                </if>
+                <if test="roleMenu.roleId != null and roleMenu.roleId != ''">
+                    and ROLE_ID = #{roleMenu.roleId}
+                </if>
+                <if test="roleMenu.deleted != null">
+                    and DELETED = #{roleMenu.deleted}
+                </if>
+                <if test="roleMenu.spare1 != null and roleMenu.spare1 != ''">
+                    and SPARE1 = #{roleMenu.spare1}
+                </if>
+                <if test="roleMenu.spare2 != null and roleMenu.spare2 != ''">
+                    and SPARE2 = #{roleMenu.spare2}
+                </if>
+                <if test="roleMenu.spare3 != null and roleMenu.spare3 != ''">
+                    and SPARE3 = #{roleMenu.spare3}
+                </if>
+                <if test="roleMenu.spare4 != null and roleMenu.spare4 != ''">
+                    and SPARE4 = #{roleMenu.spare4}
+                </if>
+                <if test="roleMenu.spare5 != null and roleMenu.spare5 != ''">
+                    and SPARE5 = #{roleMenu.spare5}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="RoleMenuMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, MENU_ID, ROLE_ID,
+        DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.role_menu
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="menuId != null and menuId != ''">
+                and MENU_ID = #{menuId}
+            </if>
+            <if test="roleId != null and roleId != ''">
+                and ROLE_ID = #{roleId}
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                and SPARE1 = #{spare1}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+        </where>
+    </select>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update points_alliance.role_menu
+        <set>
+            <if test="createdTime != null">
+                CREATED_TIME = #{createdTime},
+            </if>
+            <if test="creator != null and creator != ''">
+                CREATOR = #{creator},
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                CREATOR_ID = #{creatorId},
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                LAST_UPDATE_ID = #{lastUpdateId},
+            </if>
+            <if test="lastUpdateTime != null">
+                LAST_UPDATE_TIME = #{lastUpdateTime},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                LAST_UPDATER = #{lastUpdater},
+            </if>
+            <if test="menuId != null and menuId != ''">
+                MENU_ID = #{menuId},
+            </if>
+            <if test="roleId != null and roleId != ''">
+                ROLE_ID = #{roleId},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted},
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                SPARE1 = #{spare1},
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                SPARE2 = #{spare2},
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                SPARE3 = #{spare3},
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                SPARE4 = #{spare4},
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                SPARE5 = #{spare5},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <!--通过主键修改全部数据-->
+    <update id="updateAllColumn">
+        update points_alliance.role_menu
+        <set>
+            CREATED_TIME = #{createdTime},
+            CREATOR = #{creator},
+            CREATOR_ID = #{creatorId},
+            LAST_UPDATE_ID = #{lastUpdateId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            LAST_UPDATER = #{lastUpdater},
+            MENU_ID = #{menuId},
+            ROLE_ID = #{roleId},
+            DELETED = #{deleted},
+            SPARE1 = #{spare1},
+            SPARE2 = #{spare2},
+            SPARE3 = #{spare3},
+            SPARE4 = #{spare4},
+            SPARE5 = #{spare5},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from points_alliance.role_menu where ID = #{id}
+    </delete>
+
+    <delete id="deleteByRole">
+        delete from role_menu where ROLE_ID in
+        <foreach collection="roleId" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <delete id="deleteByMenu">
+        delete from role_menu where MENU_ID = #{menuId}
+    </delete>
+    <select id="queryByRoleId" resultType="java.lang.String">
+        select distinct MENU_ID from role_menu where ROLE_ID = #{roleId} and DELETED = 0
+    </select>
+    <delete id="deleteRoleMenu">
+        delete from role_menu where MENU_ID = #{menuId} and  ROLE_ID = #{roleId}
+    </delete>
+</mapper>

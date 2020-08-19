@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.MenuDao">
+
+    <resultMap type="com.jx.entity.Menu" id="MenuMap">
+        <result property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="CREATED_TIME" jdbcType="TIMESTAMP"/>
+        <result property="creator" column="CREATOR" jdbcType="VARCHAR"/>
+        <result property="creatorId" column="CREATOR_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateId" column="LAST_UPDATE_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdater" column="LAST_UPDATER" jdbcType="VARCHAR"/>
+        <result property="orderId" column="ORDER_ID" jdbcType="INTEGER"/>
+        <result property="name" column="NAME" jdbcType="VARCHAR"/>
+        <result property="action" column="ACTION" jdbcType="VARCHAR"/>
+        <result property="parentId" column="PARENT_ID" jdbcType="VARCHAR"/>
+        <result property="icon" column="ICON" jdbcType="VARCHAR"/>
+        <result property="note" column="NOTE" jdbcType="VARCHAR"/>
+        <result property="component" column="COMPONENT" jdbcType="VARCHAR"/>
+        <result property="deleted" column="DELETED" jdbcType="INTEGER"/>
+        <result property="spare1" column="SPARE1" jdbcType="VARCHAR"/>
+        <result property="spare2" column="SPARE2" jdbcType="VARCHAR"/>
+        <result property="spare3" column="SPARE3" jdbcType="VARCHAR"/>
+        <result property="spare4" column="SPARE4" jdbcType="VARCHAR"/>
+        <result property="spare5" column="SPARE5" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MenuMap">
+        select
+          ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, ORDER_ID, NAME, ACTION, PARENT_ID, ICON, NOTE,COMPONENT, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.menu
+        where ID = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MenuMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, ORDER_ID, NAME, ACTION,
+        PARENT_ID, ICON, NOTE,COMPONENT, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.menu
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="orderId != null">
+                and ORDER_ID = #{orderId}
+            </if>
+            <if test="name != null and name != ''">
+                and NAME = #{name}
+            </if>
+            <if test="action != null and action != ''">
+                and ACTION = #{action}
+            </if>
+            <if test="parentId != null and parentId != ''">
+                and PARENT_ID = #{parentId}
+            </if>
+            <if test="icon != null and icon != ''">
+                and ICON = #{icon}
+            </if>
+            <if test="note != null and note != ''">
+                and NOTE = #{note}
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                and SPARE1 = #{spare1}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+        </where>
+        order by ORDER_ID,CREATED_TIME DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--根据条件查询总条数-->
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) from points_alliance.menu
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="orderId != null">
+                and ORDER_ID = #{orderId}
+            </if>
+            <if test="name != null and name != ''">
+                and NAME = #{name}
+            </if>
+            <if test="action != null and action != ''">
+                and ACTION = #{action}
+            </if>
+            <if test="parentId != null and parentId != ''">
+                and PARENT_ID = #{parentId}
+            </if>
+            <if test="icon != null and icon != ''">
+                and ICON = #{icon}
+            </if>
+            <if test="note != null and note != ''">
+                and NOTE = #{note}
+            </if>
+            <if test="component != null">
+                COMPONENT = #{component},
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                and SPARE1 = #{spare1}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+        </where>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MenuMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, ORDER_ID, NAME, ACTION,
+        PARENT_ID, ICON, NOTE, COMPONENT,DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.menu
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="orderId != null">
+                and ORDER_ID = #{orderId}
+            </if>
+            <if test="name != null and name != ''">
+                and NAME = #{name}
+            </if>
+            <if test="action != null and action != ''">
+                and ACTION = #{action}
+            </if>
+            <if test="parentId != null and parentId != ''">
+                and PARENT_ID = #{parentId}
+            </if>
+            <if test="icon != null and icon != ''">
+                and ICON = #{icon}
+            </if>
+            <if test="note != null and note != ''">
+                and NOTE = #{note}
+            </if>
+            <if test="component != null">
+                and COMPONENT = #{component},
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                and SPARE1 = #{spare1}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+        </where>
+        order by PARENT_ID,ORDER_ID
+    </select>
+    <select id="queryByIds" resultType="com.jx.entity.Menu">
+        select * from menu where ID in
+        <foreach collection="menuIds" open="(" close=")" item="idStr" separator=",">
+            #{idStr}
+        </foreach>
+        order by PARENT_ID,ORDER_ID
+    </select>
+    <!--通过主键修改数据-->
+    <update id="update">
+        update points_alliance.menu
+        <set>
+            <if test="createdTime != null">
+                CREATED_TIME = #{createdTime},
+            </if>
+            <if test="creator != null and creator != ''">
+                CREATOR = #{creator},
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                CREATOR_ID = #{creatorId},
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                LAST_UPDATE_ID = #{lastUpdateId},
+            </if>
+            <if test="lastUpdateTime != null">
+                LAST_UPDATE_TIME = #{lastUpdateTime},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                LAST_UPDATER = #{lastUpdater},
+            </if>
+            <if test="orderId != null">
+                ORDER_ID = #{orderId},
+            </if>
+            <if test="name != null and name != ''">
+                NAME = #{name},
+            </if>
+            <if test="action != null and action != ''">
+                ACTION = #{action},
+            </if>
+            <if test="parentId != null and parentId != ''">
+                PARENT_ID = #{parentId},
+            </if>
+            <if test="icon != null and icon != ''">
+                ICON = #{icon},
+            </if>
+            <if test="note != null and note != ''">
+                NOTE = #{note},
+            </if>
+            <if test="component != null">
+                COMPONENT = #{component},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted},
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                SPARE1 = #{spare1},
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                SPARE2 = #{spare2},
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                SPARE3 = #{spare3},
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                SPARE4 = #{spare4},
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                SPARE5 = #{spare5},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <!--通过主键修改全部数据-->
+    <update id="updateAllColumn">
+        update points_alliance.menu
+        <set>
+            CREATED_TIME = #{createdTime},
+            CREATOR = #{creator},
+            CREATOR_ID = #{creatorId},
+            LAST_UPDATE_ID = #{lastUpdateId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            LAST_UPDATER = #{lastUpdater},
+            ORDER_ID = #{orderId},
+            NAME = #{name},
+            ACTION = #{action},
+            PARENT_ID = #{parentId},
+            ICON = #{icon},
+            NOTE = #{note},
+            DELETED = #{deleted},
+            COMPONENT = #{component},
+            SPARE1 = #{spare1},
+            SPARE2 = #{spare2},
+            SPARE3 = #{spare3},
+            SPARE4 = #{spare4},
+            SPARE5 = #{spare5},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from points_alliance.menu where ID = #{id}
+    </delete>
+
+</mapper>

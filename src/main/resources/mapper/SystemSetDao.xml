@@ -1,0 +1,1109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.SystemSetDao">
+  <resultMap id="BaseResultMap" type="com.jx.entity.SystemSet">
+    <!--@mbg.generated-->
+    <!--@Table system_set-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <id column="COMPANY_ID" jdbcType="VARCHAR" property="companyId" />
+    <result column="CREATED_TIME" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+    <result column="CREATOR_ID" jdbcType="VARCHAR" property="creatorId" />
+    <result column="LAST_UPDATE_ID" jdbcType="VARCHAR" property="lastUpdateId" />
+    <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="LAST_UPDATER" jdbcType="VARCHAR" property="lastUpdater" />
+    <result column="MEMBER_UPGRADE_GOLD_PRICE" jdbcType="DECIMAL" property="memberUpgradeGoldPrice" />
+    <result column="MEMBER_UPGRADE_DIAMOND_PRICE" jdbcType="DECIMAL" property="memberUpgradeDiamondPrice" />
+    <result column="MEMBER_NORMAL_MONEY_UPGRADE_DIRECT" jdbcType="DECIMAL" property="memberNormalMoneyUpgradeDirect" />
+    <result column="MEMBER_NORMAL_MONEY_UPGRADE_INDIRECT" jdbcType="DECIMAL" property="memberNormalMoneyUpgradeIndirect" />
+    <result column="MEMBER_NORMAL_EXCHANGE_POINT_DIRECT" jdbcType="DECIMAL" property="memberNormalExchangePointDirect" />
+    <result column="MEMBER_NORMAL_EXCHANGE_POINT_INDIRECT" jdbcType="DECIMAL" property="memberNormalExchangePointIndirect" />
+    <result column="MEMBER_GOLD_MONEY_UPGRADE_DIRECT" jdbcType="DECIMAL" property="memberGoldMoneyUpgradeDirect" />
+    <result column="MEMBER_GOLD_MONEY_UPGRADE_INDIRECT" jdbcType="DECIMAL" property="memberGoldMoneyUpgradeIndirect" />
+    <result column="MEMBER_GOLD_EXCHANGE_POINT_DIRECT" jdbcType="DECIMAL" property="memberGoldExchangePointDirect" />
+    <result column="MEMBER_GOLD_EXCHANGE_POINT_INDIRECT" jdbcType="DECIMAL" property="memberGoldExchangePointIndirect" />
+    <result column="MEMBER_DIAMOND_MONEY_UPGRADE_DIRECT" jdbcType="DECIMAL" property="memberDiamondMoneyUpgradeDirect" />
+    <result column="MEMBER_DIAMOND_MONEY_UPGRADE_INDIRECT" jdbcType="DECIMAL" property="memberDiamondMoneyUpgradeIndirect" />
+    <result column="MEMBER_DIAMOND_EXCHANGE_POINT_DIRECT" jdbcType="DECIMAL" property="memberDiamondExchangePointDirect" />
+    <result column="MEMBER_DIAMOND_EXCHANGE_POINT_INDIRECT" jdbcType="DECIMAL" property="memberDiamondExchangePointIndirect" />
+    <result column="MEMBER_NORMAL_EXCHANGE_UNIT_PRICE" jdbcType="DECIMAL" property="memberNormalExchangeUnitPrice" />
+    <result column="MEMBER_GOLD_EXCHANGE_UNIT_PRICE" jdbcType="DECIMAL" property="memberGoldExchangeUnitPrice" />
+    <result column="MEMBER_DIAMOND_EXCHANGE_UNIT_PRICE" jdbcType="DECIMAL" property="memberDiamondExchangeUnitPrice" />
+    <result column="COMPANY_NORMAL_UPGRADE_PRICE" jdbcType="DECIMAL" property="companyNormalUpgradePrice" />
+    <result column="COMPANY_ADVANCED_UPGRADE_PRICE" jdbcType="DECIMAL" property="companyAdvancedUpgradePrice" />
+    <result column="COMPANY_SUPER_UPGRADE_PRICE" jdbcType="DECIMAL" property="companySuperUpgradePrice" />
+    <result column="COMPANY_NORMAL_MONEY_UPGRADE_DIRECT" jdbcType="DECIMAL" property="companyNormalMoneyUpgradeDirect" />
+    <result column="COMPANY_ADVANCED_MONEY_UPGRADE_DIRECT" jdbcType="DECIMAL" property="companyAdvancedMoneyUpgradeDirect" />
+    <result column="COMPANY_SUPER_MONEY_UPGRADE_DIRECT" jdbcType="DECIMAL" property="companySuperMoneyUpgradeDirect" />
+    <result column="COMPANY_NORMAL_MONEY_UPGRADE_INDIRECT" jdbcType="DECIMAL" property="companyNormalMoneyUpgradeIndirect" />
+    <result column="COMPANY_ADVANCED_MONEY_UPGRADE_INDIRECT" jdbcType="DECIMAL" property="companyAdvancedMoneyUpgradeIndirect" />
+    <result column="COMPANY_SUPER_MONEY_UPGRADE_INDIRECT" jdbcType="DECIMAL" property="companySuperMoneyUpgradeIndirect" />
+    <result column="COMPANY_NORMAL_PROFIT_RATE" jdbcType="DECIMAL" property="companyNormalProfitRate" />
+    <result column="COMPANY_ADVANCED_PROFIT_RATE" jdbcType="DECIMAL" property="companyAdvancedProfitRate" />
+    <result column="COMPANY_SUPER_PROFIT_RATE" jdbcType="DECIMAL" property="companySuperProfitRate" />
+    <result column="COMPANY_NORMAL_PEER_EXCHANGE" jdbcType="DECIMAL" property="companyNormalPeerExchange" />
+    <result column="COMPANY_ADVANCED_PEER_EXCHANGE" jdbcType="DECIMAL" property="companyAdvancedPeerExchange" />
+    <result column="COMPANY_SUPER_PEER_EXCHANGE" jdbcType="DECIMAL" property="companySuperPeerExchange" />
+    <result column="COMPANY_NORMAL_TEAM_PROFIT" jdbcType="DECIMAL" property="companyNormalTeamProfit" />
+    <result column="COMPANY_ADVANCED_TEAM_PROFIT" jdbcType="DECIMAL" property="companyAdvancedTeamProfit" />
+    <result column="COMPANY_SUPER_TEAM_PROFIT" jdbcType="DECIMAL" property="companySuperTeamProfit" />
+    <result column="COMPANY_NORMAL_HIGHEST_PRICE" jdbcType="DECIMAL" property="companyNormalHighestPrice" />
+    <result column="COMPANY_ADVANCED_HIGHEST_PRICE" jdbcType="DECIMAL" property="companyAdvancedHighestPrice" />
+    <result column="COMPANY_SUPER_HIGHEST_PRICE" jdbcType="DECIMAL" property="companySuperHighestPrice" />
+    <result column="RECOMMEND_NORMAL_COMPANY_REWARD" jdbcType="DECIMAL" property="recommendNormalCompanyReward" />
+    <result column="RECOMMEND_ADVANCED_COMPANY_REWARD" jdbcType="DECIMAL" property="recommendAdvancedCompanyReward" />
+    <result column="RECOMMEND_SUPER_COMPANY_REWARD" jdbcType="DECIMAL" property="recommendSuperCompanyReward" />
+    <result column="NORMAL_COMPANY_TWICE_UPGRADE_REWARD" jdbcType="DECIMAL" property="normalCompanyTwiceUpgradeReward" />
+    <result column="ADVANCED_COMPANY_TWICE_UPGRADE_REWARD" jdbcType="DECIMAL" property="advancedCompanyTwiceUpgradeReward" />
+    <result column="PLATFORM_ID" jdbcType="VARCHAR" property="platformId" />
+    <result column="DELETED" jdbcType="INTEGER" property="deleted" />
+    <result column="SPARE1" jdbcType="VARCHAR" property="spare1" />
+    <result column="SPARE2" jdbcType="VARCHAR" property="spare2" />
+    <result column="SPARE3" jdbcType="VARCHAR" property="spare3" />
+    <result column="SPARE4" jdbcType="VARCHAR" property="spare4" />
+    <result column="SPARE5" jdbcType="VARCHAR" property="spare5" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, COMPANY_ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, 
+    LAST_UPDATER, MEMBER_UPGRADE_GOLD_PRICE, MEMBER_UPGRADE_DIAMOND_PRICE, MEMBER_NORMAL_MONEY_UPGRADE_DIRECT, 
+    MEMBER_NORMAL_MONEY_UPGRADE_INDIRECT, MEMBER_NORMAL_EXCHANGE_POINT_DIRECT, MEMBER_NORMAL_EXCHANGE_POINT_INDIRECT, 
+    MEMBER_GOLD_MONEY_UPGRADE_DIRECT, MEMBER_GOLD_MONEY_UPGRADE_INDIRECT, MEMBER_GOLD_EXCHANGE_POINT_DIRECT, 
+    MEMBER_GOLD_EXCHANGE_POINT_INDIRECT, MEMBER_DIAMOND_MONEY_UPGRADE_DIRECT, MEMBER_DIAMOND_MONEY_UPGRADE_INDIRECT, 
+    MEMBER_DIAMOND_EXCHANGE_POINT_DIRECT, MEMBER_DIAMOND_EXCHANGE_POINT_INDIRECT, MEMBER_NORMAL_EXCHANGE_UNIT_PRICE, 
+    MEMBER_GOLD_EXCHANGE_UNIT_PRICE, MEMBER_DIAMOND_EXCHANGE_UNIT_PRICE, COMPANY_NORMAL_UPGRADE_PRICE, 
+    COMPANY_ADVANCED_UPGRADE_PRICE, COMPANY_SUPER_UPGRADE_PRICE, COMPANY_NORMAL_MONEY_UPGRADE_DIRECT, 
+    COMPANY_ADVANCED_MONEY_UPGRADE_DIRECT, COMPANY_SUPER_MONEY_UPGRADE_DIRECT, COMPANY_NORMAL_MONEY_UPGRADE_INDIRECT, 
+    COMPANY_ADVANCED_MONEY_UPGRADE_INDIRECT, COMPANY_SUPER_MONEY_UPGRADE_INDIRECT, COMPANY_NORMAL_PROFIT_RATE, 
+    COMPANY_ADVANCED_PROFIT_RATE, COMPANY_SUPER_PROFIT_RATE, COMPANY_NORMAL_PEER_EXCHANGE, 
+    COMPANY_ADVANCED_PEER_EXCHANGE, COMPANY_SUPER_PEER_EXCHANGE, COMPANY_NORMAL_TEAM_PROFIT, 
+    COMPANY_ADVANCED_TEAM_PROFIT, COMPANY_SUPER_TEAM_PROFIT, COMPANY_NORMAL_HIGHEST_PRICE, 
+    COMPANY_ADVANCED_HIGHEST_PRICE, COMPANY_SUPER_HIGHEST_PRICE, RECOMMEND_NORMAL_COMPANY_REWARD, 
+    RECOMMEND_ADVANCED_COMPANY_REWARD, RECOMMEND_SUPER_COMPANY_REWARD, NORMAL_COMPANY_TWICE_UPGRADE_REWARD, 
+    ADVANCED_COMPANY_TWICE_UPGRADE_REWARD, PLATFORM_ID, DELETED, SPARE1, SPARE2, SPARE3, 
+    SPARE4, SPARE5
+  </sql>
+
+    <resultMap id="SystemSetMap" type="com.jx.entity.SystemSet">
+        <result column="ID" jdbcType="VARCHAR" property="id" />
+        <result column="CREATED_TIME" jdbcType="TIMESTAMP" property="createdTime" />
+        <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+        <result column="CREATOR_ID" jdbcType="VARCHAR" property="creatorId" />
+        <result column="LAST_UPDATE_ID" jdbcType="VARCHAR" property="lastUpdateId" />
+        <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+        <result column="LAST_UPDATER" jdbcType="VARCHAR" property="lastUpdater" />
+        <result column="MEMBER_UPGRADE_GOLD_PRICE" jdbcType="NUMERIC" property="memberUpgradeGoldPrice" />
+        <result column="MEMBER_UPGRADE_DIAMOND_PRICE" jdbcType="NUMERIC" property="memberUpgradeDiamondPrice" />
+        <result column="MEMBER_NORMAL_MONEY_UPGRADE_DIRECT" jdbcType="NUMERIC" property="memberNormalMoneyUpgradeDirect" />
+        <result column="MEMBER_NORMAL_MONEY_UPGRADE_INDIRECT" jdbcType="NUMERIC" property="memberNormalMoneyUpgradeIndirect" />
+        <result column="MEMBER_NORMAL_EXCHANGE_POINT_DIRECT" jdbcType="NUMERIC" property="memberNormalExchangePointDirect" />
+        <result column="MEMBER_NORMAL_EXCHANGE_POINT_INDIRECT" jdbcType="NUMERIC" property="memberNormalExchangePointIndirect" />
+        <result column="MEMBER_GOLD_MONEY_UPGRADE_DIRECT" jdbcType="NUMERIC" property="memberGoldMoneyUpgradeDirect" />
+        <result column="MEMBER_GOLD_MONEY_UPGRADE_INDIRECT" jdbcType="NUMERIC" property="memberGoldMoneyUpgradeIndirect" />
+        <result column="MEMBER_GOLD_EXCHANGE_POINT_DIRECT" jdbcType="NUMERIC" property="memberGoldExchangePointDirect" />
+        <result column="MEMBER_GOLD_EXCHANGE_POINT_INDIRECT" jdbcType="NUMERIC" property="memberGoldExchangePointIndirect" />
+        <result column="MEMBER_DIAMOND_MONEY_UPGRADE_DIRECT" jdbcType="NUMERIC" property="memberDiamondMoneyUpgradeDirect" />
+        <result column="MEMBER_DIAMOND_MONEY_UPGRADE_INDIRECT" jdbcType="NUMERIC" property="memberDiamondMoneyUpgradeIndirect" />
+        <result column="MEMBER_DIAMOND_EXCHANGE_POINT_DIRECT" jdbcType="NUMERIC" property="memberDiamondExchangePointDirect" />
+        <result column="MEMBER_DIAMOND_EXCHANGE_POINT_INDIRECT" jdbcType="NUMERIC" property="memberDiamondExchangePointIndirect" />
+        <result column="MEMBER_NORMAL_EXCHANGE_UNIT_PRICE" jdbcType="NUMERIC" property="memberNormalExchangeUnitPrice" />
+        <result column="MEMBER_GOLD_EXCHANGE_UNIT_PRICE" jdbcType="NUMERIC" property="memberGoldExchangeUnitPrice" />
+        <result column="MEMBER_DIAMOND_EXCHANGE_UNIT_PRICE" jdbcType="NUMERIC" property="memberDiamondExchangeUnitPrice" />
+        <result column="COMPANY_NORMAL_UPGRADE_PRICE" jdbcType="NUMERIC" property="companyNormalUpgradePrice" />
+        <result column="COMPANY_ADVANCED_UPGRADE_PRICE" jdbcType="NUMERIC" property="companyAdvancedUpgradePrice" />
+        <result column="COMPANY_SUPER_UPGRADE_PRICE" jdbcType="NUMERIC" property="companySuperUpgradePrice" />
+        <result column="COMPANY_NORMAL_MONEY_UPGRADE_DIRECT" jdbcType="NUMERIC" property="companyNormalMoneyUpgradeDirect" />
+        <result column="COMPANY_ADVANCED_MONEY_UPGRADE_DIRECT" jdbcType="NUMERIC" property="companyAdvancedMoneyUpgradeDirect" />
+        <result column="COMPANY_SUPER_MONEY_UPGRADE_DIRECT" jdbcType="NUMERIC" property="companySuperMoneyUpgradeDirect" />
+        <result column="COMPANY_NORMAL_MONEY_UPGRADE_INDIRECT" jdbcType="NUMERIC" property="companyNormalMoneyUpgradeIndirect" />
+        <result column="COMPANY_ADVANCED_MONEY_UPGRADE_INDIRECT" jdbcType="NUMERIC" property="companyAdvancedMoneyUpgradeIndirect" />
+        <result column="COMPANY_SUPER_MONEY_UPGRADE_INDIRECT" jdbcType="NUMERIC" property="companySuperMoneyUpgradeIndirect" />
+        <result column="COMPANY_NORMAL_PROFIT_RATE" jdbcType="NUMERIC" property="companyNormalProfitRate" />
+        <result column="COMPANY_ADVANCED_PROFIT_RATE" jdbcType="NUMERIC" property="companyAdvancedProfitRate" />
+        <result column="COMPANY_SUPER_PROFIT_RATE" jdbcType="NUMERIC" property="companySuperProfitRate" />
+        <result column="COMPANY_NORMAL_PEER_EXCHANGE" jdbcType="NUMERIC" property="companyNormalPeerExchange" />
+        <result column="COMPANY_ADVANCED_PEER_EXCHANGE" jdbcType="NUMERIC" property="companyAdvancedPeerExchange" />
+        <result column="COMPANY_SUPER_PEER_EXCHANGE" jdbcType="NUMERIC" property="companySuperPeerExchange" />
+        <result column="COMPANY_NORMAL_TEAM_PROFIT" jdbcType="NUMERIC" property="companyNormalTeamProfit" />
+        <result column="COMPANY_ADVANCED_TEAM_PROFIT" jdbcType="NUMERIC" property="companyAdvancedTeamProfit" />
+        <result column="COMPANY_SUPER_TEAM_PROFIT" jdbcType="NUMERIC" property="companySuperTeamProfit" />
+        <result column="COMPANY_NORMAL_HIGHEST_PRICE" jdbcType="NUMERIC" property="companyNormalHighestPrice" />
+        <result column="COMPANY_ADVANCED_HIGHEST_PRICE" jdbcType="NUMERIC" property="companyAdvancedHighestPrice" />
+        <result column="COMPANY_SUPER_HIGHEST_PRICE" jdbcType="NUMERIC" property="companySuperHighestPrice" />
+        <result column="RECOMMEND_NORMAL_COMPANY_REWARD" jdbcType="NUMERIC" property="recommendNormalCompanyReward" />
+        <result column="RECOMMEND_ADVANCED_COMPANY_REWARD" jdbcType="NUMERIC" property="recommendAdvancedCompanyReward" />
+        <result column="RECOMMEND_SUPER_COMPANY_REWARD" jdbcType="NUMERIC" property="recommendSuperCompanyReward" />
+        <result column="NORMAL_COMPANY_TWICE_UPGRADE_REWARD" jdbcType="NUMERIC" property="normalCompanyTwiceUpgradeReward" />
+        <result column="ADVANCED_COMPANY_TWICE_UPGRADE_REWARD" jdbcType="NUMERIC" property="advancedCompanyTwiceUpgradeReward" />
+        <result column="COMPANY_ID" jdbcType="VARCHAR" property="companyId" />
+        <result column="PLATFORM_ID" jdbcType="VARCHAR" property="platformId" />
+        <result column="DELETED" jdbcType="INTEGER" property="deleted" />
+        <result column="SPARE1" jdbcType="VARCHAR" property="spare1" />
+        <result column="SPARE2" jdbcType="VARCHAR" property="spare2" />
+        <result column="SPARE3" jdbcType="VARCHAR" property="spare3" />
+        <result column="SPARE4" jdbcType="VARCHAR" property="spare4" />
+        <result column="SPARE5" jdbcType="VARCHAR" property="spare5" />
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SystemSetMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER,
+        MEMBER_UPGRADE_GOLD_PRICE, MEMBER_UPGRADE_DIAMOND_PRICE, MEMBER_NORMAL_MONEY_UPGRADE_DIRECT,
+        MEMBER_NORMAL_MONEY_UPGRADE_INDIRECT, MEMBER_NORMAL_EXCHANGE_POINT_DIRECT,
+        MEMBER_NORMAL_EXCHANGE_POINT_INDIRECT, MEMBER_GOLD_MONEY_UPGRADE_DIRECT, MEMBER_GOLD_MONEY_UPGRADE_INDIRECT,
+        MEMBER_GOLD_EXCHANGE_POINT_DIRECT, MEMBER_GOLD_EXCHANGE_POINT_INDIRECT, MEMBER_DIAMOND_MONEY_UPGRADE_DIRECT,
+        MEMBER_DIAMOND_MONEY_UPGRADE_INDIRECT, MEMBER_DIAMOND_EXCHANGE_POINT_DIRECT,
+        MEMBER_DIAMOND_EXCHANGE_POINT_INDIRECT, MEMBER_NORMAL_EXCHANGE_UNIT_PRICE, MEMBER_GOLD_EXCHANGE_UNIT_PRICE,
+        MEMBER_DIAMOND_EXCHANGE_UNIT_PRICE, COMPANY_NORMAL_UPGRADE_PRICE, COMPANY_ADVANCED_UPGRADE_PRICE,
+        COMPANY_SUPER_UPGRADE_PRICE, COMPANY_NORMAL_MONEY_UPGRADE_DIRECT, COMPANY_ADVANCED_MONEY_UPGRADE_DIRECT,
+        COMPANY_SUPER_MONEY_UPGRADE_DIRECT, COMPANY_NORMAL_MONEY_UPGRADE_INDIRECT,
+        COMPANY_ADVANCED_MONEY_UPGRADE_INDIRECT, COMPANY_SUPER_MONEY_UPGRADE_INDIRECT, COMPANY_NORMAL_PROFIT_RATE,
+        COMPANY_ADVANCED_PROFIT_RATE, COMPANY_SUPER_PROFIT_RATE, COMPANY_NORMAL_PEER_EXCHANGE,
+        COMPANY_ADVANCED_PEER_EXCHANGE, COMPANY_SUPER_PEER_EXCHANGE, COMPANY_NORMAL_TEAM_PROFIT,
+        COMPANY_ADVANCED_TEAM_PROFIT, COMPANY_SUPER_TEAM_PROFIT, COMPANY_NORMAL_HIGHEST_PRICE,
+        COMPANY_ADVANCED_HIGHEST_PRICE, COMPANY_SUPER_HIGHEST_PRICE, RECOMMEND_NORMAL_COMPANY_REWARD,
+        RECOMMEND_ADVANCED_COMPANY_REWARD, RECOMMEND_SUPER_COMPANY_REWARD, NORMAL_COMPANY_TWICE_UPGRADE_REWARD,
+        ADVANCED_COMPANY_TWICE_UPGRADE_REWARD, COMPANY_ID, PLATFORM_ID, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.system_set
+        where ID = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SystemSetMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER,
+        MEMBER_UPGRADE_GOLD_PRICE, MEMBER_UPGRADE_DIAMOND_PRICE, MEMBER_NORMAL_MONEY_UPGRADE_DIRECT,
+        MEMBER_NORMAL_MONEY_UPGRADE_INDIRECT, MEMBER_NORMAL_EXCHANGE_POINT_DIRECT,
+        MEMBER_NORMAL_EXCHANGE_POINT_INDIRECT, MEMBER_GOLD_MONEY_UPGRADE_DIRECT, MEMBER_GOLD_MONEY_UPGRADE_INDIRECT,
+        MEMBER_GOLD_EXCHANGE_POINT_DIRECT, MEMBER_GOLD_EXCHANGE_POINT_INDIRECT, MEMBER_DIAMOND_MONEY_UPGRADE_DIRECT,
+        MEMBER_DIAMOND_MONEY_UPGRADE_INDIRECT, MEMBER_DIAMOND_EXCHANGE_POINT_DIRECT,
+        MEMBER_DIAMOND_EXCHANGE_POINT_INDIRECT, MEMBER_NORMAL_EXCHANGE_UNIT_PRICE, MEMBER_GOLD_EXCHANGE_UNIT_PRICE,
+        MEMBER_DIAMOND_EXCHANGE_UNIT_PRICE, COMPANY_NORMAL_UPGRADE_PRICE, COMPANY_ADVANCED_UPGRADE_PRICE,
+        COMPANY_SUPER_UPGRADE_PRICE, COMPANY_NORMAL_MONEY_UPGRADE_DIRECT, COMPANY_ADVANCED_MONEY_UPGRADE_DIRECT,
+        COMPANY_SUPER_MONEY_UPGRADE_DIRECT, COMPANY_NORMAL_MONEY_UPGRADE_INDIRECT,
+        COMPANY_ADVANCED_MONEY_UPGRADE_INDIRECT, COMPANY_SUPER_MONEY_UPGRADE_INDIRECT, COMPANY_NORMAL_PROFIT_RATE,
+        COMPANY_ADVANCED_PROFIT_RATE, COMPANY_SUPER_PROFIT_RATE, COMPANY_NORMAL_PEER_EXCHANGE,
+        COMPANY_ADVANCED_PEER_EXCHANGE, COMPANY_SUPER_PEER_EXCHANGE, COMPANY_NORMAL_TEAM_PROFIT,
+        COMPANY_ADVANCED_TEAM_PROFIT, COMPANY_SUPER_TEAM_PROFIT, COMPANY_NORMAL_HIGHEST_PRICE,
+        COMPANY_ADVANCED_HIGHEST_PRICE, COMPANY_SUPER_HIGHEST_PRICE, RECOMMEND_NORMAL_COMPANY_REWARD,
+        RECOMMEND_ADVANCED_COMPANY_REWARD, RECOMMEND_SUPER_COMPANY_REWARD, NORMAL_COMPANY_TWICE_UPGRADE_REWARD,
+        ADVANCED_COMPANY_TWICE_UPGRADE_REWARD, COMPANY_ID, PLATFORM_ID, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.system_set
+        <!-- 模糊查询 -->
+        <if test="preciseOrFuzzy != 1">
+            <where>
+                <if test="systemSet.id != null and systemSet.id != ''">
+                    and ID like CONCAT('%', #{systemSet.id}, '%')
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="systemSet.creator != null and systemSet.creator != ''">
+                    and CREATOR like CONCAT('%', #{systemSet.creator}, '%')
+                </if>
+                <if test="systemSet.creatorId != null and systemSet.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{systemSet.creatorId}, '%')
+                </if>
+                <if test="systemSet.lastUpdateId != null and systemSet.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{systemSet.lastUpdateId}, '%')
+                </if>
+                <if test="systemSet.lastUpdater != null and systemSet.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{systemSet.lastUpdater}, '%')
+                </if>
+                <if test="systemSet.companyId != null and systemSet.companyId != ''">
+                    and COMPANY_ID = #{systemSet.companyId}
+                </if>
+                <if test="systemSet.platformId != null and systemSet.platformId != ''">
+                    and PLATFORM_ID like CONCAT('%', #{systemSet.platformId}, '%')
+                </if>
+                <if test="systemSet.spare1 != null and systemSet.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{systemSet.spare1}, '%')
+                </if>
+                <if test="systemSet.spare2 != null and systemSet.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{systemSet.spare2}, '%')
+                </if>
+                <if test="systemSet.spare3 != null and systemSet.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{systemSet.spare3}, '%')
+                </if>
+                <if test="systemSet.spare4 != null and systemSet.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{systemSet.spare4}, '%')
+                </if>
+                <if test="systemSet.spare5 != null and systemSet.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{systemSet.spare5}, '%')
+                </if>
+            </where>
+        </if>
+        <!-- 精确查询 -->
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="systemSet.id != null and systemSet.id != ''">
+                    and ID = #{systemSet.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="systemSet.creator != null and systemSet.creator != ''">
+                    and CREATOR = #{systemSet.creator}
+                </if>
+                <if test="systemSet.creatorId != null and systemSet.creatorId != ''">
+                    and CREATOR_ID = #{systemSet.creatorId}
+                </if>
+                <if test="systemSet.lastUpdateId != null and systemSet.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{systemSet.lastUpdateId}
+                </if>
+                <if test="systemSet.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{systemSet.lastUpdateTime}
+                </if>
+                <if test="systemSet.lastUpdater != null and systemSet.lastUpdater != ''">
+                    and LAST_UPDATER = #{systemSet.lastUpdater}
+                </if>
+                <if test="systemSet.memberUpgradeGoldPrice != null">
+                    and MEMBER_UPGRADE_GOLD_PRICE = #{systemSet.memberUpgradeGoldPrice}
+                </if>
+                <if test="systemSet.memberUpgradeDiamondPrice != null">
+                    and MEMBER_UPGRADE_DIAMOND_PRICE = #{systemSet.memberUpgradeDiamondPrice}
+                </if>
+                <if test="systemSet.memberNormalMoneyUpgradeDirect != null">
+                    and MEMBER_NORMAL_MONEY_UPGRADE_DIRECT = #{systemSet.memberNormalMoneyUpgradeDirect}
+                </if>
+                <if test="systemSet.memberNormalMoneyUpgradeIndirect != null">
+                    and MEMBER_NORMAL_MONEY_UPGRADE_INDIRECT = #{systemSet.memberNormalMoneyUpgradeIndirect}
+                </if>
+                <if test="systemSet.memberNormalExchangePointDirect != null">
+                    and MEMBER_NORMAL_EXCHANGE_POINT_DIRECT = #{systemSet.memberNormalExchangePointDirect}
+                </if>
+                <if test="systemSet.memberNormalExchangePointIndirect != null">
+                    and MEMBER_NORMAL_EXCHANGE_POINT_INDIRECT = #{systemSet.memberNormalExchangePointIndirect}
+                </if>
+                <if test="systemSet.memberGoldMoneyUpgradeDirect != null">
+                    and MEMBER_GOLD_MONEY_UPGRADE_DIRECT = #{systemSet.memberGoldMoneyUpgradeDirect}
+                </if>
+                <if test="systemSet.memberGoldMoneyUpgradeIndirect != null">
+                    and MEMBER_GOLD_MONEY_UPGRADE_INDIRECT = #{systemSet.memberGoldMoneyUpgradeIndirect}
+                </if>
+                <if test="systemSet.memberGoldExchangePointDirect != null">
+                    and MEMBER_GOLD_EXCHANGE_POINT_DIRECT = #{systemSet.memberGoldExchangePointDirect}
+                </if>
+                <if test="systemSet.memberGoldExchangePointIndirect != null">
+                    and MEMBER_GOLD_EXCHANGE_POINT_INDIRECT = #{systemSet.memberGoldExchangePointIndirect}
+                </if>
+                <if test="systemSet.memberDiamondMoneyUpgradeDirect != null">
+                    and MEMBER_DIAMOND_MONEY_UPGRADE_DIRECT = #{systemSet.memberDiamondMoneyUpgradeDirect}
+                </if>
+                <if test="systemSet.memberDiamondMoneyUpgradeIndirect != null">
+                    and MEMBER_DIAMOND_MONEY_UPGRADE_INDIRECT = #{systemSet.memberDiamondMoneyUpgradeIndirect}
+                </if>
+                <if test="systemSet.memberDiamondExchangePointDirect != null">
+                    and MEMBER_DIAMOND_EXCHANGE_POINT_DIRECT = #{systemSet.memberDiamondExchangePointDirect}
+                </if>
+                <if test="systemSet.memberDiamondExchangePointIndirect != null">
+                    and MEMBER_DIAMOND_EXCHANGE_POINT_INDIRECT = #{systemSet.memberDiamondExchangePointIndirect}
+                </if>
+                <if test="systemSet.memberNormalExchangeUnitPrice != null">
+                    and MEMBER_NORMAL_EXCHANGE_UNIT_PRICE = #{systemSet.memberNormalExchangeUnitPrice}
+                </if>
+                <if test="systemSet.memberGoldExchangeUnitPrice != null">
+                    and MEMBER_GOLD_EXCHANGE_UNIT_PRICE = #{systemSet.memberGoldExchangeUnitPrice}
+                </if>
+                <if test="systemSet.memberDiamondExchangeUnitPrice != null">
+                    and MEMBER_DIAMOND_EXCHANGE_UNIT_PRICE = #{systemSet.memberDiamondExchangeUnitPrice}
+                </if>
+                <if test="systemSet.companyNormalUpgradePrice != null">
+                    and COMPANY_NORMAL_UPGRADE_PRICE = #{systemSet.companyNormalUpgradePrice}
+                </if>
+                <if test="systemSet.companyAdvancedUpgradePrice != null">
+                    and COMPANY_ADVANCED_UPGRADE_PRICE = #{systemSet.companyAdvancedUpgradePrice}
+                </if>
+                <if test="systemSet.companySuperUpgradePrice != null">
+                    and COMPANY_SUPER_UPGRADE_PRICE = #{systemSet.companySuperUpgradePrice}
+                </if>
+                <if test="systemSet.companyNormalMoneyUpgradeDirect != null">
+                    and COMPANY_NORMAL_MONEY_UPGRADE_DIRECT = #{systemSet.companyNormalMoneyUpgradeDirect}
+                </if>
+                <if test="systemSet.companyAdvancedMoneyUpgradeDirect != null">
+                    and COMPANY_ADVANCED_MONEY_UPGRADE_DIRECT = #{systemSet.companyAdvancedMoneyUpgradeDirect}
+                </if>
+                <if test="systemSet.companySuperMoneyUpgradeDirect != null">
+                    and COMPANY_SUPER_MONEY_UPGRADE_DIRECT = #{systemSet.companySuperMoneyUpgradeDirect}
+                </if>
+                <if test="systemSet.companyNormalMoneyUpgradeIndirect != null">
+                    and COMPANY_NORMAL_MONEY_UPGRADE_INDIRECT = #{systemSet.companyNormalMoneyUpgradeIndirect}
+                </if>
+                <if test="systemSet.companyAdvancedMoneyUpgradeIndirect != null">
+                    and COMPANY_ADVANCED_MONEY_UPGRADE_INDIRECT = #{systemSet.companyAdvancedMoneyUpgradeIndirect}
+                </if>
+                <if test="systemSet.companySuperMoneyUpgradeIndirect != null">
+                    and COMPANY_SUPER_MONEY_UPGRADE_INDIRECT = #{systemSet.companySuperMoneyUpgradeIndirect}
+                </if>
+                <if test="systemSet.companyNormalProfitRate != null">
+                    and COMPANY_NORMAL_PROFIT_RATE = #{systemSet.companyNormalProfitRate}
+                </if>
+                <if test="systemSet.companyAdvancedProfitRate != null">
+                    and COMPANY_ADVANCED_PROFIT_RATE = #{systemSet.companyAdvancedProfitRate}
+                </if>
+                <if test="systemSet.companySuperProfitRate != null">
+                    and COMPANY_SUPER_PROFIT_RATE = #{systemSet.companySuperProfitRate}
+                </if>
+                <if test="systemSet.companyNormalPeerExchange != null">
+                    and COMPANY_NORMAL_PEER_EXCHANGE = #{systemSet.companyNormalPeerExchange}
+                </if>
+                <if test="systemSet.companyAdvancedPeerExchange != null">
+                    and COMPANY_ADVANCED_PEER_EXCHANGE = #{systemSet.companyAdvancedPeerExchange}
+                </if>
+                <if test="systemSet.companySuperPeerExchange != null">
+                    and COMPANY_SUPER_PEER_EXCHANGE = #{systemSet.companySuperPeerExchange}
+                </if>
+                <if test="systemSet.companyNormalTeamProfit != null">
+                    and COMPANY_NORMAL_TEAM_PROFIT = #{systemSet.companyNormalTeamProfit}
+                </if>
+                <if test="systemSet.companyAdvancedTeamProfit != null">
+                    and COMPANY_ADVANCED_TEAM_PROFIT = #{systemSet.companyAdvancedTeamProfit}
+                </if>
+                <if test="systemSet.companySuperTeamProfit != null">
+                    and COMPANY_SUPER_TEAM_PROFIT = #{systemSet.companySuperTeamProfit}
+                </if>
+                <if test="systemSet.companyNormalHighestPrice != null">
+                    and COMPANY_NORMAL_HIGHEST_PRICE = #{systemSet.companyNormalHighestPrice}
+                </if>
+                <if test="systemSet.companyAdvancedHighestPrice != null">
+                    and COMPANY_ADVANCED_HIGHEST_PRICE = #{systemSet.companyAdvancedHighestPrice}
+                </if>
+                <if test="systemSet.companySuperHighestPrice != null">
+                    and COMPANY_SUPER_HIGHEST_PRICE = #{systemSet.companySuperHighestPrice}
+                </if>
+                <if test="systemSet.recommendNormalCompanyReward != null">
+                    and RECOMMEND_NORMAL_COMPANY_REWARD = #{systemSet.recommendNormalCompanyReward}
+                </if>
+                <if test="systemSet.recommendAdvancedCompanyReward != null">
+                    and RECOMMEND_ADVANCED_COMPANY_REWARD = #{systemSet.recommendAdvancedCompanyReward}
+                </if>
+                <if test="systemSet.recommendSuperCompanyReward != null">
+                    and RECOMMEND_SUPER_COMPANY_REWARD = #{systemSet.recommendSuperCompanyReward}
+                </if>
+                <if test="systemSet.normalCompanyTwiceUpgradeReward != null">
+                    and NORMAL_COMPANY_TWICE_UPGRADE_REWARD = #{systemSet.normalCompanyTwiceUpgradeReward}
+                </if>
+                <if test="systemSet.advancedCompanyTwiceUpgradeReward != null">
+                    and ADVANCED_COMPANY_TWICE_UPGRADE_REWARD = #{systemSet.advancedCompanyTwiceUpgradeReward}
+                </if>
+                <if test="systemSet.companyId != null and systemSet.companyId != ''">
+                    and COMPANY_ID = #{systemSet.companyId}
+                </if>
+                <if test="systemSet.platformId != null and systemSet.platformId != ''">
+                    and PLATFORM_ID = #{systemSet.platformId}
+                </if>
+                <if test="systemSet.deleted != null">
+                    and DELETED = #{systemSet.deleted}
+                </if>
+                <if test="systemSet.spare1 != null and systemSet.spare1 != ''">
+                    and SPARE1 = #{systemSet.spare1}
+                </if>
+                <if test="systemSet.spare2 != null and systemSet.spare2 != ''">
+                    and SPARE2 = #{systemSet.spare2}
+                </if>
+                <if test="systemSet.spare3 != null and systemSet.spare3 != ''">
+                    and SPARE3 = #{systemSet.spare3}
+                </if>
+                <if test="systemSet.spare4 != null and systemSet.spare4 != ''">
+                    and SPARE4 = #{systemSet.spare4}
+                </if>
+                <if test="systemSet.spare5 != null and systemSet.spare5 != ''">
+                    and SPARE5 = #{systemSet.spare5}
+                </if>
+            </where>
+        </if>
+        order by CREATED_TIME DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--根据条件查询总条数-->
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) from points_alliance.system_set
+        <!-- 模糊查询 -->
+        <if test="preciseOrFuzzy != 1">
+            <where>
+                <if test="systemSet.id != null and systemSet.id != ''">
+                    and ID like CONCAT('%', #{systemSet.id}, '%')
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="systemSet.creator != null and systemSet.creator != ''">
+                    and CREATOR like CONCAT('%', #{systemSet.creator}, '%')
+                </if>
+                <if test="systemSet.creatorId != null and systemSet.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{systemSet.creatorId}, '%')
+                </if>
+                <if test="systemSet.lastUpdateId != null and systemSet.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{systemSet.lastUpdateId}, '%')
+                </if>
+                <if test="systemSet.lastUpdater != null and systemSet.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{systemSet.lastUpdater}, '%')
+                </if>
+                <if test="systemSet.companyId != null and systemSet.companyId != ''">
+                    and COMPANY_ID  = #{systemSet.companyId}
+                </if>
+                <if test="systemSet.platformId != null and systemSet.platformId != ''">
+                    and PLATFORM_ID like CONCAT('%', #{systemSet.platformId}, '%')
+                </if>
+                <if test="systemSet.spare1 != null and systemSet.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{systemSet.spare1}, '%')
+                </if>
+                <if test="systemSet.spare2 != null and systemSet.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{systemSet.spare2}, '%')
+                </if>
+                <if test="systemSet.spare3 != null and systemSet.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{systemSet.spare3}, '%')
+                </if>
+                <if test="systemSet.spare4 != null and systemSet.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{systemSet.spare4}, '%')
+                </if>
+                <if test="systemSet.spare5 != null and systemSet.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{systemSet.spare5}, '%')
+                </if>
+            </where>
+        </if>
+        <!-- 精确查询 -->
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="systemSet.id != null and systemSet.id != ''">
+                    and ID = #{systemSet.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="systemSet.creator != null and systemSet.creator != ''">
+                    and CREATOR = #{systemSet.creator}
+                </if>
+                <if test="systemSet.creatorId != null and systemSet.creatorId != ''">
+                    and CREATOR_ID = #{systemSet.creatorId}
+                </if>
+                <if test="systemSet.lastUpdateId != null and systemSet.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{systemSet.lastUpdateId}
+                </if>
+                <if test="systemSet.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{systemSet.lastUpdateTime}
+                </if>
+                <if test="systemSet.lastUpdater != null and systemSet.lastUpdater != ''">
+                    and LAST_UPDATER = #{systemSet.lastUpdater}
+                </if>
+                <if test="systemSet.memberUpgradeGoldPrice != null">
+                    and MEMBER_UPGRADE_GOLD_PRICE = #{systemSet.memberUpgradeGoldPrice}
+                </if>
+                <if test="systemSet.memberUpgradeDiamondPrice != null">
+                    and MEMBER_UPGRADE_DIAMOND_PRICE = #{systemSet.memberUpgradeDiamondPrice}
+                </if>
+                <if test="systemSet.memberNormalMoneyUpgradeDirect != null">
+                    and MEMBER_NORMAL_MONEY_UPGRADE_DIRECT = #{systemSet.memberNormalMoneyUpgradeDirect}
+                </if>
+                <if test="systemSet.memberNormalMoneyUpgradeIndirect != null">
+                    and MEMBER_NORMAL_MONEY_UPGRADE_INDIRECT = #{systemSet.memberNormalMoneyUpgradeIndirect}
+                </if>
+                <if test="systemSet.memberNormalExchangePointDirect != null">
+                    and MEMBER_NORMAL_EXCHANGE_POINT_DIRECT = #{systemSet.memberNormalExchangePointDirect}
+                </if>
+                <if test="systemSet.memberNormalExchangePointIndirect != null">
+                    and MEMBER_NORMAL_EXCHANGE_POINT_INDIRECT = #{systemSet.memberNormalExchangePointIndirect}
+                </if>
+                <if test="systemSet.memberGoldMoneyUpgradeDirect != null">
+                    and MEMBER_GOLD_MONEY_UPGRADE_DIRECT = #{systemSet.memberGoldMoneyUpgradeDirect}
+                </if>
+                <if test="systemSet.memberGoldMoneyUpgradeIndirect != null">
+                    and MEMBER_GOLD_MONEY_UPGRADE_INDIRECT = #{systemSet.memberGoldMoneyUpgradeIndirect}
+                </if>
+                <if test="systemSet.memberGoldExchangePointDirect != null">
+                    and MEMBER_GOLD_EXCHANGE_POINT_DIRECT = #{systemSet.memberGoldExchangePointDirect}
+                </if>
+                <if test="systemSet.memberGoldExchangePointIndirect != null">
+                    and MEMBER_GOLD_EXCHANGE_POINT_INDIRECT = #{systemSet.memberGoldExchangePointIndirect}
+                </if>
+                <if test="systemSet.memberDiamondMoneyUpgradeDirect != null">
+                    and MEMBER_DIAMOND_MONEY_UPGRADE_DIRECT = #{systemSet.memberDiamondMoneyUpgradeDirect}
+                </if>
+                <if test="systemSet.memberDiamondMoneyUpgradeIndirect != null">
+                    and MEMBER_DIAMOND_MONEY_UPGRADE_INDIRECT = #{systemSet.memberDiamondMoneyUpgradeIndirect}
+                </if>
+                <if test="systemSet.memberDiamondExchangePointDirect != null">
+                    and MEMBER_DIAMOND_EXCHANGE_POINT_DIRECT = #{systemSet.memberDiamondExchangePointDirect}
+                </if>
+                <if test="systemSet.memberDiamondExchangePointIndirect != null">
+                    and MEMBER_DIAMOND_EXCHANGE_POINT_INDIRECT = #{systemSet.memberDiamondExchangePointIndirect}
+                </if>
+                <if test="systemSet.memberNormalExchangeUnitPrice != null">
+                    and MEMBER_NORMAL_EXCHANGE_UNIT_PRICE = #{systemSet.memberNormalExchangeUnitPrice}
+                </if>
+                <if test="systemSet.memberGoldExchangeUnitPrice != null">
+                    and MEMBER_GOLD_EXCHANGE_UNIT_PRICE = #{systemSet.memberGoldExchangeUnitPrice}
+                </if>
+                <if test="systemSet.memberDiamondExchangeUnitPrice != null">
+                    and MEMBER_DIAMOND_EXCHANGE_UNIT_PRICE = #{systemSet.memberDiamondExchangeUnitPrice}
+                </if>
+                <if test="systemSet.companyNormalUpgradePrice != null">
+                    and COMPANY_NORMAL_UPGRADE_PRICE = #{systemSet.companyNormalUpgradePrice}
+                </if>
+                <if test="systemSet.companyAdvancedUpgradePrice != null">
+                    and COMPANY_ADVANCED_UPGRADE_PRICE = #{systemSet.companyAdvancedUpgradePrice}
+                </if>
+                <if test="systemSet.companySuperUpgradePrice != null">
+                    and COMPANY_SUPER_UPGRADE_PRICE = #{systemSet.companySuperUpgradePrice}
+                </if>
+                <if test="systemSet.companyNormalMoneyUpgradeDirect != null">
+                    and COMPANY_NORMAL_MONEY_UPGRADE_DIRECT = #{systemSet.companyNormalMoneyUpgradeDirect}
+                </if>
+                <if test="systemSet.companyAdvancedMoneyUpgradeDirect != null">
+                    and COMPANY_ADVANCED_MONEY_UPGRADE_DIRECT = #{systemSet.companyAdvancedMoneyUpgradeDirect}
+                </if>
+                <if test="systemSet.companySuperMoneyUpgradeDirect != null">
+                    and COMPANY_SUPER_MONEY_UPGRADE_DIRECT = #{systemSet.companySuperMoneyUpgradeDirect}
+                </if>
+                <if test="systemSet.companyNormalMoneyUpgradeIndirect != null">
+                    and COMPANY_NORMAL_MONEY_UPGRADE_INDIRECT = #{systemSet.companyNormalMoneyUpgradeIndirect}
+                </if>
+                <if test="systemSet.companyAdvancedMoneyUpgradeIndirect != null">
+                    and COMPANY_ADVANCED_MONEY_UPGRADE_INDIRECT = #{systemSet.companyAdvancedMoneyUpgradeIndirect}
+                </if>
+                <if test="systemSet.companySuperMoneyUpgradeIndirect != null">
+                    and COMPANY_SUPER_MONEY_UPGRADE_INDIRECT = #{systemSet.companySuperMoneyUpgradeIndirect}
+                </if>
+                <if test="systemSet.companyNormalProfitRate != null">
+                    and COMPANY_NORMAL_PROFIT_RATE = #{systemSet.companyNormalProfitRate}
+                </if>
+                <if test="systemSet.companyAdvancedProfitRate != null">
+                    and COMPANY_ADVANCED_PROFIT_RATE = #{systemSet.companyAdvancedProfitRate}
+                </if>
+                <if test="systemSet.companySuperProfitRate != null">
+                    and COMPANY_SUPER_PROFIT_RATE = #{systemSet.companySuperProfitRate}
+                </if>
+                <if test="systemSet.companyNormalPeerExchange != null">
+                    and COMPANY_NORMAL_PEER_EXCHANGE = #{systemSet.companyNormalPeerExchange}
+                </if>
+                <if test="systemSet.companyAdvancedPeerExchange != null">
+                    and COMPANY_ADVANCED_PEER_EXCHANGE = #{systemSet.companyAdvancedPeerExchange}
+                </if>
+                <if test="systemSet.companySuperPeerExchange != null">
+                    and COMPANY_SUPER_PEER_EXCHANGE = #{systemSet.companySuperPeerExchange}
+                </if>
+                <if test="systemSet.companyNormalTeamProfit != null">
+                    and COMPANY_NORMAL_TEAM_PROFIT = #{systemSet.companyNormalTeamProfit}
+                </if>
+                <if test="systemSet.companyAdvancedTeamProfit != null">
+                    and COMPANY_ADVANCED_TEAM_PROFIT = #{systemSet.companyAdvancedTeamProfit}
+                </if>
+                <if test="systemSet.companySuperTeamProfit != null">
+                    and COMPANY_SUPER_TEAM_PROFIT = #{systemSet.companySuperTeamProfit}
+                </if>
+                <if test="systemSet.companyNormalHighestPrice != null">
+                    and COMPANY_NORMAL_HIGHEST_PRICE = #{systemSet.companyNormalHighestPrice}
+                </if>
+                <if test="systemSet.companyAdvancedHighestPrice != null">
+                    and COMPANY_ADVANCED_HIGHEST_PRICE = #{systemSet.companyAdvancedHighestPrice}
+                </if>
+                <if test="systemSet.companySuperHighestPrice != null">
+                    and COMPANY_SUPER_HIGHEST_PRICE = #{systemSet.companySuperHighestPrice}
+                </if>
+                <if test="systemSet.recommendNormalCompanyReward != null">
+                    and RECOMMEND_NORMAL_COMPANY_REWARD = #{systemSet.recommendNormalCompanyReward}
+                </if>
+                <if test="systemSet.recommendAdvancedCompanyReward != null">
+                    and RECOMMEND_ADVANCED_COMPANY_REWARD = #{systemSet.recommendAdvancedCompanyReward}
+                </if>
+                <if test="systemSet.recommendSuperCompanyReward != null">
+                    and RECOMMEND_SUPER_COMPANY_REWARD = #{systemSet.recommendSuperCompanyReward}
+                </if>
+                <if test="systemSet.normalCompanyTwiceUpgradeReward != null">
+                    and NORMAL_COMPANY_TWICE_UPGRADE_REWARD = #{systemSet.normalCompanyTwiceUpgradeReward}
+                </if>
+                <if test="systemSet.advancedCompanyTwiceUpgradeReward != null">
+                    and ADVANCED_COMPANY_TWICE_UPGRADE_REWARD = #{systemSet.advancedCompanyTwiceUpgradeReward}
+                </if>
+                <if test="systemSet.companyId != null and systemSet.companyId != ''">
+                    and COMPANY_ID = #{systemSet.companyId}
+                </if>
+                <if test="systemSet.platformId != null and systemSet.platformId != ''">
+                    and PLATFORM_ID = #{systemSet.platformId}
+                </if>
+                <if test="systemSet.deleted != null">
+                    and DELETED = #{systemSet.deleted}
+                </if>
+                <if test="systemSet.spare1 != null and systemSet.spare1 != ''">
+                    and SPARE1 = #{systemSet.spare1}
+                </if>
+                <if test="systemSet.spare2 != null and systemSet.spare2 != ''">
+                    and SPARE2 = #{systemSet.spare2}
+                </if>
+                <if test="systemSet.spare3 != null and systemSet.spare3 != ''">
+                    and SPARE3 = #{systemSet.spare3}
+                </if>
+                <if test="systemSet.spare4 != null and systemSet.spare4 != ''">
+                    and SPARE4 = #{systemSet.spare4}
+                </if>
+                <if test="systemSet.spare5 != null and systemSet.spare5 != ''">
+                    and SPARE5 = #{systemSet.spare5}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SystemSetMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER,
+        MEMBER_UPGRADE_GOLD_PRICE, MEMBER_UPGRADE_DIAMOND_PRICE, MEMBER_NORMAL_MONEY_UPGRADE_DIRECT,
+        MEMBER_NORMAL_MONEY_UPGRADE_INDIRECT, MEMBER_NORMAL_EXCHANGE_POINT_DIRECT,
+        MEMBER_NORMAL_EXCHANGE_POINT_INDIRECT, MEMBER_GOLD_MONEY_UPGRADE_DIRECT, MEMBER_GOLD_MONEY_UPGRADE_INDIRECT,
+        MEMBER_GOLD_EXCHANGE_POINT_DIRECT, MEMBER_GOLD_EXCHANGE_POINT_INDIRECT, MEMBER_DIAMOND_MONEY_UPGRADE_DIRECT,
+        MEMBER_DIAMOND_MONEY_UPGRADE_INDIRECT, MEMBER_DIAMOND_EXCHANGE_POINT_DIRECT,
+        MEMBER_DIAMOND_EXCHANGE_POINT_INDIRECT, MEMBER_NORMAL_EXCHANGE_UNIT_PRICE, MEMBER_GOLD_EXCHANGE_UNIT_PRICE,
+        MEMBER_DIAMOND_EXCHANGE_UNIT_PRICE, COMPANY_NORMAL_UPGRADE_PRICE, COMPANY_ADVANCED_UPGRADE_PRICE,
+        COMPANY_SUPER_UPGRADE_PRICE, COMPANY_NORMAL_MONEY_UPGRADE_DIRECT, COMPANY_ADVANCED_MONEY_UPGRADE_DIRECT,
+        COMPANY_SUPER_MONEY_UPGRADE_DIRECT, COMPANY_NORMAL_MONEY_UPGRADE_INDIRECT,
+        COMPANY_ADVANCED_MONEY_UPGRADE_INDIRECT, COMPANY_SUPER_MONEY_UPGRADE_INDIRECT, COMPANY_NORMAL_PROFIT_RATE,
+        COMPANY_ADVANCED_PROFIT_RATE, COMPANY_SUPER_PROFIT_RATE, COMPANY_NORMAL_PEER_EXCHANGE,
+        COMPANY_ADVANCED_PEER_EXCHANGE, COMPANY_SUPER_PEER_EXCHANGE, COMPANY_NORMAL_TEAM_PROFIT,
+        COMPANY_ADVANCED_TEAM_PROFIT, COMPANY_SUPER_TEAM_PROFIT, COMPANY_NORMAL_HIGHEST_PRICE,
+        COMPANY_ADVANCED_HIGHEST_PRICE, COMPANY_SUPER_HIGHEST_PRICE, RECOMMEND_NORMAL_COMPANY_REWARD,
+        RECOMMEND_ADVANCED_COMPANY_REWARD, RECOMMEND_SUPER_COMPANY_REWARD, NORMAL_COMPANY_TWICE_UPGRADE_REWARD,
+        ADVANCED_COMPANY_TWICE_UPGRADE_REWARD, COMPANY_ID, PLATFORM_ID, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.system_set
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="memberUpgradeGoldPrice != null">
+                and MEMBER_UPGRADE_GOLD_PRICE = #{memberUpgradeGoldPrice}
+            </if>
+            <if test="memberUpgradeDiamondPrice != null">
+                and MEMBER_UPGRADE_DIAMOND_PRICE = #{memberUpgradeDiamondPrice}
+            </if>
+            <if test="memberNormalMoneyUpgradeDirect != null">
+                and MEMBER_NORMAL_MONEY_UPGRADE_DIRECT = #{memberNormalMoneyUpgradeDirect}
+            </if>
+            <if test="memberNormalMoneyUpgradeIndirect != null">
+                and MEMBER_NORMAL_MONEY_UPGRADE_INDIRECT = #{memberNormalMoneyUpgradeIndirect}
+            </if>
+            <if test="memberNormalExchangePointDirect != null">
+                and MEMBER_NORMAL_EXCHANGE_POINT_DIRECT = #{memberNormalExchangePointDirect}
+            </if>
+            <if test="memberNormalExchangePointIndirect != null">
+                and MEMBER_NORMAL_EXCHANGE_POINT_INDIRECT = #{memberNormalExchangePointIndirect}
+            </if>
+            <if test="memberGoldMoneyUpgradeDirect != null">
+                and MEMBER_GOLD_MONEY_UPGRADE_DIRECT = #{memberGoldMoneyUpgradeDirect}
+            </if>
+            <if test="memberGoldMoneyUpgradeIndirect != null">
+                and MEMBER_GOLD_MONEY_UPGRADE_INDIRECT = #{memberGoldMoneyUpgradeIndirect}
+            </if>
+            <if test="memberGoldExchangePointDirect != null">
+                and MEMBER_GOLD_EXCHANGE_POINT_DIRECT = #{memberGoldExchangePointDirect}
+            </if>
+            <if test="memberGoldExchangePointIndirect != null">
+                and MEMBER_GOLD_EXCHANGE_POINT_INDIRECT = #{memberGoldExchangePointIndirect}
+            </if>
+            <if test="memberDiamondMoneyUpgradeDirect != null">
+                and MEMBER_DIAMOND_MONEY_UPGRADE_DIRECT = #{memberDiamondMoneyUpgradeDirect}
+            </if>
+            <if test="memberDiamondMoneyUpgradeIndirect != null">
+                and MEMBER_DIAMOND_MONEY_UPGRADE_INDIRECT = #{memberDiamondMoneyUpgradeIndirect}
+            </if>
+            <if test="memberDiamondExchangePointDirect != null">
+                and MEMBER_DIAMOND_EXCHANGE_POINT_DIRECT = #{memberDiamondExchangePointDirect}
+            </if>
+            <if test="memberDiamondExchangePointIndirect != null">
+                and MEMBER_DIAMOND_EXCHANGE_POINT_INDIRECT = #{memberDiamondExchangePointIndirect}
+            </if>
+            <if test="memberNormalExchangeUnitPrice != null">
+                and MEMBER_NORMAL_EXCHANGE_UNIT_PRICE = #{memberNormalExchangeUnitPrice}
+            </if>
+            <if test="memberGoldExchangeUnitPrice != null">
+                and MEMBER_GOLD_EXCHANGE_UNIT_PRICE = #{memberGoldExchangeUnitPrice}
+            </if>
+            <if test="memberDiamondExchangeUnitPrice != null">
+                and MEMBER_DIAMOND_EXCHANGE_UNIT_PRICE = #{memberDiamondExchangeUnitPrice}
+            </if>
+            <if test="companyNormalUpgradePrice != null">
+                and COMPANY_NORMAL_UPGRADE_PRICE = #{companyNormalUpgradePrice}
+            </if>
+            <if test="companyAdvancedUpgradePrice != null">
+                and COMPANY_ADVANCED_UPGRADE_PRICE = #{companyAdvancedUpgradePrice}
+            </if>
+            <if test="companySuperUpgradePrice != null">
+                and COMPANY_SUPER_UPGRADE_PRICE = #{companySuperUpgradePrice}
+            </if>
+            <if test="companyNormalMoneyUpgradeDirect != null">
+                and COMPANY_NORMAL_MONEY_UPGRADE_DIRECT = #{companyNormalMoneyUpgradeDirect}
+            </if>
+            <if test="companyAdvancedMoneyUpgradeDirect != null">
+                and COMPANY_ADVANCED_MONEY_UPGRADE_DIRECT = #{companyAdvancedMoneyUpgradeDirect}
+            </if>
+            <if test="companySuperMoneyUpgradeDirect != null">
+                and COMPANY_SUPER_MONEY_UPGRADE_DIRECT = #{companySuperMoneyUpgradeDirect}
+            </if>
+            <if test="companyNormalMoneyUpgradeIndirect != null">
+                and COMPANY_NORMAL_MONEY_UPGRADE_INDIRECT = #{companyNormalMoneyUpgradeIndirect}
+            </if>
+            <if test="companyAdvancedMoneyUpgradeIndirect != null">
+                and COMPANY_ADVANCED_MONEY_UPGRADE_INDIRECT = #{companyAdvancedMoneyUpgradeIndirect}
+            </if>
+            <if test="companySuperMoneyUpgradeIndirect != null">
+                and COMPANY_SUPER_MONEY_UPGRADE_INDIRECT = #{companySuperMoneyUpgradeIndirect}
+            </if>
+            <if test="companyNormalProfitRate != null">
+                and COMPANY_NORMAL_PROFIT_RATE = #{companyNormalProfitRate}
+            </if>
+            <if test="companyAdvancedProfitRate != null">
+                and COMPANY_ADVANCED_PROFIT_RATE = #{companyAdvancedProfitRate}
+            </if>
+            <if test="companySuperProfitRate != null">
+                and COMPANY_SUPER_PROFIT_RATE = #{companySuperProfitRate}
+            </if>
+            <if test="companyNormalPeerExchange != null">
+                and COMPANY_NORMAL_PEER_EXCHANGE = #{companyNormalPeerExchange}
+            </if>
+            <if test="companyAdvancedPeerExchange != null">
+                and COMPANY_ADVANCED_PEER_EXCHANGE = #{companyAdvancedPeerExchange}
+            </if>
+            <if test="companySuperPeerExchange != null">
+                and COMPANY_SUPER_PEER_EXCHANGE = #{companySuperPeerExchange}
+            </if>
+            <if test="companyNormalTeamProfit != null">
+                and COMPANY_NORMAL_TEAM_PROFIT = #{companyNormalTeamProfit}
+            </if>
+            <if test="companyAdvancedTeamProfit != null">
+                and COMPANY_ADVANCED_TEAM_PROFIT = #{companyAdvancedTeamProfit}
+            </if>
+            <if test="companySuperTeamProfit != null">
+                and COMPANY_SUPER_TEAM_PROFIT = #{companySuperTeamProfit}
+            </if>
+            <if test="companyNormalHighestPrice != null">
+                and COMPANY_NORMAL_HIGHEST_PRICE = #{companyNormalHighestPrice}
+            </if>
+            <if test="companyAdvancedHighestPrice != null">
+                and COMPANY_ADVANCED_HIGHEST_PRICE = #{companyAdvancedHighestPrice}
+            </if>
+            <if test="companySuperHighestPrice != null">
+                and COMPANY_SUPER_HIGHEST_PRICE = #{companySuperHighestPrice}
+            </if>
+            <if test="recommendNormalCompanyReward != null">
+                and RECOMMEND_NORMAL_COMPANY_REWARD = #{recommendNormalCompanyReward}
+            </if>
+            <if test="recommendAdvancedCompanyReward != null">
+                and RECOMMEND_ADVANCED_COMPANY_REWARD = #{recommendAdvancedCompanyReward}
+            </if>
+            <if test="recommendSuperCompanyReward != null">
+                and RECOMMEND_SUPER_COMPANY_REWARD = #{recommendSuperCompanyReward}
+            </if>
+            <if test="normalCompanyTwiceUpgradeReward != null">
+                and NORMAL_COMPANY_TWICE_UPGRADE_REWARD = #{normalCompanyTwiceUpgradeReward}
+            </if>
+            <if test="advancedCompanyTwiceUpgradeReward != null">
+                and ADVANCED_COMPANY_TWICE_UPGRADE_REWARD = #{advancedCompanyTwiceUpgradeReward}
+            </if>
+            <if test="companyId != null and companyId != ''">
+                and COMPANY_ID = #{companyId}
+            </if>
+            <if test="platformId != null and platformId != ''">
+                and PLATFORM_ID = #{platformId}
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                and SPARE1 = #{spare1}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+        </where>
+        order by CREATED_TIME DESC
+    </select>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update points_alliance.system_set
+        <set>
+            <if test="createdTime != null">
+                CREATED_TIME = #{createdTime},
+            </if>
+            <if test="creator != null and creator != ''">
+                CREATOR = #{creator},
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                CREATOR_ID = #{creatorId},
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                LAST_UPDATE_ID = #{lastUpdateId},
+            </if>
+            <if test="lastUpdateTime != null">
+                LAST_UPDATE_TIME = #{lastUpdateTime},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                LAST_UPDATER = #{lastUpdater},
+            </if>
+            <if test="memberUpgradeGoldPrice != null">
+                MEMBER_UPGRADE_GOLD_PRICE = #{memberUpgradeGoldPrice},
+            </if>
+            <if test="memberUpgradeDiamondPrice != null">
+                MEMBER_UPGRADE_DIAMOND_PRICE = #{memberUpgradeDiamondPrice},
+            </if>
+            <if test="memberNormalMoneyUpgradeDirect != null">
+                MEMBER_NORMAL_MONEY_UPGRADE_DIRECT = #{memberNormalMoneyUpgradeDirect},
+            </if>
+            <if test="memberNormalMoneyUpgradeIndirect != null">
+                MEMBER_NORMAL_MONEY_UPGRADE_INDIRECT = #{memberNormalMoneyUpgradeIndirect},
+            </if>
+            <if test="memberNormalExchangePointDirect != null">
+                MEMBER_NORMAL_EXCHANGE_POINT_DIRECT = #{memberNormalExchangePointDirect},
+            </if>
+            <if test="memberNormalExchangePointIndirect != null">
+                MEMBER_NORMAL_EXCHANGE_POINT_INDIRECT = #{memberNormalExchangePointIndirect},
+            </if>
+            <if test="memberGoldMoneyUpgradeDirect != null">
+                MEMBER_GOLD_MONEY_UPGRADE_DIRECT = #{memberGoldMoneyUpgradeDirect},
+            </if>
+            <if test="memberGoldMoneyUpgradeIndirect != null">
+                MEMBER_GOLD_MONEY_UPGRADE_INDIRECT = #{memberGoldMoneyUpgradeIndirect},
+            </if>
+            <if test="memberGoldExchangePointDirect != null">
+                MEMBER_GOLD_EXCHANGE_POINT_DIRECT = #{memberGoldExchangePointDirect},
+            </if>
+            <if test="memberGoldExchangePointIndirect != null">
+                MEMBER_GOLD_EXCHANGE_POINT_INDIRECT = #{memberGoldExchangePointIndirect},
+            </if>
+            <if test="memberDiamondMoneyUpgradeDirect != null">
+                MEMBER_DIAMOND_MONEY_UPGRADE_DIRECT = #{memberDiamondMoneyUpgradeDirect},
+            </if>
+            <if test="memberDiamondMoneyUpgradeIndirect != null">
+                MEMBER_DIAMOND_MONEY_UPGRADE_INDIRECT = #{memberDiamondMoneyUpgradeIndirect},
+            </if>
+            <if test="memberDiamondExchangePointDirect != null">
+                MEMBER_DIAMOND_EXCHANGE_POINT_DIRECT = #{memberDiamondExchangePointDirect},
+            </if>
+            <if test="memberDiamondExchangePointIndirect != null">
+                MEMBER_DIAMOND_EXCHANGE_POINT_INDIRECT = #{memberDiamondExchangePointIndirect},
+            </if>
+            <if test="memberNormalExchangeUnitPrice != null">
+                MEMBER_NORMAL_EXCHANGE_UNIT_PRICE = #{memberNormalExchangeUnitPrice},
+            </if>
+            <if test="memberGoldExchangeUnitPrice != null">
+                MEMBER_GOLD_EXCHANGE_UNIT_PRICE = #{memberGoldExchangeUnitPrice},
+            </if>
+            <if test="memberDiamondExchangeUnitPrice != null">
+                MEMBER_DIAMOND_EXCHANGE_UNIT_PRICE = #{memberDiamondExchangeUnitPrice},
+            </if>
+            <if test="companyNormalUpgradePrice != null">
+                COMPANY_NORMAL_UPGRADE_PRICE = #{companyNormalUpgradePrice},
+            </if>
+            <if test="companyAdvancedUpgradePrice != null">
+                COMPANY_ADVANCED_UPGRADE_PRICE = #{companyAdvancedUpgradePrice},
+            </if>
+            <if test="companySuperUpgradePrice != null">
+                COMPANY_SUPER_UPGRADE_PRICE = #{companySuperUpgradePrice},
+            </if>
+            <if test="companyNormalMoneyUpgradeDirect != null">
+                COMPANY_NORMAL_MONEY_UPGRADE_DIRECT = #{companyNormalMoneyUpgradeDirect},
+            </if>
+            <if test="companyAdvancedMoneyUpgradeDirect != null">
+                COMPANY_ADVANCED_MONEY_UPGRADE_DIRECT = #{companyAdvancedMoneyUpgradeDirect},
+            </if>
+            <if test="companySuperMoneyUpgradeDirect != null">
+                COMPANY_SUPER_MONEY_UPGRADE_DIRECT = #{companySuperMoneyUpgradeDirect},
+            </if>
+            <if test="companyNormalMoneyUpgradeIndirect != null">
+                COMPANY_NORMAL_MONEY_UPGRADE_INDIRECT = #{companyNormalMoneyUpgradeIndirect},
+            </if>
+            <if test="companyAdvancedMoneyUpgradeIndirect != null">
+                COMPANY_ADVANCED_MONEY_UPGRADE_INDIRECT = #{companyAdvancedMoneyUpgradeIndirect},
+            </if>
+            <if test="companySuperMoneyUpgradeIndirect != null">
+                COMPANY_SUPER_MONEY_UPGRADE_INDIRECT = #{companySuperMoneyUpgradeIndirect},
+            </if>
+            <if test="companyNormalProfitRate != null">
+                COMPANY_NORMAL_PROFIT_RATE = #{companyNormalProfitRate},
+            </if>
+            <if test="companyAdvancedProfitRate != null">
+                COMPANY_ADVANCED_PROFIT_RATE = #{companyAdvancedProfitRate},
+            </if>
+            <if test="companySuperProfitRate != null">
+                COMPANY_SUPER_PROFIT_RATE = #{companySuperProfitRate},
+            </if>
+            <if test="companyNormalPeerExchange != null">
+                COMPANY_NORMAL_PEER_EXCHANGE = #{companyNormalPeerExchange},
+            </if>
+            <if test="companyAdvancedPeerExchange != null">
+                COMPANY_ADVANCED_PEER_EXCHANGE = #{companyAdvancedPeerExchange},
+            </if>
+            <if test="companySuperPeerExchange != null">
+                COMPANY_SUPER_PEER_EXCHANGE = #{companySuperPeerExchange},
+            </if>
+            <if test="companyNormalTeamProfit != null">
+                COMPANY_NORMAL_TEAM_PROFIT = #{companyNormalTeamProfit},
+            </if>
+            <if test="companyAdvancedTeamProfit != null">
+                COMPANY_ADVANCED_TEAM_PROFIT = #{companyAdvancedTeamProfit},
+            </if>
+            <if test="companySuperTeamProfit != null">
+                COMPANY_SUPER_TEAM_PROFIT = #{companySuperTeamProfit},
+            </if>
+            <if test="companyNormalHighestPrice != null">
+                COMPANY_NORMAL_HIGHEST_PRICE = #{companyNormalHighestPrice},
+            </if>
+            <if test="companyAdvancedHighestPrice != null">
+                COMPANY_ADVANCED_HIGHEST_PRICE = #{companyAdvancedHighestPrice},
+            </if>
+            <if test="companySuperHighestPrice != null">
+                COMPANY_SUPER_HIGHEST_PRICE = #{companySuperHighestPrice},
+            </if>
+            <if test="recommendNormalCompanyReward != null">
+                RECOMMEND_NORMAL_COMPANY_REWARD = #{recommendNormalCompanyReward},
+            </if>
+            <if test="recommendAdvancedCompanyReward != null">
+                RECOMMEND_ADVANCED_COMPANY_REWARD = #{recommendAdvancedCompanyReward},
+            </if>
+            <if test="recommendSuperCompanyReward != null">
+                RECOMMEND_SUPER_COMPANY_REWARD = #{recommendSuperCompanyReward},
+            </if>
+            <if test="normalCompanyTwiceUpgradeReward != null">
+                NORMAL_COMPANY_TWICE_UPGRADE_REWARD = #{normalCompanyTwiceUpgradeReward},
+            </if>
+            <if test="advancedCompanyTwiceUpgradeReward != null">
+                ADVANCED_COMPANY_TWICE_UPGRADE_REWARD = #{advancedCompanyTwiceUpgradeReward},
+            </if>
+            <if test="platformId != null and platformId != ''">
+                PLATFORM_ID = #{platformId},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted},
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                SPARE1 = #{spare1},
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                SPARE2 = #{spare2},
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                SPARE3 = #{spare3},
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                SPARE4 = #{spare4},
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                SPARE5 = #{spare5},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <!--通过主键修改全部数据-->
+    <update id="updateAllColumn">
+        update points_alliance.system_set
+        <set>
+            CREATED_TIME = #{createdTime},
+            CREATOR = #{creator},
+            CREATOR_ID = #{creatorId},
+            LAST_UPDATE_ID = #{lastUpdateId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            LAST_UPDATER = #{lastUpdater},
+            MEMBER_UPGRADE_GOLD_PRICE = #{memberUpgradeGoldPrice},
+            MEMBER_UPGRADE_DIAMOND_PRICE = #{memberUpgradeDiamondPrice},
+            MEMBER_NORMAL_MONEY_UPGRADE_DIRECT = #{memberNormalMoneyUpgradeDirect},
+            MEMBER_NORMAL_MONEY_UPGRADE_INDIRECT = #{memberNormalMoneyUpgradeIndirect},
+            MEMBER_NORMAL_EXCHANGE_POINT_DIRECT = #{memberNormalExchangePointDirect},
+            MEMBER_NORMAL_EXCHANGE_POINT_INDIRECT = #{memberNormalExchangePointIndirect},
+            MEMBER_GOLD_MONEY_UPGRADE_DIRECT = #{memberGoldMoneyUpgradeDirect},
+            MEMBER_GOLD_MONEY_UPGRADE_INDIRECT = #{memberGoldMoneyUpgradeIndirect},
+            MEMBER_GOLD_EXCHANGE_POINT_DIRECT = #{memberGoldExchangePointDirect},
+            MEMBER_GOLD_EXCHANGE_POINT_INDIRECT = #{memberGoldExchangePointIndirect},
+            MEMBER_DIAMOND_MONEY_UPGRADE_DIRECT = #{memberDiamondMoneyUpgradeDirect},
+            MEMBER_DIAMOND_MONEY_UPGRADE_INDIRECT = #{memberDiamondMoneyUpgradeIndirect},
+            MEMBER_DIAMOND_EXCHANGE_POINT_DIRECT = #{memberDiamondExchangePointDirect},
+            MEMBER_DIAMOND_EXCHANGE_POINT_INDIRECT = #{memberDiamondExchangePointIndirect},
+            MEMBER_NORMAL_EXCHANGE_UNIT_PRICE = #{memberNormalExchangeUnitPrice},
+            MEMBER_GOLD_EXCHANGE_UNIT_PRICE = #{memberGoldExchangeUnitPrice},
+            MEMBER_DIAMOND_EXCHANGE_UNIT_PRICE = #{memberDiamondExchangeUnitPrice},
+            COMPANY_NORMAL_UPGRADE_PRICE = #{companyNormalUpgradePrice},
+            COMPANY_ADVANCED_UPGRADE_PRICE = #{companyAdvancedUpgradePrice},
+            COMPANY_SUPER_UPGRADE_PRICE = #{companySuperUpgradePrice},
+            COMPANY_NORMAL_MONEY_UPGRADE_DIRECT = #{companyNormalMoneyUpgradeDirect},
+            COMPANY_ADVANCED_MONEY_UPGRADE_DIRECT = #{companyAdvancedMoneyUpgradeDirect},
+            COMPANY_SUPER_MONEY_UPGRADE_DIRECT = #{companySuperMoneyUpgradeDirect},
+            COMPANY_NORMAL_MONEY_UPGRADE_INDIRECT = #{companyNormalMoneyUpgradeIndirect},
+            COMPANY_ADVANCED_MONEY_UPGRADE_INDIRECT = #{companyAdvancedMoneyUpgradeIndirect},
+            COMPANY_SUPER_MONEY_UPGRADE_INDIRECT = #{companySuperMoneyUpgradeIndirect},
+            COMPANY_NORMAL_PROFIT_RATE = #{companyNormalProfitRate},
+            COMPANY_ADVANCED_PROFIT_RATE = #{companyAdvancedProfitRate},
+            COMPANY_SUPER_PROFIT_RATE = #{companySuperProfitRate},
+            COMPANY_NORMAL_PEER_EXCHANGE = #{companyNormalPeerExchange},
+            COMPANY_ADVANCED_PEER_EXCHANGE = #{companyAdvancedPeerExchange},
+            COMPANY_SUPER_PEER_EXCHANGE = #{companySuperPeerExchange},
+            COMPANY_NORMAL_TEAM_PROFIT = #{companyNormalTeamProfit},
+            COMPANY_ADVANCED_TEAM_PROFIT = #{companyAdvancedTeamProfit},
+            COMPANY_SUPER_TEAM_PROFIT = #{companySuperTeamProfit},
+            COMPANY_NORMAL_HIGHEST_PRICE = #{companyNormalHighestPrice},
+            COMPANY_ADVANCED_HIGHEST_PRICE = #{companyAdvancedHighestPrice},
+            COMPANY_SUPER_HIGHEST_PRICE = #{companySuperHighestPrice},
+            RECOMMEND_NORMAL_COMPANY_REWARD = #{recommendNormalCompanyReward},
+            RECOMMEND_ADVANCED_COMPANY_REWARD = #{recommendAdvancedCompanyReward},
+            RECOMMEND_SUPER_COMPANY_REWARD = #{recommendSuperCompanyReward},
+            NORMAL_COMPANY_TWICE_UPGRADE_REWARD = #{normalCompanyTwiceUpgradeReward},
+            ADVANCED_COMPANY_TWICE_UPGRADE_REWARD = #{advancedCompanyTwiceUpgradeReward},
+            PLATFORM_ID = #{platformId},
+            DELETED = #{deleted},
+            SPARE1 = #{spare1},
+            SPARE2 = #{spare2},
+            SPARE3 = #{spare3},
+            SPARE4 = #{spare4},
+            SPARE5 = #{spare5},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from points_alliance.system_set where ID
+        in
+        <foreach close=")" collection="ids" item="id" open="(" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--通过主键逻辑删除-->
+    <delete id="deleteByIdNotTrue">
+        update points_alliance.system_set
+        set DELETED = 1,
+        LAST_UPDATE_ID = #{updateId},
+        LAST_UPDATER = #{updater},
+        LAST_UPDATE_TIME = #{dateTime}
+        where ID in
+        <foreach close=")" collection="ids" item="id" open="(" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

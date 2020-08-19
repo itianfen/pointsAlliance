@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.GoodsDao">
+
+    <resultMap type="com.jx.entity.Goods" id="GoodsMap">
+        <result property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="CREATED_TIME" jdbcType="TIMESTAMP"/>
+        <result property="creator" column="CREATOR" jdbcType="VARCHAR"/>
+        <result property="creatorId" column="CREATOR_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateId" column="LAST_UPDATE_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdater" column="LAST_UPDATER" jdbcType="VARCHAR"/>
+        <result property="name" column="NAME" jdbcType="VARCHAR"/>
+        <result property="icon" column="ICON" jdbcType="VARCHAR"/>
+        <result property="reward" column="REWARD" jdbcType="NUMERIC"/>
+        <result property="type" column="TYPE" jdbcType="INTEGER"/>
+        <result property="rateMonth" column="RATE_MONTH" jdbcType="NUMERIC"/>
+        <result property="dateLimitMax" column="DATE_LIMIT_MAX" jdbcType="INTEGER"/>
+        <result property="dateLimitMin" column="DATE_LIMIT_MIN" jdbcType="INTEGER"/>
+        <result property="rateSuccess" column="RATE_SUCCESS" jdbcType="NUMERIC"/>
+        <result property="applyCount" column="APPLY_COUNT" jdbcType="INTEGER"/>
+        <result property="needData" column="NEED_DATA" jdbcType="VARCHAR"/>
+        <result property="applyCondition" column="APPLY_CONDITION" jdbcType="OTHER"/>
+        <result property="maxLoanCard" column="MAX_LOAN_CARD" jdbcType="INTEGER"/>
+        <result property="maxLoan" column="MAX_LOAN" jdbcType="INTEGER"/>
+        <result property="targetLink" column="TARGET_LINK" jdbcType="VARCHAR"/>
+        <result property="cardImage" column="CARD_IMAGE" jdbcType="VARCHAR"/>
+        <result property="deleted" column="DELETED" jdbcType="INTEGER"/>
+        <result property="spare1" column="SPARE1" jdbcType="VARCHAR"/>
+        <result property="spare2" column="SPARE2" jdbcType="VARCHAR"/>
+        <result property="spare3" column="SPARE3" jdbcType="VARCHAR"/>
+        <result property="spare4" column="SPARE4" jdbcType="VARCHAR"/>
+        <result property="spare5" column="SPARE5" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryById" resultMap="GoodsMap">
+        select ID,
+               CREATED_TIME,
+               CREATOR,
+               CREATOR_ID,
+               LAST_UPDATE_ID,
+               LAST_UPDATE_TIME,
+               LAST_UPDATER,
+               NAME,
+               ICON,
+               REWARD,
+               TYPE,
+               RATE_MONTH,
+               DATE_LIMIT_MAX,
+               DATE_LIMIT_MIN,
+               RATE_SUCCESS,
+               APPLY_COUNT,
+               NEED_DATA,
+               APPLY_CONDITION,
+               MAX_LOAN_CARD,
+               MAX_LOAN,
+               TARGET_LINK,
+               CARD_IMAGE,
+               DELETED,
+               SPARE1,
+               SPARE2,
+               SPARE3,
+               SPARE4,
+               SPARE5
+        from points_alliance.goods
+        where ID = #{id}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="GoodsMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, NAME, ICON, REWARD, TYPE,
+        RATE_MONTH, DATE_LIMIT_MAX, DATE_LIMIT_MIN, RATE_SUCCESS, APPLY_COUNT, NEED_DATA, APPLY_CONDITION,
+        MAX_LOAN_CARD, MAX_LOAN, TARGET_LINK, CARD_IMAGE, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.goods
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="goods.id != null and goods.id != ''">
+                    and ID like CONCAT('%', #{goods.id}, '%')
+                </if>
+
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="goods.createdTime != null ">
+                    and CREATED_TIME = #{goods.createdTime}
+                </if>
+
+
+                <if test="goods.creator != null and goods.creator != ''">
+                    and CREATOR like CONCAT('%', #{goods.creator}, '%')
+                </if>
+
+
+                <if test="goods.creatorId != null and goods.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{goods.creatorId}, '%')
+                </if>
+
+
+                <if test="goods.lastUpdateId != null and goods.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{goods.lastUpdateId}, '%')
+                </if>
+
+
+                <if test="goods.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{goods.lastUpdateTime}
+                </if>
+
+
+                <if test="goods.lastUpdater != null and goods.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{goods.lastUpdater}, '%')
+                </if>
+
+
+                <if test="goods.name != null and goods.name != ''">
+                    and NAME like CONCAT('%', #{goods.name}, '%')
+                </if>
+
+
+                <if test="goods.icon != null and goods.icon != ''">
+                    and ICON like CONCAT('%', #{goods.icon}, '%')
+                </if>
+
+
+                <if test="goods.reward != null ">
+                    and REWARD = #{goods.reward}
+                </if>
+
+
+                <if test="goods.type != null ">
+                    and TYPE = #{goods.type}
+                </if>
+
+
+                <if test="goods.rateMonth != null ">
+                    and RATE_MONTH = #{goods.rateMonth}
+                </if>
+
+
+                <if test="goods.dateLimitMax != null ">
+                    and DATE_LIMIT_MAX = #{goods.dateLimitMax}
+                </if>
+
+
+                <if test="goods.dateLimitMin != null ">
+                    and DATE_LIMIT_MIN = #{goods.dateLimitMin}
+                </if>
+
+
+                <if test="goods.rateSuccess != null ">
+                    and RATE_SUCCESS = #{goods.rateSuccess}
+                </if>
+
+
+                <if test="goods.applyCount != null ">
+                    and APPLY_COUNT = #{goods.applyCount}
+                </if>
+
+
+                <if test="goods.needData != null and goods.needData != ''">
+                    and NEED_DATA like CONCAT('%', #{goods.needData}, '%')
+                </if>
+
+
+                <if test="goods.applyCondition != null ">
+                    and APPLY_CONDITION = #{goods.applyCondition}
+                </if>
+
+
+                <if test="goods.maxLoanCard != null ">
+                    and MAX_LOAN_CARD = #{goods.maxLoanCard}
+                </if>
+
+
+                <if test="goods.maxLoan != null ">
+                    and MAX_LOAN = #{goods.maxLoan}
+                </if>
+
+
+                <if test="goods.targetLink != null and goods.targetLink != ''">
+                    and TARGET_LINK like CONCAT('%', #{goods.targetLink}, '%')
+                </if>
+
+
+                <if test="goods.cardImage != null and goods.cardImage != ''">
+                    and CARD_IMAGE like CONCAT('%', #{goods.cardImage}, '%')
+                </if>
+
+
+                <if test="goods.deleted != null ">
+                    and DELETED = #{goods.deleted}
+                </if>
+
+
+                <if test="goods.spare1 != null and goods.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{goods.spare1}, '%')
+                </if>
+
+
+                <if test="goods.spare2 != null and goods.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{goods.spare2}, '%')
+                </if>
+
+
+                <if test="goods.spare3 != null and goods.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{goods.spare3}, '%')
+                </if>
+
+
+                <if test="goods.spare4 != null and goods.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{goods.spare4}, '%')
+                </if>
+
+
+                <if test="goods.spare5 != null and goods.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{goods.spare5}, '%')
+                </if>
+
+
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="goods.id != null and goods.id != ''">
+                    and ID = #{goods.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="goods.creator != null and goods.creator != ''">
+                    and CREATOR = #{goods.creator}
+                </if>
+                <if test="goods.creatorId != null and goods.creatorId != ''">
+                    and CREATOR_ID = #{goods.creatorId}
+                </if>
+                <if test="goods.lastUpdateId != null and goods.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{goods.lastUpdateId}
+                </if>
+                <if test="goods.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{goods.lastUpdateTime}
+                </if>
+                <if test="goods.lastUpdater != null and goods.lastUpdater != ''">
+                    and LAST_UPDATER = #{goods.lastUpdater}
+                </if>
+                <if test="goods.name != null and goods.name != ''">
+                    and NAME = #{goods.name}
+                </if>
+                <if test="goods.icon != null and goods.icon != ''">
+                    and ICON = #{goods.icon}
+                </if>
+                <if test="goods.reward != null">
+                    and REWARD = #{goods.reward}
+                </if>
+                <if test="goods.type != null">
+                    and TYPE = #{goods.type}
+                </if>
+                <if test="goods.rateMonth != null">
+                    and RATE_MONTH = #{goods.rateMonth}
+                </if>
+                <if test="goods.dateLimitMax != null">
+                    and DATE_LIMIT_MAX = #{goods.dateLimitMax}
+                </if>
+                <if test="goods.dateLimitMin != null">
+                    and DATE_LIMIT_MIN = #{goods.dateLimitMin}
+                </if>
+                <if test="goods.rateSuccess != null">
+                    and RATE_SUCCESS = #{goods.rateSuccess}
+                </if>
+                <if test="goods.applyCount != null">
+                    and APPLY_COUNT = #{goods.applyCount}
+                </if>
+                <if test="goods.needData != null and goods.needData != ''">
+                    and NEED_DATA = #{goods.needData}
+                </if>
+                <if test="goods.applyCondition != null">
+                    and APPLY_CONDITION = #{goods.applyCondition}
+                </if>
+                <if test="goods.maxLoanCard != null">
+                    and MAX_LOAN_CARD = #{goods.maxLoanCard}
+                </if>
+                <if test="goods.maxLoan != null">
+                    and MAX_LOAN = #{goods.maxLoan}
+                </if>
+                <if test="goods.targetLink != null and goods.targetLink != ''">
+                    and TARGET_LINK = #{goods.targetLink}
+                </if>
+                <if test="goods.cardImage != null and goods.cardImage != ''">
+                    and CARD_IMAGE = #{goods.cardImage}
+                </if>
+                <if test="goods.deleted != null">
+                    and DELETED = #{goods.deleted}
+                </if>
+                <if test="goods.spare1 != null and goods.spare1 != ''">
+                    and SPARE1 = #{goods.spare1}
+                </if>
+                <if test="goods.spare2 != null and goods.spare2 != ''">
+                    and SPARE2 = #{goods.spare2}
+                </if>
+                <if test="goods.spare3 != null and goods.spare3 != ''">
+                    and SPARE3 = #{goods.spare3}
+                </if>
+                <if test="goods.spare4 != null and goods.spare4 != ''">
+                    and SPARE4 = #{goods.spare4}
+                </if>
+                <if test="goods.spare5 != null and goods.spare5 != ''">
+                    and SPARE5 = #{goods.spare5}
+                </if>
+            </where>
+        </if>
+        order by CREATED_TIME DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) from points_alliance.goods
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="goods.id != null and goods.id != ''">
+                    and ID like CONCAT('%', #{goods.id}, '%')
+                </if>
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="goods.createdTime != null ">
+                    and CREATED_TIME = #{goods.createdTime}
+                </if>
+
+                <if test="goods.creator != null and goods.creator != ''">
+                    and CREATOR like CONCAT('%', #{goods.creator}, '%')
+                </if>
+
+                <if test="goods.creatorId != null and goods.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{goods.creatorId}, '%')
+                </if>
+
+                <if test="goods.lastUpdateId != null and goods.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{goods.lastUpdateId}, '%')
+                </if>
+
+                <if test="goods.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{goods.lastUpdateTime}
+                </if>
+
+                <if test="goods.lastUpdater != null and goods.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{goods.lastUpdater}, '%')
+                </if>
+
+                <if test="goods.name != null and goods.name != ''">
+                    and NAME like CONCAT('%', #{goods.name}, '%')
+                </if>
+
+                <if test="goods.icon != null and goods.icon != ''">
+                    and ICON like CONCAT('%', #{goods.icon}, '%')
+                </if>
+
+                <if test="goods.reward != null ">
+                    and REWARD = #{goods.reward}
+                </if>
+
+                <if test="goods.type != null ">
+                    and TYPE = #{goods.type}
+                </if>
+
+                <if test="goods.rateMonth != null ">
+                    and RATE_MONTH = #{goods.rateMonth}
+                </if>
+
+                <if test="goods.dateLimitMax != null ">
+                    and DATE_LIMIT_MAX = #{goods.dateLimitMax}
+                </if>
+
+                <if test="goods.dateLimitMin != null ">
+                    and DATE_LIMIT_MIN = #{goods.dateLimitMin}
+                </if>
+
+                <if test="goods.rateSuccess != null ">
+                    and RATE_SUCCESS = #{goods.rateSuccess}
+                </if>
+
+                <if test="goods.applyCount != null ">
+                    and APPLY_COUNT = #{goods.applyCount}
+                </if>
+
+                <if test="goods.needData != null and goods.needData != ''">
+                    and NEED_DATA like CONCAT('%', #{goods.needData}, '%')
+                </if>
+
+                <if test="goods.applyCondition != null ">
+                    and APPLY_CONDITION = #{goods.applyCondition}
+                </if>
+
+                <if test="goods.maxLoanCard != null ">
+                    and MAX_LOAN_CARD = #{goods.maxLoanCard}
+                </if>
+
+                <if test="goods.maxLoan != null ">
+                    and MAX_LOAN = #{goods.maxLoan}
+                </if>
+
+                <if test="goods.targetLink != null and goods.targetLink != ''">
+                    and TARGET_LINK like CONCAT('%', #{goods.targetLink}, '%')
+                </if>
+
+                <if test="goods.cardImage != null and goods.cardImage != ''">
+                    and CARD_IMAGE like CONCAT('%', #{goods.cardImage}, '%')
+                </if>
+
+                <if test="goods.deleted != null ">
+                    and DELETED = #{goods.deleted}
+                </if>
+
+                <if test="goods.spare1 != null and goods.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{goods.spare1}, '%')
+                </if>
+
+                <if test="goods.spare2 != null and goods.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{goods.spare2}, '%')
+                </if>
+
+                <if test="goods.spare3 != null and goods.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{goods.spare3}, '%')
+                </if>
+
+                <if test="goods.spare4 != null and goods.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{goods.spare4}, '%')
+                </if>
+
+                <if test="goods.spare5 != null and goods.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{goods.spare5}, '%')
+                </if>
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="goods.id != null and goods.id != ''">
+                    and ID = #{goods.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="goods.creator != null and goods.creator != ''">
+                    and CREATOR = #{goods.creator}
+                </if>
+                <if test="goods.creatorId != null and goods.creatorId != ''">
+                    and CREATOR_ID = #{goods.creatorId}
+                </if>
+                <if test="goods.lastUpdateId != null and goods.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{goods.lastUpdateId}
+                </if>
+                <if test="goods.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{goods.lastUpdateTime}
+                </if>
+                <if test="goods.lastUpdater != null and goods.lastUpdater != ''">
+                    and LAST_UPDATER = #{goods.lastUpdater}
+                </if>
+                <if test="goods.name != null and goods.name != ''">
+                    and NAME = #{goods.name}
+                </if>
+                <if test="goods.icon != null and goods.icon != ''">
+                    and ICON = #{goods.icon}
+                </if>
+                <if test="goods.reward != null">
+                    and REWARD = #{goods.reward}
+                </if>
+                <if test="goods.type != null">
+                    and TYPE = #{goods.type}
+                </if>
+                <if test="goods.rateMonth != null">
+                    and RATE_MONTH = #{goods.rateMonth}
+                </if>
+                <if test="goods.dateLimitMax != null">
+                    and DATE_LIMIT_MAX = #{goods.dateLimitMax}
+                </if>
+                <if test="goods.dateLimitMin != null">
+                    and DATE_LIMIT_MIN = #{goods.dateLimitMin}
+                </if>
+                <if test="goods.rateSuccess != null">
+                    and RATE_SUCCESS = #{goods.rateSuccess}
+                </if>
+                <if test="goods.applyCount != null">
+                    and APPLY_COUNT = #{goods.applyCount}
+                </if>
+                <if test="goods.needData != null and goods.needData != ''">
+                    and NEED_DATA = #{goods.needData}
+                </if>
+                <if test="goods.applyCondition != null">
+                    and APPLY_CONDITION = #{goods.applyCondition}
+                </if>
+                <if test="goods.maxLoanCard != null">
+                    and MAX_LOAN_CARD = #{goods.maxLoanCard}
+                </if>
+                <if test="goods.maxLoan != null">
+                    and MAX_LOAN = #{goods.maxLoan}
+                </if>
+                <if test="goods.targetLink != null and goods.targetLink != ''">
+                    and TARGET_LINK = #{goods.targetLink}
+                </if>
+                <if test="goods.cardImage != null and goods.cardImage != ''">
+                    and CARD_IMAGE = #{goods.cardImage}
+                </if>
+                <if test="goods.deleted != null">
+                    and DELETED = #{goods.deleted}
+                </if>
+                <if test="goods.spare1 != null and goods.spare1 != ''">
+                    and SPARE1 = #{goods.spare1}
+                </if>
+                <if test="goods.spare2 != null and goods.spare2 != ''">
+                    and SPARE2 = #{goods.spare2}
+                </if>
+                <if test="goods.spare3 != null and goods.spare3 != ''">
+                    and SPARE3 = #{goods.spare3}
+                </if>
+                <if test="goods.spare4 != null and goods.spare4 != ''">
+                    and SPARE4 = #{goods.spare4}
+                </if>
+                <if test="goods.spare5 != null and goods.spare5 != ''">
+                    and SPARE5 = #{goods.spare5}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="queryAll" resultMap="GoodsMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, NAME, ICON, REWARD, TYPE,
+        RATE_MONTH, DATE_LIMIT_MAX, DATE_LIMIT_MIN, RATE_SUCCESS, APPLY_COUNT, NEED_DATA, APPLY_CONDITION,
+        MAX_LOAN_CARD, MAX_LOAN, TARGET_LINK, CARD_IMAGE, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.goods
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="name != null and name != ''">
+                and NAME = #{name}
+            </if>
+            <if test="icon != null and icon != ''">
+                and ICON = #{icon}
+            </if>
+            <if test="reward != null">
+                and REWARD = #{reward}
+            </if>
+            <if test="type != null">
+                and TYPE = #{type}
+            </if>
+            <if test="rateMonth != null">
+                and RATE_MONTH = #{rateMonth}
+            </if>
+            <if test="dateLimitMax != null">
+                and DATE_LIMIT_MAX = #{dateLimitMax}
+            </if>
+            <if test="dateLimitMin != null">
+                and DATE_LIMIT_MIN = #{dateLimitMin}
+            </if>
+            <if test="rateSuccess != null">
+                and RATE_SUCCESS = #{rateSuccess}
+            </if>
+            <if test="applyCount != null">
+                and APPLY_COUNT = #{applyCount}
+            </if>
+            <if test="needData != null and needData != ''">
+                and NEED_DATA = #{needData}
+            </if>
+            <if test="applyCondition != null">
+                and APPLY_CONDITION = #{applyCondition}
+            </if>
+            <if test="maxLoanCard != null">
+                and MAX_LOAN_CARD = #{maxLoanCard}
+            </if>
+            <if test="maxLoan != null">
+                and MAX_LOAN = #{maxLoan}
+            </if>
+            <if test="targetLink != null and targetLink != ''">
+                and TARGET_LINK = #{targetLink}
+            </if>
+            <if test="cardImage != null and cardImage != ''">
+                and CARD_IMAGE = #{cardImage}
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                and SPARE1 = #{spare1}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+        </where>
+        order by CREATED_TIME DESC
+    </select>
+
+    <update id="update">
+        update points_alliance.goods
+        <set>
+            <if test="createdTime != null">
+                CREATED_TIME = #{createdTime},
+            </if>
+            <if test="creator != null and creator != ''">
+                CREATOR = #{creator},
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                CREATOR_ID = #{creatorId},
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                LAST_UPDATE_ID = #{lastUpdateId},
+            </if>
+            <if test="lastUpdateTime != null">
+                LAST_UPDATE_TIME = #{lastUpdateTime},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                LAST_UPDATER = #{lastUpdater},
+            </if>
+            <if test="name != null and name != ''">
+                NAME = #{name},
+            </if>
+            <if test="icon != null and icon != ''">
+                ICON = #{icon},
+            </if>
+            <if test="reward != null">
+                REWARD = #{reward},
+            </if>
+            <if test="type != null">
+                TYPE = #{type},
+            </if>
+            <if test="rateMonth != null">
+                RATE_MONTH = #{rateMonth},
+            </if>
+            <if test="dateLimitMax != null">
+                DATE_LIMIT_MAX = #{dateLimitMax},
+            </if>
+            <if test="dateLimitMin != null">
+                DATE_LIMIT_MIN = #{dateLimitMin},
+            </if>
+            <if test="rateSuccess != null">
+                RATE_SUCCESS = #{rateSuccess},
+            </if>
+            <if test="applyCount != null">
+                APPLY_COUNT = #{applyCount},
+            </if>
+            <if test="needData != null and needData != ''">
+                NEED_DATA = #{needData},
+            </if>
+            <if test="applyCondition != null">
+                APPLY_CONDITION = #{applyCondition},
+            </if>
+            <if test="maxLoanCard != null">
+                MAX_LOAN_CARD = #{maxLoanCard},
+            </if>
+            <if test="maxLoan != null">
+                MAX_LOAN = #{maxLoan},
+            </if>
+            <if test="targetLink != null and targetLink != ''">
+                TARGET_LINK = #{targetLink},
+            </if>
+            <if test="cardImage != null and cardImage != ''">
+                CARD_IMAGE = #{cardImage},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted},
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                SPARE1 = #{spare1},
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                SPARE2 = #{spare2},
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                SPARE3 = #{spare3},
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                SPARE4 = #{spare4},
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                SPARE5 = #{spare5},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <update id="updateAllColumn">
+        update points_alliance.goods
+        <set>
+            CREATED_TIME = #{createdTime},
+            CREATOR = #{creator},
+            CREATOR_ID = #{creatorId},
+            LAST_UPDATE_ID = #{lastUpdateId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            LAST_UPDATER = #{lastUpdater},
+            NAME = #{name},
+            ICON = #{icon},
+            REWARD = #{reward},
+            TYPE = #{type},
+            RATE_MONTH = #{rateMonth},
+            DATE_LIMIT_MAX = #{dateLimitMax},
+            DATE_LIMIT_MIN = #{dateLimitMin},
+            RATE_SUCCESS = #{rateSuccess},
+            APPLY_COUNT = #{applyCount},
+            NEED_DATA = #{needData},
+            APPLY_CONDITION = #{applyCondition},
+            MAX_LOAN_CARD = #{maxLoanCard},
+            MAX_LOAN = #{maxLoan},
+            TARGET_LINK = #{targetLink},
+            CARD_IMAGE = #{cardImage},
+            DELETED = #{deleted},
+            SPARE1 = #{spare1},
+            SPARE2 = #{spare2},
+            SPARE3 = #{spare3},
+            SPARE4 = #{spare4},
+            SPARE5 = #{spare5},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from points_alliance.goods where ID
+        in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByIdNotTrue">
+        update points_alliance.goods
+        set DELETED = 1,
+        LAST_UPDATE_ID = #{updateId},
+        LAST_UPDATER = #{updater},
+        LAST_UPDATE_TIME = #{dateTime}
+        where ID in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

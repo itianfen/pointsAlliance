@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.NoticeTanDao">
+  <resultMap id="BaseResultMap" type="com.jx.entity.NoticeTan">
+    <!--@mbg.generated-->
+    <!--@Table notice_tan-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CREATED_TIME" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+    <result column="CREATOR_ID" jdbcType="VARCHAR" property="creatorId" />
+    <result column="LAST_UPDATE_ID" jdbcType="VARCHAR" property="lastUpdateId" />
+    <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="LAST_UPDATER" jdbcType="VARCHAR" property="lastUpdater" />
+    <result column="DELETED" jdbcType="INTEGER" property="deleted" />
+    <result column="SPARE1" jdbcType="VARCHAR" property="spare1" />
+    <result column="SPARE2" jdbcType="VARCHAR" property="spare2" />
+    <result column="SPARE3" jdbcType="VARCHAR" property="spare3" />
+    <result column="SPARE4" jdbcType="VARCHAR" property="spare4" />
+    <result column="SPARE5" jdbcType="VARCHAR" property="spare5" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="NOTICE_ID" jdbcType="VARCHAR" property="noticeId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, 
+    DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5, USER_ID, NOTICE_ID
+  </sql>
+
+    <resultMap id="NoticeTanMap" type="com.jx.entity.NoticeTan">
+        <result column="ID" jdbcType="VARCHAR" property="id" />
+        <result column="CREATED_TIME" jdbcType="TIMESTAMP" property="createdTime" />
+        <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+        <result column="CREATOR_ID" jdbcType="VARCHAR" property="creatorId" />
+        <result column="LAST_UPDATE_ID" jdbcType="VARCHAR" property="lastUpdateId" />
+        <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+        <result column="LAST_UPDATER" jdbcType="VARCHAR" property="lastUpdater" />
+        <result column="DELETED" jdbcType="INTEGER" property="deleted" />
+        <result column="SPARE1" jdbcType="VARCHAR" property="spare1" />
+        <result column="SPARE2" jdbcType="VARCHAR" property="spare2" />
+        <result column="SPARE3" jdbcType="VARCHAR" property="spare3" />
+        <result column="SPARE4" jdbcType="VARCHAR" property="spare4" />
+        <result column="SPARE5" jdbcType="VARCHAR" property="spare5" />
+        <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+        <result column="NOTICE_ID" jdbcType="VARCHAR" property="noticeId" />
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="NoticeTanMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, DELETED, SPARE1, SPARE2,
+        SPARE3, SPARE4, SPARE5, USER_ID, NOTICE_ID
+        from points_alliance.notice_tan
+        where ID = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="NoticeTanMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, DELETED, SPARE1, SPARE2,
+        SPARE3, SPARE4, SPARE5, USER_ID, NOTICE_ID
+        from points_alliance.notice_tan
+        <!-- 模糊查询 -->
+        <if test="preciseOrFuzzy != 1">
+            <where>
+                <if test="noticeTan.id != null and noticeTan.id != ''">
+                    and ID like CONCAT('%', #{noticeTan.id}, '%')
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="noticeTan.creator != null and noticeTan.creator != ''">
+                    and CREATOR like CONCAT('%', #{noticeTan.creator}, '%')
+                </if>
+                <if test="noticeTan.creatorId != null and noticeTan.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{noticeTan.creatorId}, '%')
+                </if>
+                <if test="noticeTan.lastUpdateId != null and noticeTan.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{noticeTan.lastUpdateId}, '%')
+                </if>
+                <if test="noticeTan.lastUpdater != null and noticeTan.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{noticeTan.lastUpdater}, '%')
+                </if>
+                <if test="noticeTan.spare1 != null and noticeTan.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{noticeTan.spare1}, '%')
+                </if>
+                <if test="noticeTan.spare2 != null and noticeTan.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{noticeTan.spare2}, '%')
+                </if>
+                <if test="noticeTan.spare3 != null and noticeTan.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{noticeTan.spare3}, '%')
+                </if>
+                <if test="noticeTan.spare4 != null and noticeTan.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{noticeTan.spare4}, '%')
+                </if>
+                <if test="noticeTan.spare5 != null and noticeTan.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{noticeTan.spare5}, '%')
+                </if>
+                <if test="noticeTan.userId != null and noticeTan.userId != ''">
+                    and USER_ID like CONCAT('%', #{noticeTan.userId}, '%')
+                </if>
+                <if test="noticeTan.noticeId != null and noticeTan.noticeId != ''">
+                    and NOTICE_ID like CONCAT('%', #{noticeTan.noticeId}, '%')
+                </if>
+            </where>
+        </if>
+        <!-- 精确查询 -->
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="noticeTan.id != null and noticeTan.id != ''">
+                    and ID = #{noticeTan.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="noticeTan.creator != null and noticeTan.creator != ''">
+                    and CREATOR = #{noticeTan.creator}
+                </if>
+                <if test="noticeTan.creatorId != null and noticeTan.creatorId != ''">
+                    and CREATOR_ID = #{noticeTan.creatorId}
+                </if>
+                <if test="noticeTan.lastUpdateId != null and noticeTan.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{noticeTan.lastUpdateId}
+                </if>
+                <if test="noticeTan.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{noticeTan.lastUpdateTime}
+                </if>
+                <if test="noticeTan.lastUpdater != null and noticeTan.lastUpdater != ''">
+                    and LAST_UPDATER = #{noticeTan.lastUpdater}
+                </if>
+                <if test="noticeTan.deleted != null">
+                    and DELETED = #{noticeTan.deleted}
+                </if>
+                <if test="noticeTan.spare1 != null and noticeTan.spare1 != ''">
+                    and SPARE1 = #{noticeTan.spare1}
+                </if>
+                <if test="noticeTan.spare2 != null and noticeTan.spare2 != ''">
+                    and SPARE2 = #{noticeTan.spare2}
+                </if>
+                <if test="noticeTan.spare3 != null and noticeTan.spare3 != ''">
+                    and SPARE3 = #{noticeTan.spare3}
+                </if>
+                <if test="noticeTan.spare4 != null and noticeTan.spare4 != ''">
+                    and SPARE4 = #{noticeTan.spare4}
+                </if>
+                <if test="noticeTan.spare5 != null and noticeTan.spare5 != ''">
+                    and SPARE5 = #{noticeTan.spare5}
+                </if>
+                <if test="noticeTan.userId != null and noticeTan.userId != ''">
+                    and USER_ID = #{noticeTan.userId}
+                </if>
+                <if test="noticeTan.noticeId != null and noticeTan.noticeId != ''">
+                    and NOTICE_ID = #{noticeTan.noticeId}
+                </if>
+            </where>
+        </if>
+        order by CREATED_TIME DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--根据条件查询总条数-->
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) from points_alliance.notice_tan
+        <!-- 模糊查询 -->
+        <if test="preciseOrFuzzy != 1">
+            <where>
+                <if test="noticeTan.id != null and noticeTan.id != ''">
+                    and ID like CONCAT('%', #{noticeTan.id}, '%')
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="noticeTan.creator != null and noticeTan.creator != ''">
+                    and CREATOR like CONCAT('%', #{noticeTan.creator}, '%')
+                </if>
+                <if test="noticeTan.creatorId != null and noticeTan.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{noticeTan.creatorId}, '%')
+                </if>
+                <if test="noticeTan.lastUpdateId != null and noticeTan.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{noticeTan.lastUpdateId}, '%')
+                </if>
+                <if test="noticeTan.lastUpdater != null and noticeTan.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{noticeTan.lastUpdater}, '%')
+                </if>
+                <if test="noticeTan.spare1 != null and noticeTan.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{noticeTan.spare1}, '%')
+                </if>
+                <if test="noticeTan.spare2 != null and noticeTan.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{noticeTan.spare2}, '%')
+                </if>
+                <if test="noticeTan.spare3 != null and noticeTan.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{noticeTan.spare3}, '%')
+                </if>
+                <if test="noticeTan.spare4 != null and noticeTan.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{noticeTan.spare4}, '%')
+                </if>
+                <if test="noticeTan.spare5 != null and noticeTan.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{noticeTan.spare5}, '%')
+                </if>
+                <if test="noticeTan.userId != null and noticeTan.userId != ''">
+                    and USER_ID like CONCAT('%', #{noticeTan.userId}, '%')
+                </if>
+                <if test="noticeTan.noticeId != null and noticeTan.noticeId != ''">
+                    and NOTICE_ID like CONCAT('%', #{noticeTan.noticeId}, '%')
+                </if>
+            </where>
+        </if>
+        <!-- 精确查询 -->
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="noticeTan.id != null and noticeTan.id != ''">
+                    and ID = #{noticeTan.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="noticeTan.creator != null and noticeTan.creator != ''">
+                    and CREATOR = #{noticeTan.creator}
+                </if>
+                <if test="noticeTan.creatorId != null and noticeTan.creatorId != ''">
+                    and CREATOR_ID = #{noticeTan.creatorId}
+                </if>
+                <if test="noticeTan.lastUpdateId != null and noticeTan.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{noticeTan.lastUpdateId}
+                </if>
+                <if test="noticeTan.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{noticeTan.lastUpdateTime}
+                </if>
+                <if test="noticeTan.lastUpdater != null and noticeTan.lastUpdater != ''">
+                    and LAST_UPDATER = #{noticeTan.lastUpdater}
+                </if>
+                <if test="noticeTan.deleted != null">
+                    and DELETED = #{noticeTan.deleted}
+                </if>
+                <if test="noticeTan.spare1 != null and noticeTan.spare1 != ''">
+                    and SPARE1 = #{noticeTan.spare1}
+                </if>
+                <if test="noticeTan.spare2 != null and noticeTan.spare2 != ''">
+                    and SPARE2 = #{noticeTan.spare2}
+                </if>
+                <if test="noticeTan.spare3 != null and noticeTan.spare3 != ''">
+                    and SPARE3 = #{noticeTan.spare3}
+                </if>
+                <if test="noticeTan.spare4 != null and noticeTan.spare4 != ''">
+                    and SPARE4 = #{noticeTan.spare4}
+                </if>
+                <if test="noticeTan.spare5 != null and noticeTan.spare5 != ''">
+                    and SPARE5 = #{noticeTan.spare5}
+                </if>
+                <if test="noticeTan.userId != null and noticeTan.userId != ''">
+                    and USER_ID = #{noticeTan.userId}
+                </if>
+                <if test="noticeTan.noticeId != null and noticeTan.noticeId != ''">
+                    and NOTICE_ID = #{noticeTan.noticeId}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="NoticeTanMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, DELETED, SPARE1, SPARE2,
+        SPARE3, SPARE4, SPARE5, USER_ID, NOTICE_ID
+        from points_alliance.notice_tan
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                and SPARE1 = #{spare1}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+            <if test="userId != null and userId != ''">
+                and USER_ID = #{userId}
+            </if>
+            <if test="noticeId != null and noticeId != ''">
+                and NOTICE_ID = #{noticeId}
+            </if>
+        </where>
+        order by CREATED_TIME DESC
+    </select>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update points_alliance.notice_tan
+        <set>
+            <if test="createdTime != null">
+                CREATED_TIME = #{createdTime},
+            </if>
+            <if test="creator != null and creator != ''">
+                CREATOR = #{creator},
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                CREATOR_ID = #{creatorId},
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                LAST_UPDATE_ID = #{lastUpdateId},
+            </if>
+            <if test="lastUpdateTime != null">
+                LAST_UPDATE_TIME = #{lastUpdateTime},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                LAST_UPDATER = #{lastUpdater},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted},
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                SPARE1 = #{spare1},
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                SPARE2 = #{spare2},
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                SPARE3 = #{spare3},
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                SPARE4 = #{spare4},
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                SPARE5 = #{spare5},
+            </if>
+            <if test="userId != null and userId != ''">
+                USER_ID = #{userId},
+            </if>
+            <if test="noticeId != null and noticeId != ''">
+                NOTICE_ID = #{noticeId},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <!--通过主键修改全部数据-->
+    <update id="updateAllColumn">
+        update points_alliance.notice_tan
+        <set>
+            CREATED_TIME = #{createdTime},
+            CREATOR = #{creator},
+            CREATOR_ID = #{creatorId},
+            LAST_UPDATE_ID = #{lastUpdateId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            LAST_UPDATER = #{lastUpdater},
+            DELETED = #{deleted},
+            SPARE1 = #{spare1},
+            SPARE2 = #{spare2},
+            SPARE3 = #{spare3},
+            SPARE4 = #{spare4},
+            SPARE5 = #{spare5},
+            USER_ID = #{userId},
+            NOTICE_ID = #{noticeId},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from points_alliance.notice_tan where ID
+        in
+        <foreach close=")" collection="ids" item="id" open="(" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--通过主键逻辑删除-->
+    <delete id="deleteByIdNotTrue">
+        update points_alliance.notice_tan
+        set DELETED = 1,
+        LAST_UPDATE_ID = #{updateId},
+        LAST_UPDATER = #{updater},
+        LAST_UPDATE_TIME = #{dateTime}
+        where ID in
+        <foreach close=")" collection="ids" item="id" open="(" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

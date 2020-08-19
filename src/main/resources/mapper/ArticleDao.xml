@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.ArticleDao">
+
+    <resultMap type="com.jx.entity.Article" id="ArticleMap">
+        <result property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="CREATED_TIME" jdbcType="TIMESTAMP"/>
+        <result property="creator" column="CREATOR" jdbcType="VARCHAR"/>
+        <result property="creatorId" column="CREATOR_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateId" column="LAST_UPDATE_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdater" column="LAST_UPDATER" jdbcType="VARCHAR"/>
+        <result property="title" column="TITLE" jdbcType="VARCHAR"/>
+        <result property="introduction" column="INTRODUCTION" jdbcType="VARCHAR"/>
+        <result property="content" column="CONTENT" jdbcType="OTHER"/>
+        <result property="imgUrl" column="IMG_URL" jdbcType="VARCHAR"/>
+        <result property="companyId" column="COMPANY_ID" jdbcType="VARCHAR"/>
+        <result property="categoryType" column="CATEGORY_TYPE" jdbcType="VARCHAR"/>
+        <result property="categoryName" column="CATEGORY_NAME" jdbcType="VARCHAR"/>
+        <result property="deleted" column="DELETED" jdbcType="INTEGER"/>
+        <result property="spare1" column="SPARE1" jdbcType="VARCHAR"/>
+        <result property="spare2" column="SPARE2" jdbcType="VARCHAR"/>
+        <result property="spare3" column="SPARE3" jdbcType="VARCHAR"/>
+        <result property="spare4" column="SPARE4" jdbcType="VARCHAR"/>
+        <result property="spare5" column="SPARE5" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryById" resultMap="ArticleMap">
+        select ID,
+               CREATED_TIME,
+               CREATOR,
+               CREATOR_ID,
+               LAST_UPDATE_ID,
+               LAST_UPDATE_TIME,
+               LAST_UPDATER,
+               TITLE,
+               INTRODUCTION,
+               CONTENT,
+               IMG_URL,
+               COMPANY_ID,
+               CATEGORY_TYPE,
+               CATEGORY_NAME,
+               DELETED,
+               SPARE1,
+               SPARE2,
+               SPARE3,
+               SPARE4,
+               SPARE5
+        from points_alliance.article
+        where ID = #{id}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="ArticleMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, TITLE, INTRODUCTION,
+        CONTENT, IMG_URL, COMPANY_ID, CATEGORY_TYPE, CATEGORY_NAME, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.article
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="article.id != null and article.id != ''">
+                    and ID like CONCAT('%', #{article.id}, '%')
+                </if>
+
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="article.createdTime != null ">
+                    and CREATED_TIME = #{article.createdTime})
+                </if>
+
+
+                <if test="article.creator != null and article.creator != ''">
+                    and CREATOR like CONCAT('%', #{article.creator}, '%')
+                </if>
+
+
+                <if test="article.creatorId != null and article.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{article.creatorId}, '%')
+                </if>
+
+
+                <if test="article.lastUpdateId != null and article.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{article.lastUpdateId}, '%')
+                </if>
+
+
+                <if test="article.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{article.lastUpdateTime})
+                </if>
+
+
+                <if test="article.lastUpdater != null and article.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{article.lastUpdater}, '%')
+                </if>
+
+
+                <if test="article.title != null and article.title != ''">
+                    and TITLE like CONCAT('%', #{article.title}, '%')
+                </if>
+
+
+                <if test="article.introduction != null and article.introduction != ''">
+                    and INTRODUCTION like CONCAT('%', #{article.introduction}, '%')
+                </if>
+
+
+                <if test="article.content != null ">
+                    and CONTENT like CONCAT('%', #{article.content}, '%')
+                </if>
+
+
+                <if test="article.imgUrl != null and article.imgUrl != ''">
+                    and IMG_URL like CONCAT('%', #{article.imgUrl}, '%')
+                </if>
+
+
+                <if test="article.companyId != null and article.companyId != ''">
+                    and COMPANY_ID = #{article.companyId}
+                </if>
+
+
+                <if test="article.categoryType != null and article.categoryType != ''">
+                    and CATEGORY_TYPE like CONCAT('%', #{article.categoryType}, '%')
+                </if>
+
+
+                <if test="article.categoryName != null and article.categoryName != ''">
+                    and CATEGORY_NAME like CONCAT('%', #{article.categoryName}, '%')
+                </if>
+
+
+                <if test="article.deleted != null ">
+                    and DELETED = #{article.deleted}
+                </if>
+
+
+                <if test="article.spare1 != null and article.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{article.spare1}, '%')
+                </if>
+
+
+                <if test="article.spare2 != null and article.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{article.spare2}, '%')
+                </if>
+
+
+                <if test="article.spare3 != null and article.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{article.spare3}, '%')
+                </if>
+
+
+                <if test="article.spare4 != null and article.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{article.spare4}, '%')
+                </if>
+
+
+                <if test="article.spare5 != null and article.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{article.spare5}, '%')
+                </if>
+
+
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="article.id != null and article.id != ''">
+                    and ID = #{article.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="article.creator != null and article.creator != ''">
+                    and CREATOR = #{article.creator}
+                </if>
+                <if test="article.creatorId != null and article.creatorId != ''">
+                    and CREATOR_ID = #{article.creatorId}
+                </if>
+                <if test="article.lastUpdateId != null and article.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{article.lastUpdateId}
+                </if>
+                <if test="article.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{article.lastUpdateTime}
+                </if>
+                <if test="article.lastUpdater != null and article.lastUpdater != ''">
+                    and LAST_UPDATER = #{article.lastUpdater}
+                </if>
+                <if test="article.title != null and article.title != ''">
+                    and TITLE = #{article.title}
+                </if>
+                <if test="article.introduction != null and article.introduction != ''">
+                    and INTRODUCTION = #{article.introduction}
+                </if>
+                <if test="article.content != null">
+                    and CONTENT = #{article.content}
+                </if>
+                <if test="article.imgUrl != null and article.imgUrl != ''">
+                    and IMG_URL = #{article.imgUrl}
+                </if>
+                <if test="article.companyId != null and article.companyId != ''">
+                    and COMPANY_ID = #{article.companyId}
+                </if>
+                <if test="article.categoryType != null and article.categoryType != ''">
+                    and CATEGORY_TYPE = #{article.categoryType}
+                </if>
+                <if test="article.categoryName != null and article.categoryName != ''">
+                    and CATEGORY_NAME = #{article.categoryName}
+                </if>
+                <if test="article.deleted != null">
+                    and DELETED = #{article.deleted}
+                </if>
+                <if test="article.spare1 != null and article.spare1 != ''">
+                    and SPARE1 = #{article.spare1}
+                </if>
+                <if test="article.spare2 != null and article.spare2 != ''">
+                    and SPARE2 = #{article.spare2}
+                </if>
+                <if test="article.spare3 != null and article.spare3 != ''">
+                    and SPARE3 = #{article.spare3}
+                </if>
+                <if test="article.spare4 != null and article.spare4 != ''">
+                    and SPARE4 = #{article.spare4}
+                </if>
+                <if test="article.spare5 != null and article.spare5 != ''">
+                    and SPARE5 = #{article.spare5}
+                </if>
+            </where>
+        </if>
+        order by CREATED_TIME DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) from points_alliance.article
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="article.id != null and article.id != ''">
+                    and ID like CONCAT('%', #{article.id}, '%')
+                </if>
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="article.createdTime != null ">
+                    and CREATED_TIME = #{article.createdTime})
+                </if>
+
+                <if test="article.creator != null and article.creator != ''">
+                    and CREATOR like CONCAT('%', #{article.creator}, '%')
+                </if>
+
+                <if test="article.creatorId != null and article.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{article.creatorId}, '%')
+                </if>
+
+                <if test="article.lastUpdateId != null and article.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{article.lastUpdateId}, '%')
+                </if>
+
+                <if test="article.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{article.lastUpdateTime})
+                </if>
+
+                <if test="article.lastUpdater != null and article.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{article.lastUpdater}, '%')
+                </if>
+
+                <if test="article.title != null and article.title != ''">
+                    and TITLE like CONCAT('%', #{article.title}, '%')
+                </if>
+
+                <if test="article.introduction != null and article.introduction != ''">
+                    and INTRODUCTION like CONCAT('%', #{article.introduction}, '%')
+                </if>
+
+                <if test="article.content != null ">
+                    and CONTENT like CONCAT('%', #{article.content}, '%')
+                </if>
+
+                <if test="article.imgUrl != null and article.imgUrl != ''">
+                    and IMG_URL like CONCAT('%', #{article.imgUrl}, '%')
+                </if>
+
+                <if test="article.companyId != null and article.companyId != ''">
+                    and COMPANY_ID = #{article.companyId}
+                </if>
+
+                <if test="article.categoryType != null and article.categoryType != ''">
+                    and CATEGORY_TYPE like CONCAT('%', #{article.categoryType}, '%')
+                </if>
+
+                <if test="article.categoryName != null and article.categoryName != ''">
+                    and CATEGORY_NAME like CONCAT('%', #{article.categoryName}, '%')
+                </if>
+
+                <if test="article.deleted != null ">
+                    and DELETED = #{article.deleted}
+                </if>
+
+                <if test="article.spare1 != null and article.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{article.spare1}, '%')
+                </if>
+
+                <if test="article.spare2 != null and article.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{article.spare2}, '%')
+                </if>
+
+                <if test="article.spare3 != null and article.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{article.spare3}, '%')
+                </if>
+
+                <if test="article.spare4 != null and article.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{article.spare4}, '%')
+                </if>
+
+                <if test="article.spare5 != null and article.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{article.spare5}, '%')
+                </if>
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="article.id != null and article.id != ''">
+                    and ID = #{article.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="article.creator != null and article.creator != ''">
+                    and CREATOR = #{article.creator}
+                </if>
+                <if test="article.creatorId != null and article.creatorId != ''">
+                    and CREATOR_ID = #{article.creatorId}
+                </if>
+                <if test="article.lastUpdateId != null and article.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{article.lastUpdateId}
+                </if>
+                <if test="article.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{article.lastUpdateTime}
+                </if>
+                <if test="article.lastUpdater != null and article.lastUpdater != ''">
+                    and LAST_UPDATER = #{article.lastUpdater}
+                </if>
+                <if test="article.title != null and article.title != ''">
+                    and TITLE = #{article.title}
+                </if>
+                <if test="article.introduction != null and article.introduction != ''">
+                    and INTRODUCTION = #{article.introduction}
+                </if>
+                <if test="article.content != null">
+                    and CONTENT = #{article.content}
+                </if>
+                <if test="article.imgUrl != null and article.imgUrl != ''">
+                    and IMG_URL = #{article.imgUrl}
+                </if>
+                <if test="article.companyId != null and article.companyId != ''">
+                    and COMPANY_ID = #{article.companyId}
+                </if>
+                <if test="article.categoryType != null and article.categoryType != ''">
+                    and CATEGORY_TYPE = #{article.categoryType}
+                </if>
+                <if test="article.categoryName != null and article.categoryName != ''">
+                    and CATEGORY_NAME = #{article.categoryName}
+                </if>
+                <if test="article.deleted != null">
+                    and DELETED = #{article.deleted}
+                </if>
+                <if test="article.spare1 != null and article.spare1 != ''">
+                    and SPARE1 = #{article.spare1}
+                </if>
+                <if test="article.spare2 != null and article.spare2 != ''">
+                    and SPARE2 = #{article.spare2}
+                </if>
+                <if test="article.spare3 != null and article.spare3 != ''">
+                    and SPARE3 = #{article.spare3}
+                </if>
+                <if test="article.spare4 != null and article.spare4 != ''">
+                    and SPARE4 = #{article.spare4}
+                </if>
+                <if test="article.spare5 != null and article.spare5 != ''">
+                    and SPARE5 = #{article.spare5}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="queryAll" resultMap="ArticleMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, TITLE, INTRODUCTION,
+        CONTENT, IMG_URL, COMPANY_ID, CATEGORY_TYPE, CATEGORY_NAME, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.article
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="title != null and title != ''">
+                and TITLE = #{title}
+            </if>
+            <if test="introduction != null and introduction != ''">
+                and INTRODUCTION = #{introduction}
+            </if>
+            <if test="content != null">
+                and CONTENT = #{content}
+            </if>
+            <if test="imgUrl != null and imgUrl != ''">
+                and IMG_URL = #{imgUrl}
+            </if>
+            <if test="companyId != null and companyId != ''">
+                and COMPANY_ID = #{companyId}
+            </if>
+            <if test="categoryType != null and categoryType != ''">
+                and CATEGORY_TYPE = #{categoryType}
+            </if>
+            <if test="categoryName != null and categoryName != ''">
+                and CATEGORY_NAME = #{categoryName}
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                and SPARE1 = #{spare1}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+        </where>
+        order by CREATED_TIME DESC
+    </select>
+
+    <update id="update">
+        update points_alliance.article
+        <set>
+            <if test="createdTime != null">
+                CREATED_TIME = #{createdTime},
+            </if>
+            <if test="creator != null and creator != ''">
+                CREATOR = #{creator},
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                CREATOR_ID = #{creatorId},
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                LAST_UPDATE_ID = #{lastUpdateId},
+            </if>
+            <if test="lastUpdateTime != null">
+                LAST_UPDATE_TIME = #{lastUpdateTime},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                LAST_UPDATER = #{lastUpdater},
+            </if>
+            <if test="title != null and title != ''">
+                TITLE = #{title},
+            </if>
+            <if test="introduction != null and introduction != ''">
+                INTRODUCTION = #{introduction},
+            </if>
+            <if test="content != null">
+                CONTENT = #{content},
+            </if>
+            <if test="imgUrl != null and imgUrl != ''">
+                IMG_URL = #{imgUrl},
+            </if>
+            <if test="companyId != null and companyId != ''">
+                COMPANY_ID = #{companyId},
+            </if>
+            <if test="categoryType != null and categoryType != ''">
+                CATEGORY_TYPE = #{categoryType},
+            </if>
+            <if test="categoryName != null and categoryName != ''">
+                CATEGORY_NAME = #{categoryName},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted},
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                SPARE1 = #{spare1},
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                SPARE2 = #{spare2},
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                SPARE3 = #{spare3},
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                SPARE4 = #{spare4},
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                SPARE5 = #{spare5},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <update id="updateAllColumn">
+        update points_alliance.article
+        <set>
+            CREATED_TIME = #{createdTime},
+            CREATOR = #{creator},
+            CREATOR_ID = #{creatorId},
+            LAST_UPDATE_ID = #{lastUpdateId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            LAST_UPDATER = #{lastUpdater},
+            TITLE = #{title},
+            INTRODUCTION = #{introduction},
+            CONTENT = #{content},
+            IMG_URL = #{imgUrl},
+            COMPANY_ID = #{companyId},
+            CATEGORY_TYPE = #{categoryType},
+            CATEGORY_NAME = #{categoryName},
+            DELETED = #{deleted},
+            SPARE1 = #{spare1},
+            SPARE2 = #{spare2},
+            SPARE3 = #{spare3},
+            SPARE4 = #{spare4},
+            SPARE5 = #{spare5},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from points_alliance.article where ID
+        in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByIdNotTrue">
+        update points_alliance.article
+        set DELETED = 1,
+        LAST_UPDATE_ID = #{updateId},
+        LAST_UPDATER = #{updater},
+        LAST_UPDATE_TIME = #{dateTime}
+        where ID in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

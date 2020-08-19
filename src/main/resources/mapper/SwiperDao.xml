@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.SwiperDao">
+
+    <resultMap type="com.jx.entity.Swiper" id="SwiperMap">
+        <result property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="CREATED_TIME" jdbcType="TIMESTAMP"/>
+        <result property="creator" column="CREATOR" jdbcType="VARCHAR"/>
+        <result property="creatorId" column="CREATOR_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateId" column="LAST_UPDATE_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdater" column="LAST_UPDATER" jdbcType="VARCHAR"/>
+        <result property="imagePath" column="IMAGE_PATH" jdbcType="VARCHAR"/>
+        <result property="linkUrl" column="LINK_URL" jdbcType="VARCHAR"/>
+        <result property="companyId" column="COMPANY_ID" jdbcType="VARCHAR"/>
+        <result property="deleted" column="DELETED" jdbcType="INTEGER"/>
+        <result property="spare1" column="SPARE1" jdbcType="VARCHAR"/>
+        <result property="spare2" column="SPARE2" jdbcType="VARCHAR"/>
+        <result property="spare3" column="SPARE3" jdbcType="VARCHAR"/>
+        <result property="spare4" column="SPARE4" jdbcType="VARCHAR"/>
+        <result property="spare5" column="SPARE5" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryById" resultMap="SwiperMap">
+        select ID,
+               CREATED_TIME,
+               CREATOR,
+               CREATOR_ID,
+               LAST_UPDATE_ID,
+               LAST_UPDATE_TIME,
+               LAST_UPDATER,
+               IMAGE_PATH,
+               LINK_URL,
+               COMPANY_ID,
+               DELETED,
+               SPARE1,
+               SPARE2,
+               SPARE3,
+               SPARE4,
+               SPARE5
+        from points_alliance.swiper
+        where ID = #{id}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="SwiperMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, IMAGE_PATH, LINK_URL,
+        COMPANY_ID, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.swiper
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="swiper.id != null and swiper.id != ''">
+                    and ID like CONCAT('%', #{swiper.id}, '%')
+                </if>
+
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="swiper.createdTime != null ">
+                    and CREATED_TIME = #{swiper.createdTime}
+                </if>
+
+
+                <if test="swiper.creator != null and swiper.creator != ''">
+                    and CREATOR like CONCAT('%', #{swiper.creator}, '%')
+                </if>
+
+
+                <if test="swiper.creatorId != null and swiper.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{swiper.creatorId}, '%')
+                </if>
+
+
+                <if test="swiper.lastUpdateId != null and swiper.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{swiper.lastUpdateId}, '%')
+                </if>
+
+
+                <if test="swiper.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{swiper.lastUpdateTime}
+                </if>
+
+
+                <if test="swiper.lastUpdater != null and swiper.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{swiper.lastUpdater}, '%')
+                </if>
+
+
+                <if test="swiper.imagePath != null and swiper.imagePath != ''">
+                    and IMAGE_PATH like CONCAT('%', #{swiper.imagePath}, '%')
+                </if>
+
+
+                <if test="swiper.linkUrl != null and swiper.linkUrl != ''">
+                    and LINK_URL like CONCAT('%', #{swiper.linkUrl}, '%')
+                </if>
+
+
+                <if test="swiper.companyId != null and swiper.companyId != ''">
+                    and COMPANY_ID = #{swiper.companyId}
+                </if>
+
+
+                <if test="swiper.deleted != null ">
+                    and DELETED = #{swiper.deleted}
+                </if>
+
+
+                <if test="swiper.spare1 != null and swiper.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{swiper.spare1}, '%')
+                </if>
+
+
+                <if test="swiper.spare2 != null and swiper.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{swiper.spare2}, '%')
+                </if>
+
+
+                <if test="swiper.spare3 != null and swiper.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{swiper.spare3}, '%')
+                </if>
+
+
+                <if test="swiper.spare4 != null and swiper.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{swiper.spare4}, '%')
+                </if>
+
+
+                <if test="swiper.spare5 != null and swiper.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{swiper.spare5}, '%')
+                </if>
+
+
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="swiper.id != null and swiper.id != ''">
+                    and ID = #{swiper.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="swiper.creator != null and swiper.creator != ''">
+                    and CREATOR = #{swiper.creator}
+                </if>
+                <if test="swiper.creatorId != null and swiper.creatorId != ''">
+                    and CREATOR_ID = #{swiper.creatorId}
+                </if>
+                <if test="swiper.lastUpdateId != null and swiper.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{swiper.lastUpdateId}
+                </if>
+                <if test="swiper.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{swiper.lastUpdateTime}
+                </if>
+                <if test="swiper.lastUpdater != null and swiper.lastUpdater != ''">
+                    and LAST_UPDATER = #{swiper.lastUpdater}
+                </if>
+                <if test="swiper.imagePath != null and swiper.imagePath != ''">
+                    and IMAGE_PATH = #{swiper.imagePath}
+                </if>
+                <if test="swiper.linkUrl != null and swiper.linkUrl != ''">
+                    and LINK_URL = #{swiper.linkUrl}
+                </if>
+                <if test="swiper.companyId != null and swiper.companyId != ''">
+                    and COMPANY_ID = #{swiper.companyId}
+                </if>
+                <if test="swiper.deleted != null">
+                    and DELETED = #{swiper.deleted}
+                </if>
+                <if test="swiper.spare1 != null and swiper.spare1 != ''">
+                    and SPARE1 = #{swiper.spare1}
+                </if>
+                <if test="swiper.spare2 != null and swiper.spare2 != ''">
+                    and SPARE2 = #{swiper.spare2}
+                </if>
+                <if test="swiper.spare3 != null and swiper.spare3 != ''">
+                    and SPARE3 = #{swiper.spare3}
+                </if>
+                <if test="swiper.spare4 != null and swiper.spare4 != ''">
+                    and SPARE4 = #{swiper.spare4}
+                </if>
+                <if test="swiper.spare5 != null and swiper.spare5 != ''">
+                    and SPARE5 = #{swiper.spare5}
+                </if>
+            </where>
+        </if>
+        order by CREATED_TIME DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) from points_alliance.swiper
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="swiper.id != null and swiper.id != ''">
+                    and ID like CONCAT('%', #{swiper.id}, '%')
+                </if>
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="swiper.createdTime != null ">
+                    and CREATED_TIME = #{swiper.createdTime}
+                </if>
+
+                <if test="swiper.creator != null and swiper.creator != ''">
+                    and CREATOR like CONCAT('%', #{swiper.creator}, '%')
+                </if>
+
+                <if test="swiper.creatorId != null and swiper.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{swiper.creatorId}, '%')
+                </if>
+
+                <if test="swiper.lastUpdateId != null and swiper.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{swiper.lastUpdateId}, '%')
+                </if>
+
+                <if test="swiper.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{swiper.lastUpdateTime}
+                </if>
+
+                <if test="swiper.lastUpdater != null and swiper.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{swiper.lastUpdater}, '%')
+                </if>
+
+                <if test="swiper.imagePath != null and swiper.imagePath != ''">
+                    and IMAGE_PATH like CONCAT('%', #{swiper.imagePath}, '%')
+                </if>
+
+                <if test="swiper.linkUrl != null and swiper.linkUrl != ''">
+                    and LINK_URL like CONCAT('%', #{swiper.linkUrl}, '%')
+                </if>
+
+                <if test="swiper.companyId != null and swiper.companyId != ''">
+                    and COMPANY_ID = #{swiper.companyId}
+                </if>
+
+                <if test="swiper.deleted != null ">
+                    and DELETED = #{swiper.deleted}
+                </if>
+
+                <if test="swiper.spare1 != null and swiper.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{swiper.spare1}, '%')
+                </if>
+
+                <if test="swiper.spare2 != null and swiper.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{swiper.spare2}, '%')
+                </if>
+
+                <if test="swiper.spare3 != null and swiper.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{swiper.spare3}, '%')
+                </if>
+
+                <if test="swiper.spare4 != null and swiper.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{swiper.spare4}, '%')
+                </if>
+
+                <if test="swiper.spare5 != null and swiper.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{swiper.spare5}, '%')
+                </if>
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="swiper.id != null and swiper.id != ''">
+                    and ID = #{swiper.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="swiper.creator != null and swiper.creator != ''">
+                    and CREATOR = #{swiper.creator}
+                </if>
+                <if test="swiper.creatorId != null and swiper.creatorId != ''">
+                    and CREATOR_ID = #{swiper.creatorId}
+                </if>
+                <if test="swiper.lastUpdateId != null and swiper.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{swiper.lastUpdateId}
+                </if>
+                <if test="swiper.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{swiper.lastUpdateTime}
+                </if>
+                <if test="swiper.lastUpdater != null and swiper.lastUpdater != ''">
+                    and LAST_UPDATER = #{swiper.lastUpdater}
+                </if>
+                <if test="swiper.imagePath != null and swiper.imagePath != ''">
+                    and IMAGE_PATH = #{swiper.imagePath}
+                </if>
+                <if test="swiper.linkUrl != null and swiper.linkUrl != ''">
+                    and LINK_URL = #{swiper.linkUrl}
+                </if>
+                <if test="swiper.companyId != null and swiper.companyId != ''">
+                    and COMPANY_ID = #{swiper.companyId}
+                </if>
+                <if test="swiper.deleted != null">
+                    and DELETED = #{swiper.deleted}
+                </if>
+                <if test="swiper.spare1 != null and swiper.spare1 != ''">
+                    and SPARE1 = #{swiper.spare1}
+                </if>
+                <if test="swiper.spare2 != null and swiper.spare2 != ''">
+                    and SPARE2 = #{swiper.spare2}
+                </if>
+                <if test="swiper.spare3 != null and swiper.spare3 != ''">
+                    and SPARE3 = #{swiper.spare3}
+                </if>
+                <if test="swiper.spare4 != null and swiper.spare4 != ''">
+                    and SPARE4 = #{swiper.spare4}
+                </if>
+                <if test="swiper.spare5 != null and swiper.spare5 != ''">
+                    and SPARE5 = #{swiper.spare5}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="queryAll" resultMap="SwiperMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, IMAGE_PATH, LINK_URL,
+        COMPANY_ID, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.swiper
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="imagePath != null and imagePath != ''">
+                and IMAGE_PATH = #{imagePath}
+            </if>
+            <if test="linkUrl != null and linkUrl != ''">
+                and LINK_URL = #{linkUrl}
+            </if>
+            <if test="companyId != null and companyId != ''">
+                and COMPANY_ID = #{companyId}
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                and SPARE1 = #{spare1}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+        </where>
+        order by CREATED_TIME DESC
+    </select>
+
+    <update id="update">
+        update points_alliance.swiper
+        <set>
+            <if test="createdTime != null">
+                CREATED_TIME = #{createdTime},
+            </if>
+            <if test="creator != null and creator != ''">
+                CREATOR = #{creator},
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                CREATOR_ID = #{creatorId},
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                LAST_UPDATE_ID = #{lastUpdateId},
+            </if>
+            <if test="lastUpdateTime != null">
+                LAST_UPDATE_TIME = #{lastUpdateTime},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                LAST_UPDATER = #{lastUpdater},
+            </if>
+            <if test="imagePath != null and imagePath != ''">
+                IMAGE_PATH = #{imagePath},
+            </if>
+            <if test="linkUrl != null and linkUrl != ''">
+                LINK_URL = #{linkUrl},
+            </if>
+            <if test="companyId != null and companyId != ''">
+                COMPANY_ID = #{companyId},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted},
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                SPARE1 = #{spare1},
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                SPARE2 = #{spare2},
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                SPARE3 = #{spare3},
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                SPARE4 = #{spare4},
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                SPARE5 = #{spare5},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <update id="updateAllColumn">
+        update points_alliance.swiper
+        <set>
+            CREATED_TIME = #{createdTime},
+            CREATOR = #{creator},
+            CREATOR_ID = #{creatorId},
+            LAST_UPDATE_ID = #{lastUpdateId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            LAST_UPDATER = #{lastUpdater},
+            IMAGE_PATH = #{imagePath},
+            LINK_URL = #{linkUrl},
+            COMPANY_ID = #{companyId},
+            DELETED = #{deleted},
+            SPARE1 = #{spare1},
+            SPARE2 = #{spare2},
+            SPARE3 = #{spare3},
+            SPARE4 = #{spare4},
+            SPARE5 = #{spare5},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from points_alliance.swiper where ID
+        in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByIdNotTrue">
+        update points_alliance.swiper
+        set DELETED = 1,
+        LAST_UPDATE_ID = #{updateId},
+        LAST_UPDATER = #{updater},
+        LAST_UPDATE_TIME = #{dateTime}
+        where ID in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,858 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.CardDao">
+
+    <resultMap type="com.jx.entity.Card" id="CardMap">
+        <result property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="CREATED_TIME" jdbcType="TIMESTAMP"/>
+        <result property="creator" column="CREATOR" jdbcType="VARCHAR"/>
+        <result property="creatorId" column="CREATOR_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateId" column="LAST_UPDATE_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdater" column="LAST_UPDATER" jdbcType="VARCHAR"/>
+        <result property="name" column="NAME" jdbcType="VARCHAR"/>
+        <result property="memberNormal" column="MEMBER_NORMAL" jdbcType="NUMERIC"/>
+        <result property="memberGold" column="MEMBER_GOLD" jdbcType="NUMERIC"/>
+        <result property="memberDiamond" column="MEMBER_DIAMOND" jdbcType="NUMERIC"/>
+        <result property="service" column="SERVICE" jdbcType="INTEGER"/>
+        <result property="odds" column="ODDS" jdbcType="VARCHAR"/>
+        <result property="limitLine" column="LIMIT_LINE" jdbcType="NUMERIC"/>
+        <result property="exchangeType" column="EXCHANGE_TYPE" jdbcType="INTEGER"/>
+        <result property="exchangeCount" column="EXCHANGE_COUNT" jdbcType="INTEGER"/>
+        <result property="detailContent" column="DETAIL_CONTENT" jdbcType="OTHER"/>
+        <result property="companyId" column="COMPANY_ID" jdbcType="VARCHAR"/>
+        <result property="bankName" column="BANK_NAME" jdbcType="VARCHAR"/>
+        <result property="bankId" column="BANK_ID" jdbcType="VARCHAR"/>
+        <result property="phoneQueryPoint" column="PHONE_QUERY_POINT" jdbcType="VARCHAR"/>
+        <result property="smsQueryPoint" column="SMS_QUERY_POINT" jdbcType="VARCHAR"/>
+        <result property="platformFloorPrice" column="PLATFORM_FLOOR_PRICE" jdbcType="NUMERIC"/>
+        <result property="normalCompanyFloorPrice" column="NORMAL_COMPANY_FLOOR_PRICE" jdbcType="NUMERIC"/>
+        <result property="advancedCompanyFloorPrice" column="ADVANCED_COMPANY_FLOOR_PRICE" jdbcType="NUMERIC"/>
+        <result property="superCompanyFloorPrice" column="SUPER_COMPANY_FLOOR_PRICE" jdbcType="NUMERIC"/>
+        <result property="deleted" column="DELETED" jdbcType="INTEGER"/>
+        <result property="spare1" column="SPARE1" jdbcType="VARCHAR"/>
+        <result property="spare2" column="SPARE2" jdbcType="VARCHAR"/>
+        <result property="spare3" column="SPARE3" jdbcType="VARCHAR"/>
+        <result property="spare4" column="SPARE4" jdbcType="VARCHAR"/>
+        <result property="spare5" column="SPARE5" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryById" resultMap="CardMap">
+        select ID,
+               CREATED_TIME,
+               CREATOR,
+               CREATOR_ID,
+               LAST_UPDATE_ID,
+               LAST_UPDATE_TIME,
+               LAST_UPDATER,
+               NAME,
+               MEMBER_NORMAL,
+               MEMBER_GOLD,
+               MEMBER_DIAMOND,
+               SERVICE,
+               ODDS,
+               LIMIT_LINE,
+               EXCHANGE_TYPE,
+               EXCHANGE_COUNT,
+               DETAIL_CONTENT,
+               COMPANY_ID,
+               BANK_NAME,
+               BANK_ID,
+               PHONE_QUERY_POINT,
+               SMS_QUERY_POINT,
+               PLATFORM_FLOOR_PRICE,
+               NORMAL_COMPANY_FLOOR_PRICE,
+               ADVANCED_COMPANY_FLOOR_PRICE,
+               SUPER_COMPANY_FLOOR_PRICE,
+               DELETED,
+               SPARE1,
+               SPARE2,
+               SPARE3,
+               SPARE4,
+               SPARE5
+        from points_alliance.card
+        where ID = #{id}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="CardMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, NAME, MEMBER_NORMAL,
+        MEMBER_GOLD, MEMBER_DIAMOND, SERVICE, ODDS, LIMIT_LINE, EXCHANGE_TYPE, EXCHANGE_COUNT, DETAIL_CONTENT,
+        COMPANY_ID, BANK_NAME, BANK_ID, PHONE_QUERY_POINT, SMS_QUERY_POINT, PLATFORM_FLOOR_PRICE,
+        NORMAL_COMPANY_FLOOR_PRICE, ADVANCED_COMPANY_FLOOR_PRICE, SUPER_COMPANY_FLOOR_PRICE, DELETED, SPARE1, SPARE2,
+        SPARE3, SPARE4, SPARE5
+        from points_alliance.card
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="card.id != null and card.id != ''">
+                    and ID like CONCAT('%', #{card.id}, '%')
+                </if>
+
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="card.createdTime != null ">
+                    and CREATED_TIME = #{card.createdTime}
+                </if>
+
+                <if test="card.creator != null and card.creator != ''">
+                    and CREATOR like CONCAT('%', #{card.creator}, '%')
+                </if>
+
+                <if test="card.creatorId != null and card.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{card.creatorId}, '%')
+                </if>
+
+                <if test="card.lastUpdateId != null and card.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{card.lastUpdateId}, '%')
+                </if>
+
+                <if test="card.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{card.lastUpdateTime}
+                </if>
+
+
+                <if test="card.lastUpdater != null and card.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{card.lastUpdater}, '%')
+                </if>
+
+
+                <if test="card.name != null and card.name != ''">
+                    and NAME like CONCAT('%', #{card.name}, '%')
+                </if>
+
+
+                <if test="card.memberNormal != null ">
+                    and MEMBER_NORMAL = #{card.memberNormal}
+                </if>
+
+
+                <if test="card.memberGold != null ">
+                    and MEMBER_GOLD = #{card.memberGold}
+                </if>
+
+
+                <if test="card.memberDiamond != null ">
+                    and MEMBER_DIAMOND = #{card.memberDiamond}
+                </if>
+
+
+                <if test="card.service != null ">
+                    and SERVICE = #{card.service}
+                </if>
+
+
+                <if test="card.odds != null and card.odds != ''">
+                    and ODDS like CONCAT('%', #{card.odds}, '%')
+                </if>
+
+
+                <if test="card.limitLine != null ">
+                    and LIMIT_LINE = #{card.limitLine}
+                </if>
+
+
+                <if test="card.exchangeType != null ">
+                    and EXCHANGE_TYPE = #{card.exchangeType}
+                </if>
+
+
+                <if test="card.exchangeCount != null ">
+                    and EXCHANGE_COUNT = #{card.exchangeCount}
+                </if>
+
+
+                <if test="card.detailContent != null ">
+                    and DETAIL_CONTENT = #{card.detailContent}
+                </if>
+
+
+                <if test="card.companyId != null and card.companyId != ''">
+                    and COMPANY_ID = #{card.companyId}
+                </if>
+
+
+                <if test="card.bankName != null and card.bankName != ''">
+                    and BANK_NAME like CONCAT('%', #{card.bankName}, '%')
+                </if>
+
+
+                <if test="card.bankId != null and card.bankId != ''">
+                    and BANK_ID like CONCAT('%', #{card.bankId}, '%')
+                </if>
+
+
+                <if test="card.phoneQueryPoint != null and card.phoneQueryPoint != ''">
+                    and PHONE_QUERY_POINT like CONCAT('%', #{card.phoneQueryPoint}, '%')
+                </if>
+
+
+                <if test="card.smsQueryPoint != null and card.smsQueryPoint != ''">
+                    and SMS_QUERY_POINT like CONCAT('%', #{card.smsQueryPoint}, '%')
+                </if>
+
+
+                <if test="card.platformFloorPrice != null ">
+                    and PLATFORM_FLOOR_PRICE = #{card.platformFloorPrice}
+                </if>
+
+
+                <if test="card.normalCompanyFloorPrice != null ">
+                    and NORMAL_COMPANY_FLOOR_PRICE = #{card.normalCompanyFloorPrice}
+                </if>
+
+
+                <if test="card.advancedCompanyFloorPrice != null ">
+                    and ADVANCED_COMPANY_FLOOR_PRICE = #{card.advancedCompanyFloorPrice}
+                </if>
+
+
+                <if test="card.superCompanyFloorPrice != null ">
+                    and SUPER_COMPANY_FLOOR_PRICE = #{card.superCompanyFloorPrice}
+                </if>
+
+
+                <if test="card.deleted != null ">
+                    and DELETED = #{card.deleted}
+                </if>
+
+
+                <if test="card.spare1 != null and card.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{card.spare1}, '%')
+                </if>
+
+
+                <if test="card.spare2 != null and card.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{card.spare2}, '%')
+                </if>
+
+
+                <if test="card.spare3 != null and card.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{card.spare3}, '%')
+                </if>
+
+
+                <if test="card.spare4 != null and card.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{card.spare4}, '%')
+                </if>
+
+
+                <if test="card.spare5 != null and card.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{card.spare5}, '%')
+                </if>
+
+
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="card.id != null and card.id != ''">
+                    and ID = #{card.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="card.creator != null and card.creator != ''">
+                    and CREATOR = #{card.creator}
+                </if>
+                <if test="card.creatorId != null and card.creatorId != ''">
+                    and CREATOR_ID = #{card.creatorId}
+                </if>
+                <if test="card.lastUpdateId != null and card.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{card.lastUpdateId}
+                </if>
+                <if test="card.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{card.lastUpdateTime}
+                </if>
+                <if test="card.lastUpdater != null and card.lastUpdater != ''">
+                    and LAST_UPDATER = #{card.lastUpdater}
+                </if>
+                <if test="card.name != null and card.name != ''">
+                    and NAME = #{card.name}
+                </if>
+                <if test="card.memberNormal != null">
+                    and MEMBER_NORMAL = #{card.memberNormal}
+                </if>
+                <if test="card.memberGold != null">
+                    and MEMBER_GOLD = #{card.memberGold}
+                </if>
+                <if test="card.memberDiamond != null">
+                    and MEMBER_DIAMOND = #{card.memberDiamond}
+                </if>
+                <if test="card.service != null">
+                    and SERVICE = #{card.service}
+                </if>
+                <if test="card.odds != null and card.odds != ''">
+                    and ODDS = #{card.odds}
+                </if>
+                <if test="card.limitLine != null">
+                    and LIMIT_LINE = #{card.limitLine}
+                </if>
+                <if test="card.exchangeType != null">
+                    and EXCHANGE_TYPE = #{card.exchangeType}
+                </if>
+                <if test="card.exchangeCount != null">
+                    and EXCHANGE_COUNT = #{card.exchangeCount}
+                </if>
+                <if test="card.detailContent != null">
+                    and DETAIL_CONTENT = #{card.detailContent}
+                </if>
+                <if test="card.companyId != null and card.companyId != ''">
+                    and COMPANY_ID = #{card.companyId}
+                </if>
+                <if test="card.bankName != null and card.bankName != ''">
+                    and BANK_NAME = #{card.bankName}
+                </if>
+                <if test="card.bankId != null and card.bankId != ''">
+                    and BANK_ID = #{card.bankId}
+                </if>
+                <if test="card.phoneQueryPoint != null and card.phoneQueryPoint != ''">
+                    and PHONE_QUERY_POINT = #{card.phoneQueryPoint}
+                </if>
+                <if test="card.smsQueryPoint != null and card.smsQueryPoint != ''">
+                    and SMS_QUERY_POINT = #{card.smsQueryPoint}
+                </if>
+                <if test="card.platformFloorPrice != null">
+                    and PLATFORM_FLOOR_PRICE = #{card.platformFloorPrice}
+                </if>
+                <if test="card.normalCompanyFloorPrice != null">
+                    and NORMAL_COMPANY_FLOOR_PRICE = #{card.normalCompanyFloorPrice}
+                </if>
+                <if test="card.advancedCompanyFloorPrice != null">
+                    and ADVANCED_COMPANY_FLOOR_PRICE = #{card.advancedCompanyFloorPrice}
+                </if>
+                <if test="card.superCompanyFloorPrice != null">
+                    and SUPER_COMPANY_FLOOR_PRICE = #{card.superCompanyFloorPrice}
+                </if>
+                <if test="card.deleted != null">
+                    and DELETED = #{card.deleted}
+                </if>
+                <if test="card.spare1 != null and card.spare1 != ''">
+                    and SPARE1 = #{card.spare1}
+                </if>
+                <if test="card.spare2 != null and card.spare2 != ''">
+                    and SPARE2 = #{card.spare2}
+                </if>
+                <if test="card.spare3 != null and card.spare3 != ''">
+                    and SPARE3 = #{card.spare3}
+                </if>
+                <if test="card.spare4 != null and card.spare4 != ''">
+                    and SPARE4 = #{card.spare4}
+                </if>
+                <if test="card.spare5 != null and card.spare5 != ''">
+                    and SPARE5 = #{card.spare5}
+                </if>
+            </where>
+        </if>
+        order by CREATED_TIME DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) from points_alliance.card
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="card.id != null and card.id != ''">
+                    and ID like CONCAT('%', #{card.id}, '%')
+                </if>
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="card.createdTime != null ">
+                    and CREATED_TIME = #{card.createdTime}
+                </if>
+
+                <if test="card.creator != null and card.creator != ''">
+                    and CREATOR like CONCAT('%', #{card.creator}, '%')
+                </if>
+
+                <if test="card.creatorId != null and card.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{card.creatorId}, '%')
+                </if>
+
+                <if test="card.lastUpdateId != null and card.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{card.lastUpdateId}, '%')
+                </if>
+
+                <if test="card.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{card.lastUpdateTime}
+                </if>
+
+                <if test="card.lastUpdater != null and card.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{card.lastUpdater}, '%')
+                </if>
+
+                <if test="card.name != null and card.name != ''">
+                    and NAME like CONCAT('%', #{card.name}, '%')
+                </if>
+
+                <if test="card.memberNormal != null ">
+                    and MEMBER_NORMAL = #{card.memberNormal}
+                </if>
+
+                <if test="card.memberGold != null ">
+                    and MEMBER_GOLD = #{card.memberGold}
+                </if>
+
+                <if test="card.memberDiamond != null ">
+                    and MEMBER_DIAMOND = #{card.memberDiamond}
+                </if>
+
+                <if test="card.service != null ">
+                    and SERVICE = #{card.service}
+                </if>
+
+                <if test="card.odds != null and card.odds != ''">
+                    and ODDS like CONCAT('%', #{card.odds}, '%')
+                </if>
+
+                <if test="card.limitLine != null ">
+                    and LIMIT_LINE = #{card.limitLine}
+                </if>
+
+                <if test="card.exchangeType != null ">
+                    and EXCHANGE_TYPE = #{card.exchangeType}
+                </if>
+
+                <if test="card.exchangeCount != null ">
+                    and EXCHANGE_COUNT = #{card.exchangeCount}
+                </if>
+
+                <if test="card.detailContent != null ">
+                    and DETAIL_CONTENT = #{card.detailContent}
+                </if>
+
+                <if test="card.companyId != null and card.companyId != ''">
+                    and COMPANY_ID = #{card.companyId}
+                </if>
+
+                <if test="card.bankName != null and card.bankName != ''">
+                    and BANK_NAME like CONCAT('%', #{card.bankName}, '%')
+                </if>
+
+                <if test="card.bankId != null and card.bankId != ''">
+                    and BANK_ID like CONCAT('%', #{card.bankId}, '%')
+                </if>
+
+                <if test="card.phoneQueryPoint != null and card.phoneQueryPoint != ''">
+                    and PHONE_QUERY_POINT like CONCAT('%', #{card.phoneQueryPoint}, '%')
+                </if>
+
+                <if test="card.smsQueryPoint != null and card.smsQueryPoint != ''">
+                    and SMS_QUERY_POINT like CONCAT('%', #{card.smsQueryPoint}, '%')
+                </if>
+
+                <if test="card.platformFloorPrice != null ">
+                    and PLATFORM_FLOOR_PRICE = #{card.platformFloorPrice}
+                </if>
+
+                <if test="card.normalCompanyFloorPrice != null ">
+                    and NORMAL_COMPANY_FLOOR_PRICE = #{card.normalCompanyFloorPrice}
+                </if>
+
+                <if test="card.advancedCompanyFloorPrice != null ">
+                    and ADVANCED_COMPANY_FLOOR_PRICE = #{card.advancedCompanyFloorPrice}
+                </if>
+
+                <if test="card.superCompanyFloorPrice != null ">
+                    and SUPER_COMPANY_FLOOR_PRICE = #{card.superCompanyFloorPrice}
+                </if>
+
+                <if test="card.deleted != null ">
+                    and DELETED = #{card.deleted}
+                </if>
+
+                <if test="card.spare1 != null and card.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{card.spare1}, '%')
+                </if>
+
+                <if test="card.spare2 != null and card.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{card.spare2}, '%')
+                </if>
+
+                <if test="card.spare3 != null and card.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{card.spare3}, '%')
+                </if>
+
+                <if test="card.spare4 != null and card.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{card.spare4}, '%')
+                </if>
+
+                <if test="card.spare5 != null and card.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{card.spare5}, '%')
+                </if>
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="card.id != null and card.id != ''">
+                    and ID = #{card.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="card.creator != null and card.creator != ''">
+                    and CREATOR = #{card.creator}
+                </if>
+                <if test="card.creatorId != null and card.creatorId != ''">
+                    and CREATOR_ID = #{card.creatorId}
+                </if>
+                <if test="card.lastUpdateId != null and card.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{card.lastUpdateId}
+                </if>
+                <if test="card.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{card.lastUpdateTime}
+                </if>
+                <if test="card.lastUpdater != null and card.lastUpdater != ''">
+                    and LAST_UPDATER = #{card.lastUpdater}
+                </if>
+                <if test="card.name != null and card.name != ''">
+                    and NAME = #{card.name}
+                </if>
+                <if test="card.memberNormal != null">
+                    and MEMBER_NORMAL = #{card.memberNormal}
+                </if>
+                <if test="card.memberGold != null">
+                    and MEMBER_GOLD = #{card.memberGold}
+                </if>
+                <if test="card.memberDiamond != null">
+                    and MEMBER_DIAMOND = #{card.memberDiamond}
+                </if>
+                <if test="card.service != null">
+                    and SERVICE = #{card.service}
+                </if>
+                <if test="card.odds != null and card.odds != ''">
+                    and ODDS = #{card.odds}
+                </if>
+                <if test="card.limitLine != null">
+                    and LIMIT_LINE = #{card.limitLine}
+                </if>
+                <if test="card.exchangeType != null">
+                    and EXCHANGE_TYPE = #{card.exchangeType}
+                </if>
+                <if test="card.exchangeCount != null">
+                    and EXCHANGE_COUNT = #{card.exchangeCount}
+                </if>
+                <if test="card.detailContent != null">
+                    and DETAIL_CONTENT = #{card.detailContent}
+                </if>
+                <if test="card.companyId != null and card.companyId != ''">
+                    and COMPANY_ID = #{card.companyId}
+                </if>
+                <if test="card.bankName != null and card.bankName != ''">
+                    and BANK_NAME = #{card.bankName}
+                </if>
+                <if test="card.bankId != null and card.bankId != ''">
+                    and BANK_ID = #{card.bankId}
+                </if>
+                <if test="card.phoneQueryPoint != null and card.phoneQueryPoint != ''">
+                    and PHONE_QUERY_POINT = #{card.phoneQueryPoint}
+                </if>
+                <if test="card.smsQueryPoint != null and card.smsQueryPoint != ''">
+                    and SMS_QUERY_POINT = #{card.smsQueryPoint}
+                </if>
+                <if test="card.platformFloorPrice != null">
+                    and PLATFORM_FLOOR_PRICE = #{card.platformFloorPrice}
+                </if>
+                <if test="card.normalCompanyFloorPrice != null">
+                    and NORMAL_COMPANY_FLOOR_PRICE = #{card.normalCompanyFloorPrice}
+                </if>
+                <if test="card.advancedCompanyFloorPrice != null">
+                    and ADVANCED_COMPANY_FLOOR_PRICE = #{card.advancedCompanyFloorPrice}
+                </if>
+                <if test="card.superCompanyFloorPrice != null">
+                    and SUPER_COMPANY_FLOOR_PRICE = #{card.superCompanyFloorPrice}
+                </if>
+                <if test="card.deleted != null">
+                    and DELETED = #{card.deleted}
+                </if>
+                <if test="card.spare1 != null and card.spare1 != ''">
+                    and SPARE1 = #{card.spare1}
+                </if>
+                <if test="card.spare2 != null and card.spare2 != ''">
+                    and SPARE2 = #{card.spare2}
+                </if>
+                <if test="card.spare3 != null and card.spare3 != ''">
+                    and SPARE3 = #{card.spare3}
+                </if>
+                <if test="card.spare4 != null and card.spare4 != ''">
+                    and SPARE4 = #{card.spare4}
+                </if>
+                <if test="card.spare5 != null and card.spare5 != ''">
+                    and SPARE5 = #{card.spare5}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="queryAll" resultMap="CardMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, NAME, MEMBER_NORMAL,
+        MEMBER_GOLD, MEMBER_DIAMOND, SERVICE, ODDS, LIMIT_LINE, EXCHANGE_TYPE, EXCHANGE_COUNT, DETAIL_CONTENT,
+        COMPANY_ID, BANK_NAME, BANK_ID, PHONE_QUERY_POINT, SMS_QUERY_POINT, PLATFORM_FLOOR_PRICE,
+        NORMAL_COMPANY_FLOOR_PRICE, ADVANCED_COMPANY_FLOOR_PRICE, SUPER_COMPANY_FLOOR_PRICE, DELETED, SPARE1, SPARE2,
+        SPARE3, SPARE4, SPARE5
+        from points_alliance.card
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="name != null and name != ''">
+                and NAME = #{name}
+            </if>
+            <if test="memberNormal != null">
+                and MEMBER_NORMAL = #{memberNormal}
+            </if>
+            <if test="memberGold != null">
+                and MEMBER_GOLD = #{memberGold}
+            </if>
+            <if test="memberDiamond != null">
+                and MEMBER_DIAMOND = #{memberDiamond}
+            </if>
+            <if test="service != null">
+                and SERVICE = #{service}
+            </if>
+            <if test="odds != null and odds != ''">
+                and ODDS = #{odds}
+            </if>
+            <if test="limitLine != null">
+                and LIMIT_LINE = #{limitLine}
+            </if>
+            <if test="exchangeType != null">
+                and EXCHANGE_TYPE = #{exchangeType}
+            </if>
+            <if test="exchangeCount != null">
+                and EXCHANGE_COUNT = #{exchangeCount}
+            </if>
+            <if test="detailContent != null">
+                and DETAIL_CONTENT = #{detailContent}
+            </if>
+            <if test="companyId != null and companyId != ''">
+                and COMPANY_ID = #{companyId}
+            </if>
+            <if test="bankName != null and bankName != ''">
+                and BANK_NAME = #{bankName}
+            </if>
+            <if test="bankId != null and bankId != ''">
+                and BANK_ID = #{bankId}
+            </if>
+            <if test="phoneQueryPoint != null and phoneQueryPoint != ''">
+                and PHONE_QUERY_POINT = #{phoneQueryPoint}
+            </if>
+            <if test="smsQueryPoint != null and smsQueryPoint != ''">
+                and SMS_QUERY_POINT = #{smsQueryPoint}
+            </if>
+            <if test="platformFloorPrice != null">
+                and PLATFORM_FLOOR_PRICE = #{platformFloorPrice}
+            </if>
+            <if test="normalCompanyFloorPrice != null">
+                and NORMAL_COMPANY_FLOOR_PRICE = #{normalCompanyFloorPrice}
+            </if>
+            <if test="advancedCompanyFloorPrice != null">
+                and ADVANCED_COMPANY_FLOOR_PRICE = #{advancedCompanyFloorPrice}
+            </if>
+            <if test="superCompanyFloorPrice != null">
+                and SUPER_COMPANY_FLOOR_PRICE = #{superCompanyFloorPrice}
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                and SPARE1 = #{spare1}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+        </where>
+        order by CREATED_TIME DESC
+    </select>
+
+    <update id="update">
+        update points_alliance.card
+        <set>
+            <if test="createdTime != null">
+                CREATED_TIME = #{createdTime},
+            </if>
+            <if test="creator != null and creator != ''">
+                CREATOR = #{creator},
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                CREATOR_ID = #{creatorId},
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                LAST_UPDATE_ID = #{lastUpdateId},
+            </if>
+            <if test="lastUpdateTime != null">
+                LAST_UPDATE_TIME = #{lastUpdateTime},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                LAST_UPDATER = #{lastUpdater},
+            </if>
+            <if test="name != null and name != ''">
+                NAME = #{name},
+            </if>
+            <if test="memberNormal != null">
+                MEMBER_NORMAL = #{memberNormal},
+            </if>
+            <if test="memberGold != null">
+                MEMBER_GOLD = #{memberGold},
+            </if>
+            <if test="memberDiamond != null">
+                MEMBER_DIAMOND = #{memberDiamond},
+            </if>
+            <if test="service != null">
+                SERVICE = #{service},
+            </if>
+            <if test="odds != null and odds != ''">
+                ODDS = #{odds},
+            </if>
+            <if test="limitLine != null">
+                LIMIT_LINE = #{limitLine},
+            </if>
+            <if test="exchangeType != null">
+                EXCHANGE_TYPE = #{exchangeType},
+            </if>
+            <if test="exchangeCount != null">
+                EXCHANGE_COUNT = #{exchangeCount},
+            </if>
+            <if test="detailContent != null">
+                DETAIL_CONTENT = #{detailContent},
+            </if>
+            <if test="companyId != null and companyId != ''">
+                COMPANY_ID = #{companyId},
+            </if>
+            <if test="bankName != null and bankName != ''">
+                BANK_NAME = #{bankName},
+            </if>
+            <if test="bankId != null and bankId != ''">
+                BANK_ID = #{bankId},
+            </if>
+            <if test="phoneQueryPoint != null and phoneQueryPoint != ''">
+                PHONE_QUERY_POINT = #{phoneQueryPoint},
+            </if>
+            <if test="smsQueryPoint != null and smsQueryPoint != ''">
+                SMS_QUERY_POINT = #{smsQueryPoint},
+            </if>
+            <if test="platformFloorPrice != null">
+                PLATFORM_FLOOR_PRICE = #{platformFloorPrice},
+            </if>
+            <if test="normalCompanyFloorPrice != null">
+                NORMAL_COMPANY_FLOOR_PRICE = #{normalCompanyFloorPrice},
+            </if>
+            <if test="advancedCompanyFloorPrice != null">
+                ADVANCED_COMPANY_FLOOR_PRICE = #{advancedCompanyFloorPrice},
+            </if>
+            <if test="superCompanyFloorPrice != null">
+                SUPER_COMPANY_FLOOR_PRICE = #{superCompanyFloorPrice},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted},
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                SPARE1 = #{spare1},
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                SPARE2 = #{spare2},
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                SPARE3 = #{spare3},
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                SPARE4 = #{spare4},
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                SPARE5 = #{spare5},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <update id="updateAllColumn">
+        update points_alliance.card
+        <set>
+            CREATED_TIME = #{createdTime},
+            CREATOR = #{creator},
+            CREATOR_ID = #{creatorId},
+            LAST_UPDATE_ID = #{lastUpdateId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            LAST_UPDATER = #{lastUpdater},
+            NAME = #{name},
+            MEMBER_NORMAL = #{memberNormal},
+            MEMBER_GOLD = #{memberGold},
+            MEMBER_DIAMOND = #{memberDiamond},
+            SERVICE = #{service},
+            ODDS = #{odds},
+            LIMIT_LINE = #{limitLine},
+            EXCHANGE_TYPE = #{exchangeType},
+            EXCHANGE_COUNT = #{exchangeCount},
+            DETAIL_CONTENT = #{detailContent},
+            COMPANY_ID = #{companyId},
+            BANK_NAME = #{bankName},
+            BANK_ID = #{bankId},
+            PHONE_QUERY_POINT = #{phoneQueryPoint},
+            SMS_QUERY_POINT = #{smsQueryPoint},
+            PLATFORM_FLOOR_PRICE = #{platformFloorPrice},
+            NORMAL_COMPANY_FLOOR_PRICE = #{normalCompanyFloorPrice},
+            ADVANCED_COMPANY_FLOOR_PRICE = #{advancedCompanyFloorPrice},
+            SUPER_COMPANY_FLOOR_PRICE = #{superCompanyFloorPrice},
+            DELETED = #{deleted},
+            SPARE1 = #{spare1},
+            SPARE2 = #{spare2},
+            SPARE3 = #{spare3},
+            SPARE4 = #{spare4},
+            SPARE5 = #{spare5},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from points_alliance.card where ID
+        in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByIdNotTrue">
+        update points_alliance.card
+        set DELETED = 1,
+        LAST_UPDATE_ID = #{updateId},
+        LAST_UPDATER = #{updater},
+        LAST_UPDATE_TIME = #{dateTime}
+        where SPARE1 in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

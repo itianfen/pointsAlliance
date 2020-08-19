@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.BankDao">
+
+    <resultMap type="com.jx.entity.Bank" id="BankMap">
+        <result property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="CREATED_TIME" jdbcType="TIMESTAMP"/>
+        <result property="creator" column="CREATOR" jdbcType="VARCHAR"/>
+        <result property="creatorId" column="CREATOR_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateId" column="LAST_UPDATE_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdater" column="LAST_UPDATER" jdbcType="VARCHAR"/>
+        <result property="iconPath" column="ICON_PATH" jdbcType="VARCHAR"/>
+        <result property="name" column="NAME" jdbcType="VARCHAR"/>
+        <result property="serviceId" column="SERVICE_ID" jdbcType="VARCHAR"/>
+        <result property="serviceName" column="SERVICE_NAME" jdbcType="VARCHAR"/>
+        <result property="serviceImage" column="SERVICE_IMAGE" jdbcType="VARCHAR"/>
+        <result property="serviceNumber" column="SERVICE_NUMBER" jdbcType="VARCHAR"/>
+        <result property="orderId" column="ORDER_ID" jdbcType="INTEGER"/>
+        <result property="phoneQueryPoint" column="PHONE_QUERY_POINT" jdbcType="VARCHAR"/>
+        <result property="smsQueryPoint" column="SMS_QUERY_POINT" jdbcType="VARCHAR"/>
+        <result property="deleted" column="DELETED" jdbcType="INTEGER"/>
+        <result property="spare1" column="SPARE1" jdbcType="VARCHAR"/>
+        <result property="spare2" column="SPARE2" jdbcType="VARCHAR"/>
+        <result property="spare3" column="SPARE3" jdbcType="VARCHAR"/>
+        <result property="spare4" column="SPARE4" jdbcType="VARCHAR"/>
+        <result property="spare5" column="SPARE5" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryById" resultMap="BankMap">
+        select ID,
+               CREATED_TIME,
+               CREATOR,
+               CREATOR_ID,
+               LAST_UPDATE_ID,
+               LAST_UPDATE_TIME,
+               LAST_UPDATER,
+               ICON_PATH,
+               NAME,
+               SERVICE_ID,
+               SERVICE_NAME,
+               SERVICE_IMAGE,
+               SERVICE_NUMBER,
+               ORDER_ID,
+               PHONE_QUERY_POINT,
+               SMS_QUERY_POINT,
+               DELETED,
+               SPARE1,
+               SPARE2,
+               SPARE3,
+               SPARE4,
+               SPARE5
+        from points_alliance.bank
+        where ID = #{id}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="BankMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, ICON_PATH, NAME,
+        SERVICE_ID, SERVICE_NAME, SERVICE_IMAGE, SERVICE_NUMBER, ORDER_ID, PHONE_QUERY_POINT, SMS_QUERY_POINT, DELETED,
+        SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.bank
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="bank.id != null and bank.id != ''">
+                    and ID like CONCAT('%', #{bank.id}, '%')
+                </if>
+
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="bank.createdTime != null ">
+                    and CREATED_TIME = #{bank.createdTime}
+                </if>
+
+
+                <if test="bank.creator != null and bank.creator != ''">
+                    and CREATOR like CONCAT('%', #{bank.creator}, '%')
+                </if>
+
+
+                <if test="bank.creatorId != null and bank.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{bank.creatorId}, '%')
+                </if>
+
+
+                <if test="bank.lastUpdateId != null and bank.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{bank.lastUpdateId}, '%')
+                </if>
+
+
+                <if test="bank.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{bank.lastUpdateTime}
+                </if>
+
+
+                <if test="bank.lastUpdater != null and bank.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{bank.lastUpdater}, '%')
+                </if>
+
+
+                <if test="bank.iconPath != null and bank.iconPath != ''">
+                    and ICON_PATH like CONCAT('%', #{bank.iconPath}, '%')
+                </if>
+
+
+                <if test="bank.name != null and bank.name != ''">
+                    and NAME like CONCAT('%', #{bank.name}, '%')
+                </if>
+
+
+                <if test="bank.serviceId != null and bank.serviceId != ''">
+                    and SERVICE_ID like CONCAT('%', #{bank.serviceId}, '%')
+                </if>
+
+
+                <if test="bank.serviceName != null and bank.serviceName != ''">
+                    and SERVICE_NAME like CONCAT('%', #{bank.serviceName}, '%')
+                </if>
+
+
+                <if test="bank.serviceImage != null and bank.serviceImage != ''">
+                    and SERVICE_IMAGE like CONCAT('%', #{bank.serviceImage}, '%')
+                </if>
+
+
+                <if test="bank.serviceNumber != null and bank.serviceNumber != ''">
+                    and SERVICE_NUMBER like CONCAT('%', #{bank.serviceNumber}, '%')
+                </if>
+
+
+                <if test="bank.orderId != null ">
+                    and ORDER_ID = #{bank.orderId}
+                </if>
+
+
+                <if test="bank.phoneQueryPoint != null and bank.phoneQueryPoint != ''">
+                    and PHONE_QUERY_POINT like CONCAT('%', #{bank.phoneQueryPoint}, '%')
+                </if>
+
+
+                <if test="bank.smsQueryPoint != null and bank.smsQueryPoint != ''">
+                    and SMS_QUERY_POINT like CONCAT('%', #{bank.smsQueryPoint}, '%')
+                </if>
+
+
+                <if test="bank.deleted != null ">
+                    and DELETED = #{bank.deleted}
+                </if>
+
+
+                <if test="bank.spare1 != null and bank.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{bank.spare1}, '%')
+                </if>
+
+
+                <if test="bank.spare2 != null and bank.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{bank.spare2}, '%')
+                </if>
+
+
+                <if test="bank.spare3 != null and bank.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{bank.spare3}, '%')
+                </if>
+
+
+                <if test="bank.spare4 != null and bank.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{bank.spare4}, '%')
+                </if>
+
+
+                <if test="bank.spare5 != null and bank.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{bank.spare5}, '%')
+                </if>
+
+
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="bank.id != null and bank.id != ''">
+                    and ID = #{bank.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="bank.creator != null and bank.creator != ''">
+                    and CREATOR = #{bank.creator}
+                </if>
+                <if test="bank.creatorId != null and bank.creatorId != ''">
+                    and CREATOR_ID = #{bank.creatorId}
+                </if>
+                <if test="bank.lastUpdateId != null and bank.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{bank.lastUpdateId}
+                </if>
+                <if test="bank.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{bank.lastUpdateTime}
+                </if>
+                <if test="bank.lastUpdater != null and bank.lastUpdater != ''">
+                    and LAST_UPDATER = #{bank.lastUpdater}
+                </if>
+                <if test="bank.iconPath != null and bank.iconPath != ''">
+                    and ICON_PATH = #{bank.iconPath}
+                </if>
+                <if test="bank.name != null and bank.name != ''">
+                    and NAME = #{bank.name}
+                </if>
+                <if test="bank.serviceId != null and bank.serviceId != ''">
+                    and SERVICE_ID = #{bank.serviceId}
+                </if>
+                <if test="bank.serviceName != null and bank.serviceName != ''">
+                    and SERVICE_NAME = #{bank.serviceName}
+                </if>
+                <if test="bank.serviceImage != null and bank.serviceImage != ''">
+                    and SERVICE_IMAGE = #{bank.serviceImage}
+                </if>
+                <if test="bank.serviceNumber != null and bank.serviceNumber != ''">
+                    and SERVICE_NUMBER = #{bank.serviceNumber}
+                </if>
+                <if test="bank.orderId != null">
+                    and ORDER_ID = #{bank.orderId}
+                </if>
+                <if test="bank.phoneQueryPoint != null and bank.phoneQueryPoint != ''">
+                    and PHONE_QUERY_POINT = #{bank.phoneQueryPoint}
+                </if>
+                <if test="bank.smsQueryPoint != null and bank.smsQueryPoint != ''">
+                    and SMS_QUERY_POINT = #{bank.smsQueryPoint}
+                </if>
+                <if test="bank.deleted != null">
+                    and DELETED = #{bank.deleted}
+                </if>
+                <if test="bank.spare1 != null and bank.spare1 != ''">
+                    and SPARE1 = #{bank.spare1}
+                </if>
+                <if test="bank.spare2 != null and bank.spare2 != ''">
+                    and SPARE2 = #{bank.spare2}
+                </if>
+                <if test="bank.spare3 != null and bank.spare3 != ''">
+                    and SPARE3 = #{bank.spare3}
+                </if>
+                <if test="bank.spare4 != null and bank.spare4 != ''">
+                    and SPARE4 = #{bank.spare4}
+                </if>
+                <if test="bank.spare5 != null and bank.spare5 != ''">
+                    and SPARE5 = #{bank.spare5}
+                </if>
+            </where>
+        </if>
+        order by ORDER_ID asc
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) from points_alliance.bank
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="bank.id != null and bank.id != ''">
+                    and ID like CONCAT('%', #{bank.id}, '%')
+                </if>
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="bank.createdTime != null ">
+                    and CREATED_TIME = #{bank.createdTime}
+                </if>
+
+                <if test="bank.creator != null and bank.creator != ''">
+                    and CREATOR like CONCAT('%', #{bank.creator}, '%')
+                </if>
+
+                <if test="bank.creatorId != null and bank.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{bank.creatorId}, '%')
+                </if>
+
+                <if test="bank.lastUpdateId != null and bank.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{bank.lastUpdateId}, '%')
+                </if>
+
+                <if test="bank.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{bank.lastUpdateTime}
+                </if>
+
+                <if test="bank.lastUpdater != null and bank.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{bank.lastUpdater}, '%')
+                </if>
+
+                <if test="bank.iconPath != null and bank.iconPath != ''">
+                    and ICON_PATH like CONCAT('%', #{bank.iconPath}, '%')
+                </if>
+
+                <if test="bank.name != null and bank.name != ''">
+                    and NAME like CONCAT('%', #{bank.name}, '%')
+                </if>
+
+                <if test="bank.serviceId != null and bank.serviceId != ''">
+                    and SERVICE_ID like CONCAT('%', #{bank.serviceId}, '%')
+                </if>
+
+                <if test="bank.serviceName != null and bank.serviceName != ''">
+                    and SERVICE_NAME like CONCAT('%', #{bank.serviceName}, '%')
+                </if>
+
+                <if test="bank.serviceImage != null and bank.serviceImage != ''">
+                    and SERVICE_IMAGE like CONCAT('%', #{bank.serviceImage}, '%')
+                </if>
+
+                <if test="bank.serviceNumber != null and bank.serviceNumber != ''">
+                    and SERVICE_NUMBER like CONCAT('%', #{bank.serviceNumber}, '%')
+                </if>
+
+                <if test="bank.orderId != null ">
+                    and ORDER_ID = #{bank.orderId}
+                </if>
+
+                <if test="bank.phoneQueryPoint != null and bank.phoneQueryPoint != ''">
+                    and PHONE_QUERY_POINT like CONCAT('%', #{bank.phoneQueryPoint}, '%')
+                </if>
+
+                <if test="bank.smsQueryPoint != null and bank.smsQueryPoint != ''">
+                    and SMS_QUERY_POINT like CONCAT('%', #{bank.smsQueryPoint}, '%')
+                </if>
+
+                <if test="bank.deleted != null ">
+                    and DELETED = #{bank.deleted}
+                </if>
+
+                <if test="bank.spare1 != null and bank.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{bank.spare1}, '%')
+                </if>
+
+                <if test="bank.spare2 != null and bank.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{bank.spare2}, '%')
+                </if>
+
+                <if test="bank.spare3 != null and bank.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{bank.spare3}, '%')
+                </if>
+
+                <if test="bank.spare4 != null and bank.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{bank.spare4}, '%')
+                </if>
+
+                <if test="bank.spare5 != null and bank.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{bank.spare5}, '%')
+                </if>
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="bank.id != null and bank.id != ''">
+                    and ID = #{bank.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="bank.creator != null and bank.creator != ''">
+                    and CREATOR = #{bank.creator}
+                </if>
+                <if test="bank.creatorId != null and bank.creatorId != ''">
+                    and CREATOR_ID = #{bank.creatorId}
+                </if>
+                <if test="bank.lastUpdateId != null and bank.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{bank.lastUpdateId}
+                </if>
+                <if test="bank.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{bank.lastUpdateTime}
+                </if>
+                <if test="bank.lastUpdater != null and bank.lastUpdater != ''">
+                    and LAST_UPDATER = #{bank.lastUpdater}
+                </if>
+                <if test="bank.iconPath != null and bank.iconPath != ''">
+                    and ICON_PATH = #{bank.iconPath}
+                </if>
+                <if test="bank.name != null and bank.name != ''">
+                    and NAME = #{bank.name}
+                </if>
+                <if test="bank.serviceId != null and bank.serviceId != ''">
+                    and SERVICE_ID = #{bank.serviceId}
+                </if>
+                <if test="bank.serviceName != null and bank.serviceName != ''">
+                    and SERVICE_NAME = #{bank.serviceName}
+                </if>
+                <if test="bank.serviceImage != null and bank.serviceImage != ''">
+                    and SERVICE_IMAGE = #{bank.serviceImage}
+                </if>
+                <if test="bank.serviceNumber != null and bank.serviceNumber != ''">
+                    and SERVICE_NUMBER = #{bank.serviceNumber}
+                </if>
+                <if test="bank.orderId != null">
+                    and ORDER_ID = #{bank.orderId}
+                </if>
+                <if test="bank.phoneQueryPoint != null and bank.phoneQueryPoint != ''">
+                    and PHONE_QUERY_POINT = #{bank.phoneQueryPoint}
+                </if>
+                <if test="bank.smsQueryPoint != null and bank.smsQueryPoint != ''">
+                    and SMS_QUERY_POINT = #{bank.smsQueryPoint}
+                </if>
+                <if test="bank.deleted != null">
+                    and DELETED = #{bank.deleted}
+                </if>
+                <if test="bank.spare1 != null and bank.spare1 != ''">
+                    and SPARE1 = #{bank.spare1}
+                </if>
+                <if test="bank.spare2 != null and bank.spare2 != ''">
+                    and SPARE2 = #{bank.spare2}
+                </if>
+                <if test="bank.spare3 != null and bank.spare3 != ''">
+                    and SPARE3 = #{bank.spare3}
+                </if>
+                <if test="bank.spare4 != null and bank.spare4 != ''">
+                    and SPARE4 = #{bank.spare4}
+                </if>
+                <if test="bank.spare5 != null and bank.spare5 != ''">
+                    and SPARE5 = #{bank.spare5}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="queryAll" resultMap="BankMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, ICON_PATH, NAME,
+        SERVICE_ID, SERVICE_NAME, SERVICE_IMAGE, SERVICE_NUMBER, ORDER_ID, PHONE_QUERY_POINT, SMS_QUERY_POINT, DELETED,
+        SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.bank
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="iconPath != null and iconPath != ''">
+                and ICON_PATH = #{iconPath}
+            </if>
+            <if test="name != null and name != ''">
+                and NAME = #{name}
+            </if>
+            <if test="serviceId != null and serviceId != ''">
+                and SERVICE_ID = #{serviceId}
+            </if>
+            <if test="serviceName != null and serviceName != ''">
+                and SERVICE_NAME = #{serviceName}
+            </if>
+            <if test="serviceImage != null and serviceImage != ''">
+                and SERVICE_IMAGE = #{serviceImage}
+            </if>
+            <if test="serviceNumber != null and serviceNumber != ''">
+                and SERVICE_NUMBER = #{serviceNumber}
+            </if>
+            <if test="orderId != null">
+                and ORDER_ID = #{orderId}
+            </if>
+            <if test="phoneQueryPoint != null and phoneQueryPoint != ''">
+                and PHONE_QUERY_POINT = #{phoneQueryPoint}
+            </if>
+            <if test="smsQueryPoint != null and smsQueryPoint != ''">
+                and SMS_QUERY_POINT = #{smsQueryPoint}
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                and SPARE1 = #{spare1}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+        </where>
+        order by CREATED_TIME DESC
+    </select>
+
+    <update id="update">
+        update points_alliance.bank
+        <set>
+            <if test="createdTime != null">
+                CREATED_TIME = #{createdTime},
+            </if>
+            <if test="creator != null and creator != ''">
+                CREATOR = #{creator},
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                CREATOR_ID = #{creatorId},
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                LAST_UPDATE_ID = #{lastUpdateId},
+            </if>
+            <if test="lastUpdateTime != null">
+                LAST_UPDATE_TIME = #{lastUpdateTime},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                LAST_UPDATER = #{lastUpdater},
+            </if>
+            <if test="iconPath != null and iconPath != ''">
+                ICON_PATH = #{iconPath},
+            </if>
+            <if test="name != null and name != ''">
+                NAME = #{name},
+            </if>
+            <if test="serviceId != null and serviceId != ''">
+                SERVICE_ID = #{serviceId},
+            </if>
+            <if test="serviceName != null and serviceName != ''">
+                SERVICE_NAME = #{serviceName},
+            </if>
+            <if test="serviceImage != null and serviceImage != ''">
+                SERVICE_IMAGE = #{serviceImage},
+            </if>
+            <if test="serviceNumber != null and serviceNumber != ''">
+                SERVICE_NUMBER = #{serviceNumber},
+            </if>
+            <if test="orderId != null">
+                ORDER_ID = #{orderId},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted},
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                SPARE1 = #{spare1},
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                SPARE2 = #{spare2},
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                SPARE3 = #{spare3},
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                SPARE4 = #{spare4},
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                SPARE5 = #{spare5},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <update id="updateAllColumn">
+        update points_alliance.bank
+        <set>
+            CREATED_TIME = #{createdTime},
+            CREATOR = #{creator},
+            CREATOR_ID = #{creatorId},
+            LAST_UPDATE_ID = #{lastUpdateId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            LAST_UPDATER = #{lastUpdater},
+            ICON_PATH = #{iconPath},
+            NAME = #{name},
+            SERVICE_ID = #{serviceId},
+            SERVICE_NAME = #{serviceName},
+            SERVICE_IMAGE = #{serviceImage},
+            SERVICE_NUMBER = #{serviceNumber},
+            ORDER_ID = #{orderId},
+            DELETED = #{deleted},
+            SPARE1 = #{spare1},
+            SPARE2 = #{spare2},
+            SPARE3 = #{spare3},
+            SPARE4 = #{spare4},
+            SPARE5 = #{spare5},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from points_alliance.bank where ID
+        in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByIdNotTrue">
+        update points_alliance.bank
+        set DELETED = 1,
+        LAST_UPDATE_ID = #{updateId},
+        LAST_UPDATER = #{updater},
+        LAST_UPDATE_TIME = #{dateTime}
+        where ID in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

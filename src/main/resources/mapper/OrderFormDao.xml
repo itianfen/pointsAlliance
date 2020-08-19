@@ -1,0 +1,932 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.OrderFormDao">
+
+    <resultMap type="com.jx.entity.OrderForm" id="OrderFormMap">
+        <result property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="CREATED_TIME" jdbcType="TIMESTAMP"/>
+        <result property="creator" column="CREATOR" jdbcType="VARCHAR"/>
+        <result property="creatorId" column="CREATOR_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateId" column="LAST_UPDATE_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdater" column="LAST_UPDATER" jdbcType="VARCHAR"/>
+        <result property="userId" column="USER_ID" jdbcType="VARCHAR"/>
+        <result property="userName" column="USER_NAME" jdbcType="VARCHAR"/>
+        <result property="userPhone" column="USER_PHONE" jdbcType="VARCHAR"/>
+        <result property="spendPoint" column="SPEND_POINT" jdbcType="NUMERIC"/>
+        <result property="auditState" column="AUDIT_STATE" jdbcType="INTEGER"/>
+        <result property="auditContent" column="AUDIT_CONTENT" jdbcType="VARCHAR"/>
+        <result property="bankId" column="BANK_ID" jdbcType="VARCHAR"/>
+        <result property="bankName" column="BANK_NAME" jdbcType="VARCHAR"/>
+        <result property="bankImg" column="BANK_IMG" jdbcType="VARCHAR"/>
+        <result property="cardId" column="CARD_ID" jdbcType="VARCHAR"/>
+        <result property="cardName" column="CARD_NAME" jdbcType="VARCHAR"/>
+        <result property="itemType" column="ITEM_TYPE" jdbcType="INTEGER"/>
+        <result property="itemContent" column="ITEM_CONTENT" jdbcType="VARCHAR"/>
+        <result property="getMoney" column="GET_MONEY" jdbcType="NUMERIC"/>
+        <result property="unitPrice" column="UNIT_PRICE" jdbcType="NUMERIC"/>
+        <result property="serviceId" column="SERVICE_ID" jdbcType="VARCHAR"/>
+        <result property="serviceName" column="SERVICE_NAME" jdbcType="VARCHAR"/>
+        <result property="serviceNumber" column="SERVICE_NUMBER" jdbcType="VARCHAR"/>
+        <result property="serviceImg" column="SERVICE_IMG" jdbcType="VARCHAR"/>
+        <result property="oderDetail" column="ODER_DETAIL" jdbcType="OTHER"/>
+        <result property="wxPaymentId" column="WX_PAYMENT_ID" jdbcType="VARCHAR"/>
+        <result property="wxPaymentAmount" column="WX_PAYMENT_AMOUNT" jdbcType="NUMERIC"/>
+        <result property="deleted" column="DELETED" jdbcType="INTEGER"/>
+        <result property="orderType" column="ORDER_TYPE" jdbcType="INTEGER"/>
+        <result property="spare2" column="SPARE2" jdbcType="VARCHAR"/>
+        <result property="spare3" column="SPARE3" jdbcType="VARCHAR"/>
+        <result property="spare4" column="SPARE4" jdbcType="VARCHAR"/>
+        <result property="spare5" column="SPARE5" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryById" resultMap="OrderFormMap">
+        select ID,
+               CREATED_TIME,
+               CREATOR,
+               CREATOR_ID,
+               LAST_UPDATE_ID,
+               LAST_UPDATE_TIME,
+               LAST_UPDATER,
+               USER_ID,
+               USER_NAME,
+               USER_PHONE,
+               SPEND_POINT,
+               AUDIT_STATE,
+               AUDIT_CONTENT,
+               BANK_ID,
+               BANK_NAME,
+               BANK_IMG,
+               CARD_ID,
+               CARD_NAME,
+               ITEM_TYPE,
+               ITEM_CONTENT,
+               GET_MONEY,
+               UNIT_PRICE,
+               SERVICE_ID,
+               SERVICE_NAME,
+               SERVICE_NUMBER,
+               SERVICE_IMG,
+               ODER_DETAIL,
+               WX_PAYMENT_ID,
+               WX_PAYMENT_AMOUNT,
+               DELETED,
+               ORDER_TYPE,
+               SPARE2,
+               SPARE3,
+               SPARE4,
+               SPARE5
+        from points_alliance.order_form
+        where ID = #{id}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="OrderFormMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, USER_ID, USER_NAME,
+        USER_PHONE, SPEND_POINT, AUDIT_STATE, AUDIT_CONTENT, BANK_ID, BANK_NAME, BANK_IMG, CARD_ID, CARD_NAME,
+        ITEM_TYPE, ITEM_CONTENT, GET_MONEY, UNIT_PRICE, SERVICE_ID, SERVICE_NAME, SERVICE_NUMBER, SERVICE_IMG,
+        ODER_DETAIL, WX_PAYMENT_ID, WX_PAYMENT_AMOUNT, DELETED, ORDER_TYPE, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.order_form
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="orderForm.id != null and orderForm.id != ''">
+                    and ID like CONCAT('%', #{orderForm.id}, '%')
+                </if>
+
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="orderForm.createdTime != null ">
+                    and CREATED_TIME = #{orderForm.createdTime}
+                </if>
+
+
+                <if test="orderForm.creator != null and orderForm.creator != ''">
+                    and CREATOR like CONCAT('%', #{orderForm.creator}, '%')
+                </if>
+
+
+                <if test="orderForm.creatorId != null and orderForm.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{orderForm.creatorId}, '%')
+                </if>
+
+
+                <if test="orderForm.lastUpdateId != null and orderForm.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{orderForm.lastUpdateId}, '%')
+                </if>
+
+
+                <if test="orderForm.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{orderForm.lastUpdateTime}
+                </if>
+
+
+                <if test="orderForm.lastUpdater != null and orderForm.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{orderForm.lastUpdater}, '%')
+                </if>
+
+
+                <if test="orderForm.userId != null and orderForm.userId != ''">
+                    and USER_ID like CONCAT('%', #{orderForm.userId}, '%')
+                </if>
+
+
+                <if test="orderForm.userName != null and orderForm.userName != ''">
+                    and USER_NAME like CONCAT('%', #{orderForm.userName}, '%')
+                </if>
+
+
+                <if test="orderForm.userPhone != null and orderForm.userPhone != ''">
+                    and USER_PHONE like CONCAT('%', #{orderForm.userPhone}, '%')
+                </if>
+
+
+                <if test="orderForm.spendPoint != null ">
+                    and SPEND_POINT = #{orderForm.spendPoint}
+                </if>
+
+
+                <if test="orderForm.auditState != null ">
+                    and AUDIT_STATE = #{orderForm.auditState}
+                </if>
+
+
+                <if test="orderForm.auditContent != null and orderForm.auditContent != ''">
+                    and AUDIT_CONTENT like CONCAT('%', #{orderForm.auditContent}, '%')
+                </if>
+
+
+                <if test="orderForm.bankId != null and orderForm.bankId != ''">
+                    and BANK_ID like CONCAT('%', #{orderForm.bankId}, '%')
+                </if>
+
+
+                <if test="orderForm.bankName != null and orderForm.bankName != ''">
+                    and BANK_NAME like CONCAT('%', #{orderForm.bankName}, '%')
+                </if>
+
+
+                <if test="orderForm.bankImg != null and orderForm.bankImg != ''">
+                    and BANK_IMG like CONCAT('%', #{orderForm.bankImg}, '%')
+                </if>
+
+
+                <if test="orderForm.cardId != null and orderForm.cardId != ''">
+                    and CARD_ID like CONCAT('%', #{orderForm.cardId}, '%')
+                </if>
+
+
+                <if test="orderForm.cardName != null and orderForm.cardName != ''">
+                    and CARD_NAME like CONCAT('%', #{orderForm.cardName}, '%')
+                </if>
+
+
+                <if test="orderForm.itemType != null ">
+                    and ITEM_TYPE = #{orderForm.itemType}
+                </if>
+
+
+                <if test="orderForm.itemContent != null and orderForm.itemContent != ''">
+                    and ITEM_CONTENT like CONCAT('%', #{orderForm.itemContent}, '%')
+                </if>
+
+
+                <if test="orderForm.getMoney != null ">
+                    and GET_MONEY = #{orderForm.getMoney}
+                </if>
+
+
+                <if test="orderForm.unitPrice != null ">
+                    and UNIT_PRICE = #{orderForm.unitPrice}
+                </if>
+
+
+                <if test="orderForm.serviceId != null and orderForm.serviceId != ''">
+                    and SERVICE_ID like CONCAT('%', #{orderForm.serviceId}, '%')
+                </if>
+
+
+                <if test="orderForm.serviceName != null and orderForm.serviceName != ''">
+                    and SERVICE_NAME like CONCAT('%', #{orderForm.serviceName}, '%')
+                </if>
+
+
+                <if test="orderForm.serviceNumber != null and orderForm.serviceNumber != ''">
+                    and SERVICE_NUMBER like CONCAT('%', #{orderForm.serviceNumber}, '%')
+                </if>
+
+
+                <if test="orderForm.serviceImg != null and orderForm.serviceImg != ''">
+                    and SERVICE_IMG like CONCAT('%', #{orderForm.serviceImg}, '%')
+                </if>
+
+
+                <if test="orderForm.oderDetail != null ">
+                    and ODER_DETAIL = #{orderForm.oderDetail}
+                </if>
+
+
+                <if test="orderForm.wxPaymentId != null and orderForm.wxPaymentId != ''">
+                    and WX_PAYMENT_ID like CONCAT('%', #{orderForm.wxPaymentId}, '%')
+                </if>
+
+
+                <if test="orderForm.wxPaymentAmount != null ">
+                    and WX_PAYMENT_AMOUNT = #{orderForm.wxPaymentAmount}
+                </if>
+
+
+                <if test="orderForm.deleted != null ">
+                    and DELETED = #{orderForm.deleted}
+                </if>
+
+
+                <if test="orderForm.orderType != null ">
+                    and ORDER_TYPE = #{orderForm.orderType}
+                </if>
+
+
+                <if test="orderForm.spare2 != null and orderForm.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{orderForm.spare2}, '%')
+                </if>
+
+
+                <if test="orderForm.spare3 != null and orderForm.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{orderForm.spare3}, '%')
+                </if>
+
+
+                <if test="orderForm.spare4 != null and orderForm.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{orderForm.spare4}, '%')
+                </if>
+
+
+                <if test="orderForm.spare5 != null and orderForm.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{orderForm.spare5}, '%')
+                </if>
+
+
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="orderForm.id != null and orderForm.id != ''">
+                    and ID = #{orderForm.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="orderForm.creator != null and orderForm.creator != ''">
+                    and CREATOR = #{orderForm.creator}
+                </if>
+                <if test="orderForm.creatorId != null and orderForm.creatorId != ''">
+                    and CREATOR_ID = #{orderForm.creatorId}
+                </if>
+                <if test="orderForm.lastUpdateId != null and orderForm.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{orderForm.lastUpdateId}
+                </if>
+                <if test="orderForm.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{orderForm.lastUpdateTime}
+                </if>
+                <if test="orderForm.lastUpdater != null and orderForm.lastUpdater != ''">
+                    and LAST_UPDATER = #{orderForm.lastUpdater}
+                </if>
+                <if test="orderForm.userId != null and orderForm.userId != ''">
+                    and USER_ID = #{orderForm.userId}
+                </if>
+                <if test="orderForm.userName != null and orderForm.userName != ''">
+                    and USER_NAME = #{orderForm.userName}
+                </if>
+                <if test="orderForm.userPhone != null and orderForm.userPhone != ''">
+                    and USER_PHONE = #{orderForm.userPhone}
+                </if>
+                <if test="orderForm.spendPoint != null">
+                    and SPEND_POINT = #{orderForm.spendPoint}
+                </if>
+                <if test="orderForm.auditState != null">
+                    and AUDIT_STATE = #{orderForm.auditState}
+                </if>
+                <if test="orderForm.auditContent != null and orderForm.auditContent != ''">
+                    and AUDIT_CONTENT = #{orderForm.auditContent}
+                </if>
+                <if test="orderForm.bankId != null and orderForm.bankId != ''">
+                    and BANK_ID = #{orderForm.bankId}
+                </if>
+                <if test="orderForm.bankName != null and orderForm.bankName != ''">
+                    and BANK_NAME = #{orderForm.bankName}
+                </if>
+                <if test="orderForm.bankImg != null and orderForm.bankImg != ''">
+                    and BANK_IMG = #{orderForm.bankImg}
+                </if>
+                <if test="orderForm.cardId != null and orderForm.cardId != ''">
+                    and CARD_ID = #{orderForm.cardId}
+                </if>
+                <if test="orderForm.cardName != null and orderForm.cardName != ''">
+                    and CARD_NAME = #{orderForm.cardName}
+                </if>
+                <if test="orderForm.itemType != null">
+                    and ITEM_TYPE = #{orderForm.itemType}
+                </if>
+                <if test="orderForm.itemContent != null and orderForm.itemContent != ''">
+                    and ITEM_CONTENT = #{orderForm.itemContent}
+                </if>
+                <if test="orderForm.getMoney != null">
+                    and GET_MONEY = #{orderForm.getMoney}
+                </if>
+                <if test="orderForm.unitPrice != null">
+                    and UNIT_PRICE = #{orderForm.unitPrice}
+                </if>
+                <if test="orderForm.serviceId != null and orderForm.serviceId != ''">
+                    and SERVICE_ID = #{orderForm.serviceId}
+                </if>
+                <if test="orderForm.serviceName != null and orderForm.serviceName != ''">
+                    and SERVICE_NAME = #{orderForm.serviceName}
+                </if>
+                <if test="orderForm.serviceNumber != null and orderForm.serviceNumber != ''">
+                    and SERVICE_NUMBER = #{orderForm.serviceNumber}
+                </if>
+                <if test="orderForm.serviceImg != null and orderForm.serviceImg != ''">
+                    and SERVICE_IMG = #{orderForm.serviceImg}
+                </if>
+                <if test="orderForm.oderDetail != null">
+                    and ODER_DETAIL = #{orderForm.oderDetail}
+                </if>
+                <if test="orderForm.wxPaymentId != null and orderForm.wxPaymentId != ''">
+                    and WX_PAYMENT_ID = #{orderForm.wxPaymentId}
+                </if>
+                <if test="orderForm.wxPaymentAmount != null">
+                    and WX_PAYMENT_AMOUNT = #{orderForm.wxPaymentAmount}
+                </if>
+                <if test="orderForm.deleted != null">
+                    and DELETED = #{orderForm.deleted}
+                </if>
+                <if test="orderForm.orderType != null">
+                    and ORDER_TYPE = #{orderForm.orderType}
+                </if>
+                <if test="orderForm.spare2 != null and orderForm.spare2 != ''">
+                    and SPARE2 = #{orderForm.spare2}
+                </if>
+                <if test="orderForm.spare3 != null and orderForm.spare3 != ''">
+                    and SPARE3 = #{orderForm.spare3}
+                </if>
+                <if test="orderForm.spare4 != null and orderForm.spare4 != ''">
+                    and SPARE4 = #{orderForm.spare4}
+                </if>
+                <if test="orderForm.spare5 != null and orderForm.spare5 != ''">
+                    and SPARE5 = #{orderForm.spare5}
+                </if>
+            </where>
+        </if>
+        order by CREATED_TIME DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) from points_alliance.order_form
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="orderForm.id != null and orderForm.id != ''">
+                    and ID like CONCAT('%', #{orderForm.id}, '%')
+                </if>
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="orderForm.createdTime != null ">
+                    and CREATED_TIME = #{orderForm.createdTime}
+                </if>
+
+                <if test="orderForm.creator != null and orderForm.creator != ''">
+                    and CREATOR like CONCAT('%', #{orderForm.creator}, '%')
+                </if>
+
+                <if test="orderForm.creatorId != null and orderForm.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{orderForm.creatorId}, '%')
+                </if>
+
+                <if test="orderForm.lastUpdateId != null and orderForm.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{orderForm.lastUpdateId}, '%')
+                </if>
+
+                <if test="orderForm.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{orderForm.lastUpdateTime}
+                </if>
+
+                <if test="orderForm.lastUpdater != null and orderForm.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{orderForm.lastUpdater}, '%')
+                </if>
+
+                <if test="orderForm.userId != null and orderForm.userId != ''">
+                    and USER_ID like CONCAT('%', #{orderForm.userId}, '%')
+                </if>
+
+                <if test="orderForm.userName != null and orderForm.userName != ''">
+                    and USER_NAME like CONCAT('%', #{orderForm.userName}, '%')
+                </if>
+
+                <if test="orderForm.userPhone != null and orderForm.userPhone != ''">
+                    and USER_PHONE like CONCAT('%', #{orderForm.userPhone}, '%')
+                </if>
+
+                <if test="orderForm.spendPoint != null ">
+                    and SPEND_POINT = #{orderForm.spendPoint}
+                </if>
+
+                <if test="orderForm.auditState != null ">
+                    and AUDIT_STATE = #{orderForm.auditState}
+                </if>
+
+                <if test="orderForm.auditContent != null and orderForm.auditContent != ''">
+                    and AUDIT_CONTENT like CONCAT('%', #{orderForm.auditContent}, '%')
+                </if>
+
+                <if test="orderForm.bankId != null and orderForm.bankId != ''">
+                    and BANK_ID like CONCAT('%', #{orderForm.bankId}, '%')
+                </if>
+
+                <if test="orderForm.bankName != null and orderForm.bankName != ''">
+                    and BANK_NAME like CONCAT('%', #{orderForm.bankName}, '%')
+                </if>
+
+                <if test="orderForm.bankImg != null and orderForm.bankImg != ''">
+                    and BANK_IMG like CONCAT('%', #{orderForm.bankImg}, '%')
+                </if>
+
+                <if test="orderForm.cardId != null and orderForm.cardId != ''">
+                    and CARD_ID like CONCAT('%', #{orderForm.cardId}, '%')
+                </if>
+
+                <if test="orderForm.cardName != null and orderForm.cardName != ''">
+                    and CARD_NAME like CONCAT('%', #{orderForm.cardName}, '%')
+                </if>
+
+                <if test="orderForm.itemType != null ">
+                    and ITEM_TYPE = #{orderForm.itemType}
+                </if>
+
+                <if test="orderForm.itemContent != null and orderForm.itemContent != ''">
+                    and ITEM_CONTENT like CONCAT('%', #{orderForm.itemContent}, '%')
+                </if>
+
+                <if test="orderForm.getMoney != null ">
+                    and GET_MONEY = #{orderForm.getMoney}
+                </if>
+
+                <if test="orderForm.unitPrice != null ">
+                    and UNIT_PRICE = #{orderForm.unitPrice}
+                </if>
+
+                <if test="orderForm.serviceId != null and orderForm.serviceId != ''">
+                    and SERVICE_ID like CONCAT('%', #{orderForm.serviceId}, '%')
+                </if>
+
+                <if test="orderForm.serviceName != null and orderForm.serviceName != ''">
+                    and SERVICE_NAME like CONCAT('%', #{orderForm.serviceName}, '%')
+                </if>
+
+                <if test="orderForm.serviceNumber != null and orderForm.serviceNumber != ''">
+                    and SERVICE_NUMBER like CONCAT('%', #{orderForm.serviceNumber}, '%')
+                </if>
+
+                <if test="orderForm.serviceImg != null and orderForm.serviceImg != ''">
+                    and SERVICE_IMG like CONCAT('%', #{orderForm.serviceImg}, '%')
+                </if>
+
+                <if test="orderForm.oderDetail != null ">
+                    and ODER_DETAIL = #{orderForm.oderDetail}
+                </if>
+
+                <if test="orderForm.wxPaymentId != null and orderForm.wxPaymentId != ''">
+                    and WX_PAYMENT_ID like CONCAT('%', #{orderForm.wxPaymentId}, '%')
+                </if>
+
+                <if test="orderForm.wxPaymentAmount != null ">
+                    and WX_PAYMENT_AMOUNT = #{orderForm.wxPaymentAmount}
+                </if>
+
+                <if test="orderForm.deleted != null ">
+                    and DELETED = #{orderForm.deleted}
+                </if>
+
+                <if test="orderForm.orderType != null ">
+                    and ORDER_TYPE = #{orderForm.orderType}
+                </if>
+
+                <if test="orderForm.spare2 != null and orderForm.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{orderForm.spare2}, '%')
+                </if>
+
+                <if test="orderForm.spare3 != null and orderForm.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{orderForm.spare3}, '%')
+                </if>
+
+                <if test="orderForm.spare4 != null and orderForm.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{orderForm.spare4}, '%')
+                </if>
+
+                <if test="orderForm.spare5 != null and orderForm.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{orderForm.spare5}, '%')
+                </if>
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="orderForm.id != null and orderForm.id != ''">
+                    and ID = #{orderForm.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="orderForm.creator != null and orderForm.creator != ''">
+                    and CREATOR = #{orderForm.creator}
+                </if>
+                <if test="orderForm.creatorId != null and orderForm.creatorId != ''">
+                    and CREATOR_ID = #{orderForm.creatorId}
+                </if>
+                <if test="orderForm.lastUpdateId != null and orderForm.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{orderForm.lastUpdateId}
+                </if>
+                <if test="orderForm.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{orderForm.lastUpdateTime}
+                </if>
+                <if test="orderForm.lastUpdater != null and orderForm.lastUpdater != ''">
+                    and LAST_UPDATER = #{orderForm.lastUpdater}
+                </if>
+                <if test="orderForm.userId != null and orderForm.userId != ''">
+                    and USER_ID = #{orderForm.userId}
+                </if>
+                <if test="orderForm.userName != null and orderForm.userName != ''">
+                    and USER_NAME = #{orderForm.userName}
+                </if>
+                <if test="orderForm.userPhone != null and orderForm.userPhone != ''">
+                    and USER_PHONE = #{orderForm.userPhone}
+                </if>
+                <if test="orderForm.spendPoint != null">
+                    and SPEND_POINT = #{orderForm.spendPoint}
+                </if>
+                <if test="orderForm.auditState != null">
+                    and AUDIT_STATE = #{orderForm.auditState}
+                </if>
+                <if test="orderForm.auditContent != null and orderForm.auditContent != ''">
+                    and AUDIT_CONTENT = #{orderForm.auditContent}
+                </if>
+                <if test="orderForm.bankId != null and orderForm.bankId != ''">
+                    and BANK_ID = #{orderForm.bankId}
+                </if>
+                <if test="orderForm.bankName != null and orderForm.bankName != ''">
+                    and BANK_NAME = #{orderForm.bankName}
+                </if>
+                <if test="orderForm.bankImg != null and orderForm.bankImg != ''">
+                    and BANK_IMG = #{orderForm.bankImg}
+                </if>
+                <if test="orderForm.cardId != null and orderForm.cardId != ''">
+                    and CARD_ID = #{orderForm.cardId}
+                </if>
+                <if test="orderForm.cardName != null and orderForm.cardName != ''">
+                    and CARD_NAME = #{orderForm.cardName}
+                </if>
+                <if test="orderForm.itemType != null">
+                    and ITEM_TYPE = #{orderForm.itemType}
+                </if>
+                <if test="orderForm.itemContent != null and orderForm.itemContent != ''">
+                    and ITEM_CONTENT = #{orderForm.itemContent}
+                </if>
+                <if test="orderForm.getMoney != null">
+                    and GET_MONEY = #{orderForm.getMoney}
+                </if>
+                <if test="orderForm.unitPrice != null">
+                    and UNIT_PRICE = #{orderForm.unitPrice}
+                </if>
+                <if test="orderForm.serviceId != null and orderForm.serviceId != ''">
+                    and SERVICE_ID = #{orderForm.serviceId}
+                </if>
+                <if test="orderForm.serviceName != null and orderForm.serviceName != ''">
+                    and SERVICE_NAME = #{orderForm.serviceName}
+                </if>
+                <if test="orderForm.serviceNumber != null and orderForm.serviceNumber != ''">
+                    and SERVICE_NUMBER = #{orderForm.serviceNumber}
+                </if>
+                <if test="orderForm.serviceImg != null and orderForm.serviceImg != ''">
+                    and SERVICE_IMG = #{orderForm.serviceImg}
+                </if>
+                <if test="orderForm.oderDetail != null">
+                    and ODER_DETAIL = #{orderForm.oderDetail}
+                </if>
+                <if test="orderForm.wxPaymentId != null and orderForm.wxPaymentId != ''">
+                    and WX_PAYMENT_ID = #{orderForm.wxPaymentId}
+                </if>
+                <if test="orderForm.wxPaymentAmount != null">
+                    and WX_PAYMENT_AMOUNT = #{orderForm.wxPaymentAmount}
+                </if>
+                <if test="orderForm.deleted != null">
+                    and DELETED = #{orderForm.deleted}
+                </if>
+                <if test="orderForm.orderType != null">
+                    and ORDER_TYPE = #{orderForm.orderType}
+                </if>
+                <if test="orderForm.spare2 != null and orderForm.spare2 != ''">
+                    and SPARE2 = #{orderForm.spare2}
+                </if>
+                <if test="orderForm.spare3 != null and orderForm.spare3 != ''">
+                    and SPARE3 = #{orderForm.spare3}
+                </if>
+                <if test="orderForm.spare4 != null and orderForm.spare4 != ''">
+                    and SPARE4 = #{orderForm.spare4}
+                </if>
+                <if test="orderForm.spare5 != null and orderForm.spare5 != ''">
+                    and SPARE5 = #{orderForm.spare5}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="queryAll" resultMap="OrderFormMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, USER_ID, USER_NAME,
+        USER_PHONE, SPEND_POINT, AUDIT_STATE, AUDIT_CONTENT, BANK_ID, BANK_NAME, BANK_IMG, CARD_ID, CARD_NAME,
+        ITEM_TYPE, ITEM_CONTENT, GET_MONEY, UNIT_PRICE, SERVICE_ID, SERVICE_NAME, SERVICE_NUMBER, SERVICE_IMG,
+        ODER_DETAIL, WX_PAYMENT_ID, WX_PAYMENT_AMOUNT, DELETED, ORDER_TYPE, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.order_form
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="userId != null and userId != ''">
+                and USER_ID = #{userId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and USER_NAME = #{userName}
+            </if>
+            <if test="userPhone != null and userPhone != ''">
+                and USER_PHONE = #{userPhone}
+            </if>
+            <if test="spendPoint != null">
+                and SPEND_POINT = #{spendPoint}
+            </if>
+            <if test="auditState != null">
+                and AUDIT_STATE = #{auditState}
+            </if>
+            <if test="auditContent != null and auditContent != ''">
+                and AUDIT_CONTENT = #{auditContent}
+            </if>
+            <if test="bankId != null and bankId != ''">
+                and BANK_ID = #{bankId}
+            </if>
+            <if test="bankName != null and bankName != ''">
+                and BANK_NAME = #{bankName}
+            </if>
+            <if test="bankImg != null and bankImg != ''">
+                and BANK_IMG = #{bankImg}
+            </if>
+            <if test="cardId != null and cardId != ''">
+                and CARD_ID = #{cardId}
+            </if>
+            <if test="cardName != null and cardName != ''">
+                and CARD_NAME = #{cardName}
+            </if>
+            <if test="itemType != null">
+                and ITEM_TYPE = #{itemType}
+            </if>
+            <if test="itemContent != null and itemContent != ''">
+                and ITEM_CONTENT = #{itemContent}
+            </if>
+            <if test="getMoney != null">
+                and GET_MONEY = #{getMoney}
+            </if>
+            <if test="unitPrice != null">
+                and UNIT_PRICE = #{unitPrice}
+            </if>
+            <if test="serviceId != null and serviceId != ''">
+                and SERVICE_ID = #{serviceId}
+            </if>
+            <if test="serviceName != null and serviceName != ''">
+                and SERVICE_NAME = #{serviceName}
+            </if>
+            <if test="serviceNumber != null and serviceNumber != ''">
+                and SERVICE_NUMBER = #{serviceNumber}
+            </if>
+            <if test="serviceImg != null and serviceImg != ''">
+                and SERVICE_IMG = #{serviceImg}
+            </if>
+            <if test="oderDetail != null">
+                and ODER_DETAIL = #{oderDetail}
+            </if>
+            <if test="wxPaymentId != null and wxPaymentId != ''">
+                and WX_PAYMENT_ID = #{wxPaymentId}
+            </if>
+            <if test="wxPaymentAmount != null">
+                and WX_PAYMENT_AMOUNT = #{wxPaymentAmount}
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="orderType != null">
+                and ORDER_TYPE = #{orderType}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+        </where>
+        order by CREATED_TIME DESC
+    </select>
+
+    <update id="update">
+        update points_alliance.order_form
+        <set>
+            <if test="createdTime != null">
+                CREATED_TIME = #{createdTime},
+            </if>
+            <if test="creator != null and creator != ''">
+                CREATOR = #{creator},
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                CREATOR_ID = #{creatorId},
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                LAST_UPDATE_ID = #{lastUpdateId},
+            </if>
+            <if test="lastUpdateTime != null">
+                LAST_UPDATE_TIME = #{lastUpdateTime},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                LAST_UPDATER = #{lastUpdater},
+            </if>
+            <if test="userId != null and userId != ''">
+                USER_ID = #{userId},
+            </if>
+            <if test="userName != null and userName != ''">
+                USER_NAME = #{userName},
+            </if>
+            <if test="userPhone != null and userPhone != ''">
+                USER_PHONE = #{userPhone},
+            </if>
+            <if test="spendPoint != null">
+                SPEND_POINT = #{spendPoint},
+            </if>
+            <if test="auditState != null">
+                AUDIT_STATE = #{auditState},
+            </if>
+            <if test="auditContent != null and auditContent != ''">
+                AUDIT_CONTENT = #{auditContent},
+            </if>
+            <if test="bankId != null and bankId != ''">
+                BANK_ID = #{bankId},
+            </if>
+            <if test="bankName != null and bankName != ''">
+                BANK_NAME = #{bankName},
+            </if>
+            <if test="bankImg != null and bankImg != ''">
+                BANK_IMG = #{bankImg},
+            </if>
+            <if test="cardId != null and cardId != ''">
+                CARD_ID = #{cardId},
+            </if>
+            <if test="cardName != null and cardName != ''">
+                CARD_NAME = #{cardName},
+            </if>
+            <if test="itemType != null">
+                ITEM_TYPE = #{itemType},
+            </if>
+            <if test="itemContent != null and itemContent != ''">
+                ITEM_CONTENT = #{itemContent},
+            </if>
+            <if test="getMoney != null">
+                GET_MONEY = #{getMoney},
+            </if>
+            <if test="unitPrice != null">
+                UNIT_PRICE = #{unitPrice},
+            </if>
+            <if test="serviceId != null and serviceId != ''">
+                SERVICE_ID = #{serviceId},
+            </if>
+            <if test="serviceName != null and serviceName != ''">
+                SERVICE_NAME = #{serviceName},
+            </if>
+            <if test="serviceNumber != null and serviceNumber != ''">
+                SERVICE_NUMBER = #{serviceNumber},
+            </if>
+            <if test="serviceImg != null and serviceImg != ''">
+                SERVICE_IMG = #{serviceImg},
+            </if>
+            <if test="oderDetail != null">
+                ODER_DETAIL = #{oderDetail},
+            </if>
+            <if test="wxPaymentId != null and wxPaymentId != ''">
+                WX_PAYMENT_ID = #{wxPaymentId},
+            </if>
+            <if test="wxPaymentAmount != null">
+                WX_PAYMENT_AMOUNT = #{wxPaymentAmount},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted},
+            </if>
+            <if test="orderType != null">
+                ORDER_TYPE = #{orderType},
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                SPARE2 = #{spare2},
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                SPARE3 = #{spare3},
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                SPARE4 = #{spare4},
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                SPARE5 = #{spare5},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <update id="updateAllColumn">
+        update points_alliance.order_form
+        <set>
+            CREATED_TIME = #{createdTime},
+            CREATOR = #{creator},
+            CREATOR_ID = #{creatorId},
+            LAST_UPDATE_ID = #{lastUpdateId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            LAST_UPDATER = #{lastUpdater},
+            USER_ID = #{userId},
+            USER_NAME = #{userName},
+            USER_PHONE = #{userPhone},
+            SPEND_POINT = #{spendPoint},
+            AUDIT_STATE = #{auditState},
+            AUDIT_CONTENT = #{auditContent},
+            BANK_ID = #{bankId},
+            BANK_NAME = #{bankName},
+            BANK_IMG = #{bankImg},
+            CARD_ID = #{cardId},
+            CARD_NAME = #{cardName},
+            ITEM_TYPE = #{itemType},
+            ITEM_CONTENT = #{itemContent},
+            GET_MONEY = #{getMoney},
+            UNIT_PRICE = #{unitPrice},
+            SERVICE_ID = #{serviceId},
+            SERVICE_NAME = #{serviceName},
+            SERVICE_NUMBER = #{serviceNumber},
+            SERVICE_IMG = #{serviceImg},
+            ODER_DETAIL = #{oderDetail},
+            WX_PAYMENT_ID = #{wxPaymentId},
+            WX_PAYMENT_AMOUNT = #{wxPaymentAmount},
+            DELETED = #{deleted},
+            ORDER_TYPE = #{orderType},
+            SPARE2 = #{spare2},
+            SPARE3 = #{spare3},
+            SPARE4 = #{spare4},
+            SPARE5 = #{spare5},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from points_alliance.order_form where ID
+        in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByIdNotTrue">
+        update points_alliance.order_form
+        set DELETED = 1,
+        LAST_UPDATE_ID = #{updateId},
+        LAST_UPDATER = #{updater},
+        LAST_UPDATE_TIME = #{dateTime}
+        where ID in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

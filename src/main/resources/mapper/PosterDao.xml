@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.PosterDao">
+
+    <resultMap type="com.jx.entity.Poster" id="PosterMap">
+        <result property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="CREATED_TIME" jdbcType="TIMESTAMP"/>
+        <result property="creator" column="CREATOR" jdbcType="VARCHAR"/>
+        <result property="creatorId" column="CREATOR_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateId" column="LAST_UPDATE_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdater" column="LAST_UPDATER" jdbcType="VARCHAR"/>
+        <result property="posterName" column="POSTER_NAME" jdbcType="VARCHAR"/>
+        <result property="posterImg" column="POSTER_IMG" jdbcType="VARCHAR"/>
+        <result property="deleted" column="DELETED" jdbcType="INTEGER"/>
+        <result property="spare1" column="SPARE1" jdbcType="VARCHAR"/>
+        <result property="spare2" column="SPARE2" jdbcType="VARCHAR"/>
+        <result property="spare3" column="SPARE3" jdbcType="VARCHAR"/>
+        <result property="spare4" column="SPARE4" jdbcType="VARCHAR"/>
+        <result property="spare5" column="SPARE5" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryById" resultMap="PosterMap">
+        select ID,
+               CREATED_TIME,
+               CREATOR,
+               CREATOR_ID,
+               LAST_UPDATE_ID,
+               LAST_UPDATE_TIME,
+               LAST_UPDATER,
+               POSTER_NAME,
+               POSTER_IMG,
+               DELETED,
+               SPARE1,
+               SPARE2,
+               SPARE3,
+               SPARE4,
+               SPARE5
+        from points_alliance.poster
+        where ID = #{id}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="PosterMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, POSTER_NAME, POSTER_IMG,
+        DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.poster
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="poster.id != null and poster.id != ''">
+                    and ID like CONCAT('%', #{poster.id}, '%')
+                </if>
+
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="poster.createdTime != null ">
+                    and CREATED_TIME = #{poster.createdTime}
+                </if>
+
+
+                <if test="poster.creator != null and poster.creator != ''">
+                    and CREATOR like CONCAT('%', #{poster.creator}, '%')
+                </if>
+
+
+                <if test="poster.creatorId != null and poster.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{poster.creatorId}, '%')
+                </if>
+
+
+                <if test="poster.lastUpdateId != null and poster.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{poster.lastUpdateId}, '%')
+                </if>
+
+
+                <if test="poster.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{poster.lastUpdateTime}
+                </if>
+
+
+                <if test="poster.lastUpdater != null and poster.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{poster.lastUpdater}, '%')
+                </if>
+
+
+                <if test="poster.posterName != null and poster.posterName != ''">
+                    and POSTER_NAME like CONCAT('%', #{poster.posterName}, '%')
+                </if>
+
+
+                <if test="poster.posterImg != null and poster.posterImg != ''">
+                    and POSTER_IMG like CONCAT('%', #{poster.posterImg}, '%')
+                </if>
+
+
+                <if test="poster.deleted != null ">
+                    and DELETED = #{poster.deleted}
+                </if>
+
+
+                <if test="poster.spare1 != null and poster.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{poster.spare1}, '%')
+                </if>
+
+
+                <if test="poster.spare2 != null and poster.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{poster.spare2}, '%')
+                </if>
+
+
+                <if test="poster.spare3 != null and poster.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{poster.spare3}, '%')
+                </if>
+
+
+                <if test="poster.spare4 != null and poster.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{poster.spare4}, '%')
+                </if>
+
+
+                <if test="poster.spare5 != null and poster.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{poster.spare5}, '%')
+                </if>
+
+
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="poster.id != null and poster.id != ''">
+                    and ID = #{poster.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="poster.creator != null and poster.creator != ''">
+                    and CREATOR = #{poster.creator}
+                </if>
+                <if test="poster.creatorId != null and poster.creatorId != ''">
+                    and CREATOR_ID = #{poster.creatorId}
+                </if>
+                <if test="poster.lastUpdateId != null and poster.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{poster.lastUpdateId}
+                </if>
+                <if test="poster.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{poster.lastUpdateTime}
+                </if>
+                <if test="poster.lastUpdater != null and poster.lastUpdater != ''">
+                    and LAST_UPDATER = #{poster.lastUpdater}
+                </if>
+                <if test="poster.posterName != null and poster.posterName != ''">
+                    and POSTER_NAME = #{poster.posterName}
+                </if>
+                <if test="poster.posterImg != null and poster.posterImg != ''">
+                    and POSTER_IMG = #{poster.posterImg}
+                </if>
+                <if test="poster.deleted != null">
+                    and DELETED = #{poster.deleted}
+                </if>
+                <if test="poster.spare1 != null and poster.spare1 != ''">
+                    and SPARE1 = #{poster.spare1}
+                </if>
+                <if test="poster.spare2 != null and poster.spare2 != ''">
+                    and SPARE2 = #{poster.spare2}
+                </if>
+                <if test="poster.spare3 != null and poster.spare3 != ''">
+                    and SPARE3 = #{poster.spare3}
+                </if>
+                <if test="poster.spare4 != null and poster.spare4 != ''">
+                    and SPARE4 = #{poster.spare4}
+                </if>
+                <if test="poster.spare5 != null and poster.spare5 != ''">
+                    and SPARE5 = #{poster.spare5}
+                </if>
+            </where>
+        </if>
+        order by CREATED_TIME DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) from points_alliance.poster
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="poster.id != null and poster.id != ''">
+                    and ID like CONCAT('%', #{poster.id}, '%')
+                </if>
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="poster.createdTime != null ">
+                    and CREATED_TIME = #{poster.createdTime}
+                </if>
+
+                <if test="poster.creator != null and poster.creator != ''">
+                    and CREATOR like CONCAT('%', #{poster.creator}, '%')
+                </if>
+
+                <if test="poster.creatorId != null and poster.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{poster.creatorId}, '%')
+                </if>
+
+                <if test="poster.lastUpdateId != null and poster.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{poster.lastUpdateId}, '%')
+                </if>
+
+                <if test="poster.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{poster.lastUpdateTime}
+                </if>
+
+                <if test="poster.lastUpdater != null and poster.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{poster.lastUpdater}, '%')
+                </if>
+
+                <if test="poster.posterName != null and poster.posterName != ''">
+                    and POSTER_NAME like CONCAT('%', #{poster.posterName}, '%')
+                </if>
+
+                <if test="poster.posterImg != null and poster.posterImg != ''">
+                    and POSTER_IMG like CONCAT('%', #{poster.posterImg}, '%')
+                </if>
+
+                <if test="poster.deleted != null ">
+                    and DELETED = #{poster.deleted}
+                </if>
+
+                <if test="poster.spare1 != null and poster.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{poster.spare1}, '%')
+                </if>
+
+                <if test="poster.spare2 != null and poster.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{poster.spare2}, '%')
+                </if>
+
+                <if test="poster.spare3 != null and poster.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{poster.spare3}, '%')
+                </if>
+
+                <if test="poster.spare4 != null and poster.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{poster.spare4}, '%')
+                </if>
+
+                <if test="poster.spare5 != null and poster.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{poster.spare5}, '%')
+                </if>
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="poster.id != null and poster.id != ''">
+                    and ID = #{poster.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="poster.creator != null and poster.creator != ''">
+                    and CREATOR = #{poster.creator}
+                </if>
+                <if test="poster.creatorId != null and poster.creatorId != ''">
+                    and CREATOR_ID = #{poster.creatorId}
+                </if>
+                <if test="poster.lastUpdateId != null and poster.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{poster.lastUpdateId}
+                </if>
+                <if test="poster.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{poster.lastUpdateTime}
+                </if>
+                <if test="poster.lastUpdater != null and poster.lastUpdater != ''">
+                    and LAST_UPDATER = #{poster.lastUpdater}
+                </if>
+                <if test="poster.posterName != null and poster.posterName != ''">
+                    and POSTER_NAME = #{poster.posterName}
+                </if>
+                <if test="poster.posterImg != null and poster.posterImg != ''">
+                    and POSTER_IMG = #{poster.posterImg}
+                </if>
+                <if test="poster.deleted != null">
+                    and DELETED = #{poster.deleted}
+                </if>
+                <if test="poster.spare1 != null and poster.spare1 != ''">
+                    and SPARE1 = #{poster.spare1}
+                </if>
+                <if test="poster.spare2 != null and poster.spare2 != ''">
+                    and SPARE2 = #{poster.spare2}
+                </if>
+                <if test="poster.spare3 != null and poster.spare3 != ''">
+                    and SPARE3 = #{poster.spare3}
+                </if>
+                <if test="poster.spare4 != null and poster.spare4 != ''">
+                    and SPARE4 = #{poster.spare4}
+                </if>
+                <if test="poster.spare5 != null and poster.spare5 != ''">
+                    and SPARE5 = #{poster.spare5}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="queryAll" resultMap="PosterMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, POSTER_NAME, POSTER_IMG,
+        DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.poster
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="posterName != null and posterName != ''">
+                and POSTER_NAME = #{posterName}
+            </if>
+            <if test="posterImg != null and posterImg != ''">
+                and POSTER_IMG = #{posterImg}
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                and SPARE1 = #{spare1}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+        </where>
+        order by CREATED_TIME DESC
+    </select>
+
+    <update id="update">
+        update points_alliance.poster
+        <set>
+            <if test="createdTime != null">
+                CREATED_TIME = #{createdTime},
+            </if>
+            <if test="creator != null and creator != ''">
+                CREATOR = #{creator},
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                CREATOR_ID = #{creatorId},
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                LAST_UPDATE_ID = #{lastUpdateId},
+            </if>
+            <if test="lastUpdateTime != null">
+                LAST_UPDATE_TIME = #{lastUpdateTime},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                LAST_UPDATER = #{lastUpdater},
+            </if>
+            <if test="posterName != null and posterName != ''">
+                POSTER_NAME = #{posterName},
+            </if>
+            <if test="posterImg != null and posterImg != ''">
+                POSTER_IMG = #{posterImg},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted},
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                SPARE1 = #{spare1},
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                SPARE2 = #{spare2},
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                SPARE3 = #{spare3},
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                SPARE4 = #{spare4},
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                SPARE5 = #{spare5},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <update id="updateAllColumn">
+        update points_alliance.poster
+        <set>
+            CREATED_TIME = #{createdTime},
+            CREATOR = #{creator},
+            CREATOR_ID = #{creatorId},
+            LAST_UPDATE_ID = #{lastUpdateId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            LAST_UPDATER = #{lastUpdater},
+            POSTER_NAME = #{posterName},
+            POSTER_IMG = #{posterImg},
+            DELETED = #{deleted},
+            SPARE1 = #{spare1},
+            SPARE2 = #{spare2},
+            SPARE3 = #{spare3},
+            SPARE4 = #{spare4},
+            SPARE5 = #{spare5},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from points_alliance.poster where ID
+        in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByIdNotTrue">
+        update points_alliance.poster
+        set DELETED = 1,
+        LAST_UPDATE_ID = #{updateId},
+        LAST_UPDATER = #{updater},
+        LAST_UPDATE_TIME = #{dateTime}
+        where ID in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

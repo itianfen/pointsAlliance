@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.SignDao">
+
+    <resultMap type="com.jx.entity.Sign" id="SignMap">
+        <result property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="CREATED_TIME" jdbcType="TIMESTAMP"/>
+        <result property="creator" column="CREATOR" jdbcType="VARCHAR"/>
+        <result property="creatorId" column="CREATOR_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateId" column="LAST_UPDATE_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdater" column="LAST_UPDATER" jdbcType="VARCHAR"/>
+        <result property="userId" column="USER_ID" jdbcType="VARCHAR"/>
+        <result property="deleted" column="DELETED" jdbcType="INTEGER"/>
+        <result property="spare1" column="SPARE1" jdbcType="VARCHAR"/>
+        <result property="spare2" column="SPARE2" jdbcType="VARCHAR"/>
+        <result property="spare3" column="SPARE3" jdbcType="VARCHAR"/>
+        <result property="spare4" column="SPARE4" jdbcType="VARCHAR"/>
+        <result property="spare5" column="SPARE5" jdbcType="VARCHAR"/>
+        <result property="getMoney" column="GET_MONEY" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <select id="queryById" resultMap="SignMap">
+        select ID,
+               CREATED_TIME,
+               CREATOR,
+               CREATOR_ID,
+               LAST_UPDATE_ID,
+               LAST_UPDATE_TIME,
+               LAST_UPDATER,
+               USER_ID,
+               DELETED,
+               SPARE1,
+               SPARE2,
+               SPARE3,
+               SPARE4,
+               SPARE5,
+               GET_MONEY
+        from points_alliance.sign
+        where ID = #{id}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="SignMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, USER_ID, DELETED, SPARE1,
+        SPARE2, SPARE3, SPARE4, SPARE5, GET_MONEY
+        from points_alliance.sign
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="sign.id != null and sign.id != ''">
+                    and ID like CONCAT('%', #{sign.id}, '%')
+                </if>
+
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="sign.createdTime != null ">
+                    and CREATED_TIME = #{sign.createdTime}
+                </if>
+
+
+                <if test="sign.creator != null and sign.creator != ''">
+                    and CREATOR like CONCAT('%', #{sign.creator}, '%')
+                </if>
+
+
+                <if test="sign.creatorId != null and sign.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{sign.creatorId}, '%')
+                </if>
+
+
+                <if test="sign.lastUpdateId != null and sign.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{sign.lastUpdateId}, '%')
+                </if>
+
+
+                <if test="sign.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{sign.lastUpdateTime}
+                </if>
+
+
+                <if test="sign.lastUpdater != null and sign.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{sign.lastUpdater}, '%')
+                </if>
+
+
+                <if test="sign.userId != null and sign.userId != ''">
+                    and USER_ID like CONCAT('%', #{sign.userId}, '%')
+                </if>
+
+
+                <if test="sign.deleted != null ">
+                    and DELETED = #{sign.deleted}
+                </if>
+
+
+                <if test="sign.spare1 != null and sign.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{sign.spare1}, '%')
+                </if>
+
+
+                <if test="sign.spare2 != null and sign.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{sign.spare2}, '%')
+                </if>
+
+
+                <if test="sign.spare3 != null and sign.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{sign.spare3}, '%')
+                </if>
+
+
+                <if test="sign.spare4 != null and sign.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{sign.spare4}, '%')
+                </if>
+
+
+                <if test="sign.spare5 != null and sign.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{sign.spare5}, '%')
+                </if>
+
+
+                <if test="sign.getMoney != null ">
+                    and GET_MONEY = #{sign.getMoney}
+                </if>
+
+
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="sign.id != null and sign.id != ''">
+                    and ID = #{sign.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="sign.creator != null and sign.creator != ''">
+                    and CREATOR = #{sign.creator}
+                </if>
+                <if test="sign.creatorId != null and sign.creatorId != ''">
+                    and CREATOR_ID = #{sign.creatorId}
+                </if>
+                <if test="sign.lastUpdateId != null and sign.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{sign.lastUpdateId}
+                </if>
+                <if test="sign.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{sign.lastUpdateTime}
+                </if>
+                <if test="sign.lastUpdater != null and sign.lastUpdater != ''">
+                    and LAST_UPDATER = #{sign.lastUpdater}
+                </if>
+                <if test="sign.userId != null and sign.userId != ''">
+                    and USER_ID = #{sign.userId}
+                </if>
+                <if test="sign.deleted != null">
+                    and DELETED = #{sign.deleted}
+                </if>
+                <if test="sign.spare1 != null and sign.spare1 != ''">
+                    and SPARE1 = #{sign.spare1}
+                </if>
+                <if test="sign.spare2 != null and sign.spare2 != ''">
+                    and SPARE2 = #{sign.spare2}
+                </if>
+                <if test="sign.spare3 != null and sign.spare3 != ''">
+                    and SPARE3 = #{sign.spare3}
+                </if>
+                <if test="sign.spare4 != null and sign.spare4 != ''">
+                    and SPARE4 = #{sign.spare4}
+                </if>
+                <if test="sign.spare5 != null and sign.spare5 != ''">
+                    and SPARE5 = #{sign.spare5}
+                </if>
+                <if test="sign.getMoney != null">
+                    and GET_MONEY = #{sign.getMoney}
+                </if>
+            </where>
+        </if>
+        order by CREATED_TIME DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) from points_alliance.sign
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="sign.id != null and sign.id != ''">
+                    and ID like CONCAT('%', #{sign.id}, '%')
+                </if>
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="sign.createdTime != null ">
+                    and CREATED_TIME = #{sign.createdTime}
+                </if>
+
+                <if test="sign.creator != null and sign.creator != ''">
+                    and CREATOR like CONCAT('%', #{sign.creator}, '%')
+                </if>
+
+                <if test="sign.creatorId != null and sign.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{sign.creatorId}, '%')
+                </if>
+
+                <if test="sign.lastUpdateId != null and sign.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{sign.lastUpdateId}, '%')
+                </if>
+
+                <if test="sign.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{sign.lastUpdateTime}
+                </if>
+
+                <if test="sign.lastUpdater != null and sign.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{sign.lastUpdater}, '%')
+                </if>
+
+                <if test="sign.userId != null and sign.userId != ''">
+                    and USER_ID like CONCAT('%', #{sign.userId}, '%')
+                </if>
+
+                <if test="sign.deleted != null ">
+                    and DELETED = #{sign.deleted}
+                </if>
+
+                <if test="sign.spare1 != null and sign.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{sign.spare1}, '%')
+                </if>
+
+                <if test="sign.spare2 != null and sign.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{sign.spare2}, '%')
+                </if>
+
+                <if test="sign.spare3 != null and sign.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{sign.spare3}, '%')
+                </if>
+
+                <if test="sign.spare4 != null and sign.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{sign.spare4}, '%')
+                </if>
+
+                <if test="sign.spare5 != null and sign.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{sign.spare5}, '%')
+                </if>
+
+                <if test="sign.getMoney != null ">
+                    and GET_MONEY = #{sign.getMoney}
+                </if>
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="sign.id != null and sign.id != ''">
+                    and ID = #{sign.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="sign.creator != null and sign.creator != ''">
+                    and CREATOR = #{sign.creator}
+                </if>
+                <if test="sign.creatorId != null and sign.creatorId != ''">
+                    and CREATOR_ID = #{sign.creatorId}
+                </if>
+                <if test="sign.lastUpdateId != null and sign.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{sign.lastUpdateId}
+                </if>
+                <if test="sign.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{sign.lastUpdateTime}
+                </if>
+                <if test="sign.lastUpdater != null and sign.lastUpdater != ''">
+                    and LAST_UPDATER = #{sign.lastUpdater}
+                </if>
+                <if test="sign.userId != null and sign.userId != ''">
+                    and USER_ID = #{sign.userId}
+                </if>
+                <if test="sign.deleted != null">
+                    and DELETED = #{sign.deleted}
+                </if>
+                <if test="sign.spare1 != null and sign.spare1 != ''">
+                    and SPARE1 = #{sign.spare1}
+                </if>
+                <if test="sign.spare2 != null and sign.spare2 != ''">
+                    and SPARE2 = #{sign.spare2}
+                </if>
+                <if test="sign.spare3 != null and sign.spare3 != ''">
+                    and SPARE3 = #{sign.spare3}
+                </if>
+                <if test="sign.spare4 != null and sign.spare4 != ''">
+                    and SPARE4 = #{sign.spare4}
+                </if>
+                <if test="sign.spare5 != null and sign.spare5 != ''">
+                    and SPARE5 = #{sign.spare5}
+                </if>
+                <if test="sign.getMoney != null">
+                    and GET_MONEY = #{sign.getMoney}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="queryAll" resultMap="SignMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, USER_ID, DELETED, SPARE1,
+        SPARE2, SPARE3, SPARE4, SPARE5, GET_MONEY
+        from points_alliance.sign
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="userId != null and userId != ''">
+                and USER_ID = #{userId}
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                and SPARE1 = #{spare1}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+            <if test="getMoney != null">
+                and GET_MONEY = #{getMoney}
+            </if>
+        </where>
+        order by CREATED_TIME DESC
+    </select>
+
+    <update id="update">
+        update points_alliance.sign
+        <set>
+            <if test="createdTime != null">
+                CREATED_TIME = #{createdTime},
+            </if>
+            <if test="creator != null and creator != ''">
+                CREATOR = #{creator},
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                CREATOR_ID = #{creatorId},
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                LAST_UPDATE_ID = #{lastUpdateId},
+            </if>
+            <if test="lastUpdateTime != null">
+                LAST_UPDATE_TIME = #{lastUpdateTime},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                LAST_UPDATER = #{lastUpdater},
+            </if>
+            <if test="userId != null and userId != ''">
+                USER_ID = #{userId},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted},
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                SPARE1 = #{spare1},
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                SPARE2 = #{spare2},
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                SPARE3 = #{spare3},
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                SPARE4 = #{spare4},
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                SPARE5 = #{spare5},
+            </if>
+            <if test="getMoney != null">
+                GET_MONEY = #{getMoney},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <update id="updateAllColumn">
+        update points_alliance.sign
+        <set>
+            CREATED_TIME = #{createdTime},
+            CREATOR = #{creator},
+            CREATOR_ID = #{creatorId},
+            LAST_UPDATE_ID = #{lastUpdateId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            LAST_UPDATER = #{lastUpdater},
+            USER_ID = #{userId},
+            DELETED = #{deleted},
+            SPARE1 = #{spare1},
+            SPARE2 = #{spare2},
+            SPARE3 = #{spare3},
+            SPARE4 = #{spare4},
+            SPARE5 = #{spare5},
+            GET_MONEY = #{getMoney},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from points_alliance.sign where ID
+        in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByIdNotTrue">
+        update points_alliance.sign
+        set DELETED = 1,
+        LAST_UPDATE_ID = #{updateId},
+        LAST_UPDATER = #{updater},
+        LAST_UPDATE_TIME = #{dateTime}
+        where ID in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

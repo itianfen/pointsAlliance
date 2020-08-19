@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.NoticeDao">
+
+    <resultMap type="com.jx.entity.Notice" id="NoticeMap">
+        <result property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="CREATED_TIME" jdbcType="TIMESTAMP"/>
+        <result property="creator" column="CREATOR" jdbcType="VARCHAR"/>
+        <result property="creatorId" column="CREATOR_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateId" column="LAST_UPDATE_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdater" column="LAST_UPDATER" jdbcType="VARCHAR"/>
+        <result property="companyId" column="COMPANY_ID" jdbcType="VARCHAR"/>
+        <result property="content" column="CONTENT" jdbcType="VARCHAR"/>
+        <result property="startTime" column="START_TIME" jdbcType="TIMESTAMP"/>
+        <result property="endTime" column="END_TIME" jdbcType="TIMESTAMP"/>
+        <result property="deleted" column="DELETED" jdbcType="INTEGER"/>
+        <result property="spare1" column="SPARE1" jdbcType="VARCHAR"/>
+        <result property="spare2" column="SPARE2" jdbcType="VARCHAR"/>
+        <result property="spare3" column="SPARE3" jdbcType="VARCHAR"/>
+        <result property="spare4" column="SPARE4" jdbcType="VARCHAR"/>
+        <result property="spare5" column="SPARE5" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryById" resultMap="NoticeMap">
+        select ID,
+               CREATED_TIME,
+               CREATOR,
+               CREATOR_ID,
+               LAST_UPDATE_ID,
+               LAST_UPDATE_TIME,
+               LAST_UPDATER,
+               COMPANY_ID,
+               CONTENT,
+               START_TIME,
+               END_TIME,
+               DELETED,
+               SPARE1,
+               SPARE2,
+               SPARE3,
+               SPARE4,
+               SPARE5
+        from points_alliance.notice
+        where ID = #{id}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="NoticeMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, COMPANY_ID, CONTENT,
+        START_TIME, END_TIME, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.notice
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="notice.id != null and notice.id != ''">
+                    and ID like CONCAT('%', #{notice.id}, '%')
+                </if>
+
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="notice.createdTime != null ">
+                    and CREATED_TIME = #{notice.createdTime}
+                </if>
+
+
+                <if test="notice.creator != null and notice.creator != ''">
+                    and CREATOR like CONCAT('%', #{notice.creator}, '%')
+                </if>
+
+
+                <if test="notice.creatorId != null and notice.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{notice.creatorId}, '%')
+                </if>
+
+
+                <if test="notice.lastUpdateId != null and notice.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{notice.lastUpdateId}, '%')
+                </if>
+
+
+                <if test="notice.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{notice.lastUpdateTime}
+                </if>
+
+
+                <if test="notice.lastUpdater != null and notice.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{notice.lastUpdater}, '%')
+                </if>
+
+
+                <if test="notice.companyId != null and notice.companyId != ''">
+                    and COMPANY_ID = #{notice.companyId}
+                </if>
+
+
+                <if test="notice.content != null and notice.content != ''">
+                    and CONTENT like CONCAT('%', #{notice.content}, '%')
+                </if>
+
+
+                <if test="notice.startTime != null ">
+                    and START_TIME = #{notice.startTime}
+                </if>
+
+
+                <if test="notice.endTime != null ">
+                    and END_TIME = #{notice.endTime}
+                </if>
+
+
+                <if test="notice.deleted != null ">
+                    and DELETED = #{notice.deleted}
+                </if>
+
+
+                <if test="notice.spare1 != null and notice.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{notice.spare1}, '%')
+                </if>
+
+
+                <if test="notice.spare2 != null and notice.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{notice.spare2}, '%')
+                </if>
+
+
+                <if test="notice.spare3 != null and notice.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{notice.spare3}, '%')
+                </if>
+
+
+                <if test="notice.spare4 != null and notice.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{notice.spare4}, '%')
+                </if>
+
+
+                <if test="notice.spare5 != null and notice.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{notice.spare5}, '%')
+                </if>
+
+
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="notice.id != null and notice.id != ''">
+                    and ID = #{notice.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="notice.creator != null and notice.creator != ''">
+                    and CREATOR = #{notice.creator}
+                </if>
+                <if test="notice.creatorId != null and notice.creatorId != ''">
+                    and CREATOR_ID = #{notice.creatorId}
+                </if>
+                <if test="notice.lastUpdateId != null and notice.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{notice.lastUpdateId}
+                </if>
+                <if test="notice.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{notice.lastUpdateTime}
+                </if>
+                <if test="notice.lastUpdater != null and notice.lastUpdater != ''">
+                    and LAST_UPDATER = #{notice.lastUpdater}
+                </if>
+                <if test="notice.companyId != null and notice.companyId != ''">
+                    and COMPANY_ID = #{notice.companyId}
+                </if>
+                <if test="notice.content != null and notice.content != ''">
+                    and CONTENT = #{notice.content}
+                </if>
+                <if test="notice.startTime != null">
+                    and START_TIME = #{notice.startTime}
+                </if>
+                <if test="notice.endTime != null">
+                    and END_TIME = #{notice.endTime}
+                </if>
+                <if test="notice.deleted != null">
+                    and DELETED = #{notice.deleted}
+                </if>
+                <if test="notice.spare1 != null and notice.spare1 != ''">
+                    and SPARE1 = #{notice.spare1}
+                </if>
+                <if test="notice.spare2 != null and notice.spare2 != ''">
+                    and SPARE2 = #{notice.spare2}
+                </if>
+                <if test="notice.spare3 != null and notice.spare3 != ''">
+                    and SPARE3 = #{notice.spare3}
+                </if>
+                <if test="notice.spare4 != null and notice.spare4 != ''">
+                    and SPARE4 = #{notice.spare4}
+                </if>
+                <if test="notice.spare5 != null and notice.spare5 != ''">
+                    and SPARE5 = #{notice.spare5}
+                </if>
+            </where>
+        </if>
+        order by CREATED_TIME DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) from points_alliance.notice
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="notice.id != null and notice.id != ''">
+                    and ID like CONCAT('%', #{notice.id}, '%')
+                </if>
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="notice.createdTime != null ">
+                    and CREATED_TIME = #{notice.createdTime}
+                </if>
+
+                <if test="notice.creator != null and notice.creator != ''">
+                    and CREATOR like CONCAT('%', #{notice.creator}, '%')
+                </if>
+
+                <if test="notice.creatorId != null and notice.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{notice.creatorId}, '%')
+                </if>
+
+                <if test="notice.lastUpdateId != null and notice.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{notice.lastUpdateId}, '%')
+                </if>
+
+                <if test="notice.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{notice.lastUpdateTime}
+                </if>
+
+                <if test="notice.lastUpdater != null and notice.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{notice.lastUpdater}, '%')
+                </if>
+
+                <if test="notice.companyId != null and notice.companyId != ''">
+                    and COMPANY_ID = #{notice.companyId}
+                </if>
+
+                <if test="notice.content != null and notice.content != ''">
+                    and CONTENT like CONCAT('%', #{notice.content}, '%')
+                </if>
+
+                <if test="notice.startTime != null ">
+                    and START_TIME = #{notice.startTime}
+                </if>
+
+                <if test="notice.endTime != null ">
+                    and END_TIME = #{notice.endTime}
+                </if>
+
+                <if test="notice.deleted != null ">
+                    and DELETED = #{notice.deleted}
+                </if>
+
+                <if test="notice.spare1 != null and notice.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{notice.spare1}, '%')
+                </if>
+
+                <if test="notice.spare2 != null and notice.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{notice.spare2}, '%')
+                </if>
+
+                <if test="notice.spare3 != null and notice.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{notice.spare3}, '%')
+                </if>
+
+                <if test="notice.spare4 != null and notice.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{notice.spare4}, '%')
+                </if>
+
+                <if test="notice.spare5 != null and notice.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{notice.spare5}, '%')
+                </if>
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="notice.id != null and notice.id != ''">
+                    and ID = #{notice.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="notice.creator != null and notice.creator != ''">
+                    and CREATOR = #{notice.creator}
+                </if>
+                <if test="notice.creatorId != null and notice.creatorId != ''">
+                    and CREATOR_ID = #{notice.creatorId}
+                </if>
+                <if test="notice.lastUpdateId != null and notice.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{notice.lastUpdateId}
+                </if>
+                <if test="notice.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{notice.lastUpdateTime}
+                </if>
+                <if test="notice.lastUpdater != null and notice.lastUpdater != ''">
+                    and LAST_UPDATER = #{notice.lastUpdater}
+                </if>
+                <if test="notice.companyId != null and notice.companyId != ''">
+                    and COMPANY_ID = #{notice.companyId}
+                </if>
+                <if test="notice.content != null and notice.content != ''">
+                    and CONTENT = #{notice.content}
+                </if>
+                <if test="notice.startTime != null">
+                    and START_TIME = #{notice.startTime}
+                </if>
+                <if test="notice.endTime != null">
+                    and END_TIME = #{notice.endTime}
+                </if>
+                <if test="notice.deleted != null">
+                    and DELETED = #{notice.deleted}
+                </if>
+                <if test="notice.spare1 != null and notice.spare1 != ''">
+                    and SPARE1 = #{notice.spare1}
+                </if>
+                <if test="notice.spare2 != null and notice.spare2 != ''">
+                    and SPARE2 = #{notice.spare2}
+                </if>
+                <if test="notice.spare3 != null and notice.spare3 != ''">
+                    and SPARE3 = #{notice.spare3}
+                </if>
+                <if test="notice.spare4 != null and notice.spare4 != ''">
+                    and SPARE4 = #{notice.spare4}
+                </if>
+                <if test="notice.spare5 != null and notice.spare5 != ''">
+                    and SPARE5 = #{notice.spare5}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="queryAll" resultMap="NoticeMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, COMPANY_ID, CONTENT,
+        START_TIME, END_TIME, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.notice
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="companyId != null and companyId != ''">
+                and COMPANY_ID = #{companyId}
+            </if>
+            <if test="content != null and content != ''">
+                and CONTENT = #{content}
+            </if>
+            <if test="startTime != null">
+                and START_TIME = #{startTime}
+            </if>
+            <if test="endTime != null">
+                and END_TIME = #{endTime}
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                and SPARE1 = #{spare1}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+        </where>
+        order by CREATED_TIME DESC
+    </select>
+
+
+    <update id="update">
+        update points_alliance.notice
+        <set>
+            <if test="createdTime != null">
+                CREATED_TIME = #{createdTime},
+            </if>
+            <if test="creator != null and creator != ''">
+                CREATOR = #{creator},
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                CREATOR_ID = #{creatorId},
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                LAST_UPDATE_ID = #{lastUpdateId},
+            </if>
+            <if test="lastUpdateTime != null">
+                LAST_UPDATE_TIME = #{lastUpdateTime},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                LAST_UPDATER = #{lastUpdater},
+            </if>
+            <if test="companyId != null and companyId != ''">
+                COMPANY_ID = #{companyId},
+            </if>
+            <if test="content != null and content != ''">
+                CONTENT = #{content},
+            </if>
+            <if test="startTime != null">
+                START_TIME = #{startTime},
+            </if>
+            <if test="endTime != null">
+                END_TIME = #{endTime},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted},
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                SPARE1 = #{spare1},
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                SPARE2 = #{spare2},
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                SPARE3 = #{spare3},
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                SPARE4 = #{spare4},
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                SPARE5 = #{spare5},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <update id="updateAllColumn">
+        update points_alliance.notice
+        <set>
+            CREATED_TIME = #{createdTime},
+            CREATOR = #{creator},
+            CREATOR_ID = #{creatorId},
+            LAST_UPDATE_ID = #{lastUpdateId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            LAST_UPDATER = #{lastUpdater},
+            COMPANY_ID = #{companyId},
+            CONTENT = #{content},
+            START_TIME = #{startTime},
+            END_TIME = #{endTime},
+            DELETED = #{deleted},
+            SPARE1 = #{spare1},
+            SPARE2 = #{spare2},
+            SPARE3 = #{spare3},
+            SPARE4 = #{spare4},
+            SPARE5 = #{spare5},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from points_alliance.notice where ID
+        in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByIdNotTrue">
+        update points_alliance.notice
+        set DELETED = 1,
+        LAST_UPDATE_ID = #{updateId},
+        LAST_UPDATER = #{updater},
+        LAST_UPDATE_TIME = #{dateTime}
+        where ID in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

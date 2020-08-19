@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.GoodsOrderDao">
+
+    <resultMap type="com.jx.entity.GoodsOrder" id="GoodsOrderMap">
+        <result property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="CREATED_TIME" jdbcType="TIMESTAMP"/>
+        <result property="creator" column="CREATOR" jdbcType="VARCHAR"/>
+        <result property="creatorId" column="CREATOR_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateId" column="LAST_UPDATE_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdater" column="LAST_UPDATER" jdbcType="VARCHAR"/>
+        <result property="userId" column="USER_ID" jdbcType="VARCHAR"/>
+        <result property="userName" column="USER_NAME" jdbcType="VARCHAR"/>
+        <result property="userPhone" column="USER_PHONE" jdbcType="VARCHAR"/>
+        <result property="applyName" column="APPLY_NAME" jdbcType="VARCHAR"/>
+        <result property="applyPhone" column="APPLY_PHONE" jdbcType="VARCHAR"/>
+        <result property="applyIdCardNumber" column="APPLY_ID_CARD_NUMBER" jdbcType="VARCHAR"/>
+        <result property="auditState" column="AUDIT_STATE" jdbcType="INTEGER"/>
+        <result property="auditContent" column="AUDIT_CONTENT" jdbcType="VARCHAR"/>
+        <result property="goodsId" column="GOODS_ID" jdbcType="VARCHAR"/>
+        <result property="goodsName" column="GOODS_NAME" jdbcType="VARCHAR"/>
+        <result property="goodsImg" column="GOODS_IMG" jdbcType="VARCHAR"/>
+        <result property="reward" column="REWARD" jdbcType="NUMERIC"/>
+        <result property="oderDetail" column="ODER_DETAIL" jdbcType="OTHER"/>
+        <result property="deleted" column="DELETED" jdbcType="INTEGER"/>
+        <result property="spare1" column="SPARE1" jdbcType="VARCHAR"/>
+        <result property="spare2" column="SPARE2" jdbcType="VARCHAR"/>
+        <result property="spare3" column="SPARE3" jdbcType="VARCHAR"/>
+        <result property="spare4" column="SPARE4" jdbcType="VARCHAR"/>
+        <result property="spare5" column="SPARE5" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryById" resultMap="GoodsOrderMap">
+        select ID,
+               CREATED_TIME,
+               CREATOR,
+               CREATOR_ID,
+               LAST_UPDATE_ID,
+               LAST_UPDATE_TIME,
+               LAST_UPDATER,
+               USER_ID,
+               USER_NAME,
+               USER_PHONE,
+               APPLY_NAME,
+               APPLY_PHONE,
+               APPLY_ID_CARD_NUMBER,
+               AUDIT_STATE,
+               AUDIT_CONTENT,
+               GOODS_ID,
+               GOODS_NAME,
+               GOODS_IMG,
+               REWARD,
+               ODER_DETAIL,
+               DELETED,
+               SPARE1,
+               SPARE2,
+               SPARE3,
+               SPARE4,
+               SPARE5
+        from points_alliance.goods_order
+        where ID = #{id}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="GoodsOrderMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, USER_ID, USER_NAME,
+        USER_PHONE, APPLY_NAME, APPLY_PHONE, APPLY_ID_CARD_NUMBER, AUDIT_STATE, AUDIT_CONTENT, GOODS_ID, GOODS_NAME,
+        GOODS_IMG, REWARD, ODER_DETAIL, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.goods_order
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="goodsOrder.id != null and goodsOrder.id != ''">
+                    and ID like CONCAT('%', #{goodsOrder.id}, '%')
+                </if>
+
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="goodsOrder.createdTime != null ">
+                    and CREATED_TIME = #{goodsOrder.createdTime}
+                </if>
+
+
+                <if test="goodsOrder.creator != null and goodsOrder.creator != ''">
+                    and CREATOR like CONCAT('%', #{goodsOrder.creator}, '%')
+                </if>
+
+
+                <if test="goodsOrder.creatorId != null and goodsOrder.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{goodsOrder.creatorId}, '%')
+                </if>
+
+
+                <if test="goodsOrder.lastUpdateId != null and goodsOrder.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{goodsOrder.lastUpdateId}, '%')
+                </if>
+
+
+                <if test="goodsOrder.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{goodsOrder.lastUpdateTime}
+                </if>
+
+
+                <if test="goodsOrder.lastUpdater != null and goodsOrder.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{goodsOrder.lastUpdater}, '%')
+                </if>
+
+
+                <if test="goodsOrder.userId != null and goodsOrder.userId != ''">
+                    and USER_ID like CONCAT('%', #{goodsOrder.userId}, '%')
+                </if>
+
+
+                <if test="goodsOrder.userName != null and goodsOrder.userName != ''">
+                    and USER_NAME like CONCAT('%', #{goodsOrder.userName}, '%')
+                </if>
+
+
+                <if test="goodsOrder.userPhone != null and goodsOrder.userPhone != ''">
+                    and USER_PHONE like CONCAT('%', #{goodsOrder.userPhone}, '%')
+                </if>
+
+
+                <if test="goodsOrder.applyName != null and goodsOrder.applyName != ''">
+                    and APPLY_NAME like CONCAT('%', #{goodsOrder.applyName}, '%')
+                </if>
+
+
+                <if test="goodsOrder.applyPhone != null and goodsOrder.applyPhone != ''">
+                    and APPLY_PHONE like CONCAT('%', #{goodsOrder.applyPhone}, '%')
+                </if>
+
+
+                <if test="goodsOrder.applyIdCardNumber != null and goodsOrder.applyIdCardNumber != ''">
+                    and APPLY_ID_CARD_NUMBER like CONCAT('%', #{goodsOrder.applyIdCardNumber}, '%')
+                </if>
+
+
+                <if test="goodsOrder.auditState != null ">
+                    and AUDIT_STATE = #{goodsOrder.auditState}
+                </if>
+
+
+                <if test="goodsOrder.auditContent != null and goodsOrder.auditContent != ''">
+                    and AUDIT_CONTENT like CONCAT('%', #{goodsOrder.auditContent}, '%')
+                </if>
+
+
+                <if test="goodsOrder.goodsId != null and goodsOrder.goodsId != ''">
+                    and GOODS_ID like CONCAT('%', #{goodsOrder.goodsId}, '%')
+                </if>
+
+
+                <if test="goodsOrder.goodsName != null and goodsOrder.goodsName != ''">
+                    and GOODS_NAME like CONCAT('%', #{goodsOrder.goodsName}, '%')
+                </if>
+
+
+                <if test="goodsOrder.goodsImg != null and goodsOrder.goodsImg != ''">
+                    and GOODS_IMG like CONCAT('%', #{goodsOrder.goodsImg}, '%')
+                </if>
+
+
+                <if test="goodsOrder.reward != null ">
+                    and REWARD = #{goodsOrder.reward}
+                </if>
+
+
+                <if test="goodsOrder.oderDetail != null ">
+                    and ODER_DETAIL = #{goodsOrder.oderDetail}
+                </if>
+
+
+                <if test="goodsOrder.deleted != null ">
+                    and DELETED = #{goodsOrder.deleted}
+                </if>
+
+
+                <if test="goodsOrder.spare1 != null and goodsOrder.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{goodsOrder.spare1}, '%')
+                </if>
+
+
+                <if test="goodsOrder.spare2 != null and goodsOrder.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{goodsOrder.spare2}, '%')
+                </if>
+
+
+                <if test="goodsOrder.spare3 != null and goodsOrder.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{goodsOrder.spare3}, '%')
+                </if>
+
+
+                <if test="goodsOrder.spare4 != null and goodsOrder.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{goodsOrder.spare4}, '%')
+                </if>
+
+
+                <if test="goodsOrder.spare5 != null and goodsOrder.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{goodsOrder.spare5}, '%')
+                </if>
+
+
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="goodsOrder.id != null and goodsOrder.id != ''">
+                    and ID = #{goodsOrder.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="goodsOrder.creator != null and goodsOrder.creator != ''">
+                    and CREATOR = #{goodsOrder.creator}
+                </if>
+                <if test="goodsOrder.creatorId != null and goodsOrder.creatorId != ''">
+                    and CREATOR_ID = #{goodsOrder.creatorId}
+                </if>
+                <if test="goodsOrder.lastUpdateId != null and goodsOrder.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{goodsOrder.lastUpdateId}
+                </if>
+                <if test="goodsOrder.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{goodsOrder.lastUpdateTime}
+                </if>
+                <if test="goodsOrder.lastUpdater != null and goodsOrder.lastUpdater != ''">
+                    and LAST_UPDATER = #{goodsOrder.lastUpdater}
+                </if>
+                <if test="goodsOrder.userId != null and goodsOrder.userId != ''">
+                    and USER_ID = #{goodsOrder.userId}
+                </if>
+                <if test="goodsOrder.userName != null and goodsOrder.userName != ''">
+                    and USER_NAME = #{goodsOrder.userName}
+                </if>
+                <if test="goodsOrder.userPhone != null and goodsOrder.userPhone != ''">
+                    and USER_PHONE = #{goodsOrder.userPhone}
+                </if>
+                <if test="goodsOrder.applyName != null and goodsOrder.applyName != ''">
+                    and APPLY_NAME = #{goodsOrder.applyName}
+                </if>
+                <if test="goodsOrder.applyPhone != null and goodsOrder.applyPhone != ''">
+                    and APPLY_PHONE = #{goodsOrder.applyPhone}
+                </if>
+                <if test="goodsOrder.applyIdCardNumber != null and goodsOrder.applyIdCardNumber != ''">
+                    and APPLY_ID_CARD_NUMBER = #{goodsOrder.applyIdCardNumber}
+                </if>
+                <if test="goodsOrder.auditState != null">
+                    and AUDIT_STATE = #{goodsOrder.auditState}
+                </if>
+                <if test="goodsOrder.auditContent != null and goodsOrder.auditContent != ''">
+                    and AUDIT_CONTENT = #{goodsOrder.auditContent}
+                </if>
+                <if test="goodsOrder.goodsId != null and goodsOrder.goodsId != ''">
+                    and GOODS_ID = #{goodsOrder.goodsId}
+                </if>
+                <if test="goodsOrder.goodsName != null and goodsOrder.goodsName != ''">
+                    and GOODS_NAME = #{goodsOrder.goodsName}
+                </if>
+                <if test="goodsOrder.goodsImg != null and goodsOrder.goodsImg != ''">
+                    and GOODS_IMG = #{goodsOrder.goodsImg}
+                </if>
+                <if test="goodsOrder.reward != null">
+                    and REWARD = #{goodsOrder.reward}
+                </if>
+                <if test="goodsOrder.oderDetail != null">
+                    and ODER_DETAIL = #{goodsOrder.oderDetail}
+                </if>
+                <if test="goodsOrder.deleted != null">
+                    and DELETED = #{goodsOrder.deleted}
+                </if>
+                <if test="goodsOrder.spare1 != null and goodsOrder.spare1 != ''">
+                    and SPARE1 = #{goodsOrder.spare1}
+                </if>
+                <if test="goodsOrder.spare2 != null and goodsOrder.spare2 != ''">
+                    and SPARE2 = #{goodsOrder.spare2}
+                </if>
+                <if test="goodsOrder.spare3 != null and goodsOrder.spare3 != ''">
+                    and SPARE3 = #{goodsOrder.spare3}
+                </if>
+                <if test="goodsOrder.spare4 != null and goodsOrder.spare4 != ''">
+                    and SPARE4 = #{goodsOrder.spare4}
+                </if>
+                <if test="goodsOrder.spare5 != null and goodsOrder.spare5 != ''">
+                    and SPARE5 = #{goodsOrder.spare5}
+                </if>
+            </where>
+        </if>
+        order by CREATED_TIME DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) from points_alliance.goods_order
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="goodsOrder.id != null and goodsOrder.id != ''">
+                    and ID like CONCAT('%', #{goodsOrder.id}, '%')
+                </if>
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="goodsOrder.createdTime != null ">
+                    and CREATED_TIME = #{goodsOrder.createdTime}
+                </if>
+
+                <if test="goodsOrder.creator != null and goodsOrder.creator != ''">
+                    and CREATOR like CONCAT('%', #{goodsOrder.creator}, '%')
+                </if>
+
+                <if test="goodsOrder.creatorId != null and goodsOrder.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{goodsOrder.creatorId}, '%')
+                </if>
+
+                <if test="goodsOrder.lastUpdateId != null and goodsOrder.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{goodsOrder.lastUpdateId}, '%')
+                </if>
+
+                <if test="goodsOrder.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{goodsOrder.lastUpdateTime}
+                </if>
+
+                <if test="goodsOrder.lastUpdater != null and goodsOrder.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{goodsOrder.lastUpdater}, '%')
+                </if>
+
+                <if test="goodsOrder.userId != null and goodsOrder.userId != ''">
+                    and USER_ID like CONCAT('%', #{goodsOrder.userId}, '%')
+                </if>
+
+                <if test="goodsOrder.userName != null and goodsOrder.userName != ''">
+                    and USER_NAME like CONCAT('%', #{goodsOrder.userName}, '%')
+                </if>
+
+                <if test="goodsOrder.userPhone != null and goodsOrder.userPhone != ''">
+                    and USER_PHONE like CONCAT('%', #{goodsOrder.userPhone}, '%')
+                </if>
+
+                <if test="goodsOrder.applyName != null and goodsOrder.applyName != ''">
+                    and APPLY_NAME like CONCAT('%', #{goodsOrder.applyName}, '%')
+                </if>
+
+                <if test="goodsOrder.applyPhone != null and goodsOrder.applyPhone != ''">
+                    and APPLY_PHONE like CONCAT('%', #{goodsOrder.applyPhone}, '%')
+                </if>
+
+                <if test="goodsOrder.applyIdCardNumber != null and goodsOrder.applyIdCardNumber != ''">
+                    and APPLY_ID_CARD_NUMBER like CONCAT('%', #{goodsOrder.applyIdCardNumber}, '%')
+                </if>
+
+                <if test="goodsOrder.auditState != null ">
+                    and AUDIT_STATE = #{goodsOrder.auditState}
+                </if>
+
+                <if test="goodsOrder.auditContent != null and goodsOrder.auditContent != ''">
+                    and AUDIT_CONTENT like CONCAT('%', #{goodsOrder.auditContent}, '%')
+                </if>
+
+                <if test="goodsOrder.goodsId != null and goodsOrder.goodsId != ''">
+                    and GOODS_ID like CONCAT('%', #{goodsOrder.goodsId}, '%')
+                </if>
+
+                <if test="goodsOrder.goodsName != null and goodsOrder.goodsName != ''">
+                    and GOODS_NAME like CONCAT('%', #{goodsOrder.goodsName}, '%')
+                </if>
+
+                <if test="goodsOrder.goodsImg != null and goodsOrder.goodsImg != ''">
+                    and GOODS_IMG like CONCAT('%', #{goodsOrder.goodsImg}, '%')
+                </if>
+
+                <if test="goodsOrder.reward != null ">
+                    and REWARD = #{goodsOrder.reward}
+                </if>
+
+                <if test="goodsOrder.oderDetail != null ">
+                    and ODER_DETAIL = #{goodsOrder.oderDetail}
+                </if>
+
+                <if test="goodsOrder.deleted != null ">
+                    and DELETED = #{goodsOrder.deleted}
+                </if>
+
+                <if test="goodsOrder.spare1 != null and goodsOrder.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{goodsOrder.spare1}, '%')
+                </if>
+
+                <if test="goodsOrder.spare2 != null and goodsOrder.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{goodsOrder.spare2}, '%')
+                </if>
+
+                <if test="goodsOrder.spare3 != null and goodsOrder.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{goodsOrder.spare3}, '%')
+                </if>
+
+                <if test="goodsOrder.spare4 != null and goodsOrder.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{goodsOrder.spare4}, '%')
+                </if>
+
+                <if test="goodsOrder.spare5 != null and goodsOrder.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{goodsOrder.spare5}, '%')
+                </if>
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="goodsOrder.id != null and goodsOrder.id != ''">
+                    and ID = #{goodsOrder.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="goodsOrder.creator != null and goodsOrder.creator != ''">
+                    and CREATOR = #{goodsOrder.creator}
+                </if>
+                <if test="goodsOrder.creatorId != null and goodsOrder.creatorId != ''">
+                    and CREATOR_ID = #{goodsOrder.creatorId}
+                </if>
+                <if test="goodsOrder.lastUpdateId != null and goodsOrder.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{goodsOrder.lastUpdateId}
+                </if>
+                <if test="goodsOrder.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{goodsOrder.lastUpdateTime}
+                </if>
+                <if test="goodsOrder.lastUpdater != null and goodsOrder.lastUpdater != ''">
+                    and LAST_UPDATER = #{goodsOrder.lastUpdater}
+                </if>
+                <if test="goodsOrder.userId != null and goodsOrder.userId != ''">
+                    and USER_ID = #{goodsOrder.userId}
+                </if>
+                <if test="goodsOrder.userName != null and goodsOrder.userName != ''">
+                    and USER_NAME = #{goodsOrder.userName}
+                </if>
+                <if test="goodsOrder.userPhone != null and goodsOrder.userPhone != ''">
+                    and USER_PHONE = #{goodsOrder.userPhone}
+                </if>
+                <if test="goodsOrder.applyName != null and goodsOrder.applyName != ''">
+                    and APPLY_NAME = #{goodsOrder.applyName}
+                </if>
+                <if test="goodsOrder.applyPhone != null and goodsOrder.applyPhone != ''">
+                    and APPLY_PHONE = #{goodsOrder.applyPhone}
+                </if>
+                <if test="goodsOrder.applyIdCardNumber != null and goodsOrder.applyIdCardNumber != ''">
+                    and APPLY_ID_CARD_NUMBER = #{goodsOrder.applyIdCardNumber}
+                </if>
+                <if test="goodsOrder.auditState != null">
+                    and AUDIT_STATE = #{goodsOrder.auditState}
+                </if>
+                <if test="goodsOrder.auditContent != null and goodsOrder.auditContent != ''">
+                    and AUDIT_CONTENT = #{goodsOrder.auditContent}
+                </if>
+                <if test="goodsOrder.goodsId != null and goodsOrder.goodsId != ''">
+                    and GOODS_ID = #{goodsOrder.goodsId}
+                </if>
+                <if test="goodsOrder.goodsName != null and goodsOrder.goodsName != ''">
+                    and GOODS_NAME = #{goodsOrder.goodsName}
+                </if>
+                <if test="goodsOrder.goodsImg != null and goodsOrder.goodsImg != ''">
+                    and GOODS_IMG = #{goodsOrder.goodsImg}
+                </if>
+                <if test="goodsOrder.reward != null">
+                    and REWARD = #{goodsOrder.reward}
+                </if>
+                <if test="goodsOrder.oderDetail != null">
+                    and ODER_DETAIL = #{goodsOrder.oderDetail}
+                </if>
+                <if test="goodsOrder.deleted != null">
+                    and DELETED = #{goodsOrder.deleted}
+                </if>
+                <if test="goodsOrder.spare1 != null and goodsOrder.spare1 != ''">
+                    and SPARE1 = #{goodsOrder.spare1}
+                </if>
+                <if test="goodsOrder.spare2 != null and goodsOrder.spare2 != ''">
+                    and SPARE2 = #{goodsOrder.spare2}
+                </if>
+                <if test="goodsOrder.spare3 != null and goodsOrder.spare3 != ''">
+                    and SPARE3 = #{goodsOrder.spare3}
+                </if>
+                <if test="goodsOrder.spare4 != null and goodsOrder.spare4 != ''">
+                    and SPARE4 = #{goodsOrder.spare4}
+                </if>
+                <if test="goodsOrder.spare5 != null and goodsOrder.spare5 != ''">
+                    and SPARE5 = #{goodsOrder.spare5}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="queryAll" resultMap="GoodsOrderMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, USER_ID, USER_NAME,
+        USER_PHONE, APPLY_NAME, APPLY_PHONE, APPLY_ID_CARD_NUMBER, AUDIT_STATE, AUDIT_CONTENT, GOODS_ID, GOODS_NAME,
+        GOODS_IMG, REWARD, ODER_DETAIL, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.goods_order
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="userId != null and userId != ''">
+                and USER_ID = #{userId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and USER_NAME = #{userName}
+            </if>
+            <if test="userPhone != null and userPhone != ''">
+                and USER_PHONE = #{userPhone}
+            </if>
+            <if test="applyName != null and applyName != ''">
+                and APPLY_NAME = #{applyName}
+            </if>
+            <if test="applyPhone != null and applyPhone != ''">
+                and APPLY_PHONE = #{applyPhone}
+            </if>
+            <if test="applyIdCardNumber != null and applyIdCardNumber != ''">
+                and APPLY_ID_CARD_NUMBER = #{applyIdCardNumber}
+            </if>
+            <if test="auditState != null">
+                and AUDIT_STATE = #{auditState}
+            </if>
+            <if test="auditContent != null and auditContent != ''">
+                and AUDIT_CONTENT = #{auditContent}
+            </if>
+            <if test="goodsId != null and goodsId != ''">
+                and GOODS_ID = #{goodsId}
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                and GOODS_NAME = #{goodsName}
+            </if>
+            <if test="goodsImg != null and goodsImg != ''">
+                and GOODS_IMG = #{goodsImg}
+            </if>
+            <if test="reward != null">
+                and REWARD = #{reward}
+            </if>
+            <if test="oderDetail != null">
+                and ODER_DETAIL = #{oderDetail}
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                and SPARE1 = #{spare1}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+        </where>
+        order by CREATED_TIME DESC
+    </select>
+
+
+    <update id="update">
+        update points_alliance.goods_order
+        <set>
+            <if test="createdTime != null">
+                CREATED_TIME = #{createdTime},
+            </if>
+            <if test="creator != null and creator != ''">
+                CREATOR = #{creator},
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                CREATOR_ID = #{creatorId},
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                LAST_UPDATE_ID = #{lastUpdateId},
+            </if>
+            <if test="lastUpdateTime != null">
+                LAST_UPDATE_TIME = #{lastUpdateTime},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                LAST_UPDATER = #{lastUpdater},
+            </if>
+            <if test="userId != null and userId != ''">
+                USER_ID = #{userId},
+            </if>
+            <if test="userName != null and userName != ''">
+                USER_NAME = #{userName},
+            </if>
+            <if test="userPhone != null and userPhone != ''">
+                USER_PHONE = #{userPhone},
+            </if>
+            <if test="applyName != null and applyName != ''">
+                APPLY_NAME = #{applyName},
+            </if>
+            <if test="applyPhone != null and applyPhone != ''">
+                APPLY_PHONE = #{applyPhone},
+            </if>
+            <if test="applyIdCardNumber != null and applyIdCardNumber != ''">
+                APPLY_ID_CARD_NUMBER = #{applyIdCardNumber},
+            </if>
+            <if test="auditState != null">
+                AUDIT_STATE = #{auditState},
+            </if>
+            <if test="auditContent != null and auditContent != ''">
+                AUDIT_CONTENT = #{auditContent},
+            </if>
+            <if test="goodsId != null and goodsId != ''">
+                GOODS_ID = #{goodsId},
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                GOODS_NAME = #{goodsName},
+            </if>
+            <if test="goodsImg != null and goodsImg != ''">
+                GOODS_IMG = #{goodsImg},
+            </if>
+            <if test="reward != null">
+                REWARD = #{reward},
+            </if>
+            <if test="oderDetail != null">
+                ODER_DETAIL = #{oderDetail},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted},
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                SPARE1 = #{spare1},
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                SPARE2 = #{spare2},
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                SPARE3 = #{spare3},
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                SPARE4 = #{spare4},
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                SPARE5 = #{spare5},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <update id="updateAllColumn">
+        update points_alliance.goods_order
+        <set>
+            CREATED_TIME = #{createdTime},
+            CREATOR = #{creator},
+            CREATOR_ID = #{creatorId},
+            LAST_UPDATE_ID = #{lastUpdateId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            LAST_UPDATER = #{lastUpdater},
+            USER_ID = #{userId},
+            USER_NAME = #{userName},
+            USER_PHONE = #{userPhone},
+            APPLY_NAME = #{applyName},
+            APPLY_PHONE = #{applyPhone},
+            APPLY_ID_CARD_NUMBER = #{applyIdCardNumber},
+            AUDIT_STATE = #{auditState},
+            AUDIT_CONTENT = #{auditContent},
+            GOODS_ID = #{goodsId},
+            GOODS_NAME = #{goodsName},
+            GOODS_IMG = #{goodsImg},
+            REWARD = #{reward},
+            ODER_DETAIL = #{oderDetail},
+            DELETED = #{deleted},
+            SPARE1 = #{spare1},
+            SPARE2 = #{spare2},
+            SPARE3 = #{spare3},
+            SPARE4 = #{spare4},
+            SPARE5 = #{spare5},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from points_alliance.goods_order where ID
+        in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByIdNotTrue">
+        update points_alliance.goods_order
+        set DELETED = 1,
+        LAST_UPDATE_ID = #{updateId},
+        LAST_UPDATER = #{updater},
+        LAST_UPDATE_TIME = #{dateTime}
+        where ID in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

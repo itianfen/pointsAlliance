@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.RuleDao">
+
+    <resultMap type="com.jx.entity.Rule" id="RuleMap">
+        <result property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="CREATED_TIME" jdbcType="TIMESTAMP"/>
+        <result property="creator" column="CREATOR" jdbcType="VARCHAR"/>
+        <result property="creatorId" column="CREATOR_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateId" column="LAST_UPDATE_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdater" column="LAST_UPDATER" jdbcType="VARCHAR"/>
+        <result property="content" column="CONTENT" jdbcType="OTHER"/>
+        <result property="type" column="TYPE" jdbcType="INTEGER"/>
+        <result property="deleted" column="DELETED" jdbcType="INTEGER"/>
+        <result property="spare1" column="SPARE1" jdbcType="VARCHAR"/>
+        <result property="spare2" column="SPARE2" jdbcType="VARCHAR"/>
+        <result property="spare3" column="SPARE3" jdbcType="VARCHAR"/>
+        <result property="spare4" column="SPARE4" jdbcType="VARCHAR"/>
+        <result property="spare5" column="SPARE5" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryById" resultMap="RuleMap">
+        select ID,
+               CREATED_TIME,
+               CREATOR,
+               CREATOR_ID,
+               LAST_UPDATE_ID,
+               LAST_UPDATE_TIME,
+               LAST_UPDATER,
+               CONTENT,
+               TYPE,
+               DELETED,
+               SPARE1,
+               SPARE2,
+               SPARE3,
+               SPARE4,
+               SPARE5
+        from points_alliance.rule
+        where ID = #{id}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="RuleMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, CONTENT, TYPE, DELETED,
+        SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.rule
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="rule.id != null and rule.id != ''">
+                    and ID like CONCAT('%', #{rule.id}, '%')
+                </if>
+
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="rule.createdTime != null ">
+                    and CREATED_TIME = #{rule.createdTime}
+                </if>
+
+
+                <if test="rule.creator != null and rule.creator != ''">
+                    and CREATOR like CONCAT('%', #{rule.creator}, '%')
+                </if>
+
+
+                <if test="rule.creatorId != null and rule.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{rule.creatorId}, '%')
+                </if>
+
+
+                <if test="rule.lastUpdateId != null and rule.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{rule.lastUpdateId}, '%')
+                </if>
+
+
+                <if test="rule.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{rule.lastUpdateTime}
+                </if>
+
+
+                <if test="rule.lastUpdater != null and rule.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{rule.lastUpdater}, '%')
+                </if>
+
+
+                <if test="rule.content != null ">
+                    and CONTENT = #{rule.content}
+                </if>
+
+
+                <if test="rule.type != null ">
+                    and TYPE = #{rule.type}
+                </if>
+
+
+                <if test="rule.deleted != null ">
+                    and DELETED = #{rule.deleted}
+                </if>
+
+
+                <if test="rule.spare1 != null and rule.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{rule.spare1}, '%')
+                </if>
+
+
+                <if test="rule.spare2 != null and rule.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{rule.spare2}, '%')
+                </if>
+
+
+                <if test="rule.spare3 != null and rule.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{rule.spare3}, '%')
+                </if>
+
+
+                <if test="rule.spare4 != null and rule.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{rule.spare4}, '%')
+                </if>
+
+
+                <if test="rule.spare5 != null and rule.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{rule.spare5}, '%')
+                </if>
+
+
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="rule.id != null and rule.id != ''">
+                    and ID = #{rule.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="rule.creator != null and rule.creator != ''">
+                    and CREATOR = #{rule.creator}
+                </if>
+                <if test="rule.creatorId != null and rule.creatorId != ''">
+                    and CREATOR_ID = #{rule.creatorId}
+                </if>
+                <if test="rule.lastUpdateId != null and rule.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{rule.lastUpdateId}
+                </if>
+                <if test="rule.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{rule.lastUpdateTime}
+                </if>
+                <if test="rule.lastUpdater != null and rule.lastUpdater != ''">
+                    and LAST_UPDATER = #{rule.lastUpdater}
+                </if>
+                <if test="rule.content != null">
+                    and CONTENT = #{rule.content}
+                </if>
+                <if test="rule.type != null">
+                    and TYPE = #{rule.type}
+                </if>
+                <if test="rule.deleted != null">
+                    and DELETED = #{rule.deleted}
+                </if>
+                <if test="rule.spare1 != null and rule.spare1 != ''">
+                    and SPARE1 = #{rule.spare1}
+                </if>
+                <if test="rule.spare2 != null and rule.spare2 != ''">
+                    and SPARE2 = #{rule.spare2}
+                </if>
+                <if test="rule.spare3 != null and rule.spare3 != ''">
+                    and SPARE3 = #{rule.spare3}
+                </if>
+                <if test="rule.spare4 != null and rule.spare4 != ''">
+                    and SPARE4 = #{rule.spare4}
+                </if>
+                <if test="rule.spare5 != null and rule.spare5 != ''">
+                    and SPARE5 = #{rule.spare5}
+                </if>
+            </where>
+        </if>
+        order by CREATED_TIME DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) from points_alliance.rule
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="rule.id != null and rule.id != ''">
+                    and ID like CONCAT('%', #{rule.id}, '%')
+                </if>
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="rule.createdTime != null ">
+                    and CREATED_TIME = #{rule.createdTime}
+                </if>
+
+                <if test="rule.creator != null and rule.creator != ''">
+                    and CREATOR like CONCAT('%', #{rule.creator}, '%')
+                </if>
+
+                <if test="rule.creatorId != null and rule.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{rule.creatorId}, '%')
+                </if>
+
+                <if test="rule.lastUpdateId != null and rule.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{rule.lastUpdateId}, '%')
+                </if>
+
+                <if test="rule.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{rule.lastUpdateTime}
+                </if>
+
+                <if test="rule.lastUpdater != null and rule.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{rule.lastUpdater}, '%')
+                </if>
+
+                <if test="rule.content != null ">
+                    and CONTENT = #{rule.content}
+                </if>
+
+                <if test="rule.type != null ">
+                    and TYPE = #{rule.type}
+                </if>
+
+                <if test="rule.deleted != null ">
+                    and DELETED = #{rule.deleted}
+                </if>
+
+                <if test="rule.spare1 != null and rule.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{rule.spare1}, '%')
+                </if>
+
+                <if test="rule.spare2 != null and rule.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{rule.spare2}, '%')
+                </if>
+
+                <if test="rule.spare3 != null and rule.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{rule.spare3}, '%')
+                </if>
+
+                <if test="rule.spare4 != null and rule.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{rule.spare4}, '%')
+                </if>
+
+                <if test="rule.spare5 != null and rule.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{rule.spare5}, '%')
+                </if>
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="rule.id != null and rule.id != ''">
+                    and ID = #{rule.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="rule.creator != null and rule.creator != ''">
+                    and CREATOR = #{rule.creator}
+                </if>
+                <if test="rule.creatorId != null and rule.creatorId != ''">
+                    and CREATOR_ID = #{rule.creatorId}
+                </if>
+                <if test="rule.lastUpdateId != null and rule.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{rule.lastUpdateId}
+                </if>
+                <if test="rule.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{rule.lastUpdateTime}
+                </if>
+                <if test="rule.lastUpdater != null and rule.lastUpdater != ''">
+                    and LAST_UPDATER = #{rule.lastUpdater}
+                </if>
+                <if test="rule.content != null">
+                    and CONTENT = #{rule.content}
+                </if>
+                <if test="rule.type != null">
+                    and TYPE = #{rule.type}
+                </if>
+                <if test="rule.deleted != null">
+                    and DELETED = #{rule.deleted}
+                </if>
+                <if test="rule.spare1 != null and rule.spare1 != ''">
+                    and SPARE1 = #{rule.spare1}
+                </if>
+                <if test="rule.spare2 != null and rule.spare2 != ''">
+                    and SPARE2 = #{rule.spare2}
+                </if>
+                <if test="rule.spare3 != null and rule.spare3 != ''">
+                    and SPARE3 = #{rule.spare3}
+                </if>
+                <if test="rule.spare4 != null and rule.spare4 != ''">
+                    and SPARE4 = #{rule.spare4}
+                </if>
+                <if test="rule.spare5 != null and rule.spare5 != ''">
+                    and SPARE5 = #{rule.spare5}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="queryAll" resultMap="RuleMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, CONTENT, TYPE, DELETED,
+        SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.rule
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="content != null">
+                and CONTENT = #{content}
+            </if>
+            <if test="type != null">
+                and TYPE = #{type}
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                and SPARE1 = #{spare1}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+        </where>
+        order by CREATED_TIME DESC
+    </select>
+    <select id="getContentByType" resultType="com.jx.entity.Rule">
+      select * from rule where type = #{type}
+    </select>
+
+
+    <update id="update">
+        update points_alliance.rule
+        <set>
+            <if test="createdTime != null">
+                CREATED_TIME = #{createdTime},
+            </if>
+            <if test="creator != null and creator != ''">
+                CREATOR = #{creator},
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                CREATOR_ID = #{creatorId},
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                LAST_UPDATE_ID = #{lastUpdateId},
+            </if>
+            <if test="lastUpdateTime != null">
+                LAST_UPDATE_TIME = #{lastUpdateTime},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                LAST_UPDATER = #{lastUpdater},
+            </if>
+            <if test="content != null">
+                CONTENT = #{content},
+            </if>
+            <if test="type != null">
+                TYPE = #{type},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted},
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                SPARE1 = #{spare1},
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                SPARE2 = #{spare2},
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                SPARE3 = #{spare3},
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                SPARE4 = #{spare4},
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                SPARE5 = #{spare5},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <update id="updateAllColumn">
+        update points_alliance.rule
+        <set>
+            CREATED_TIME = #{createdTime},
+            CREATOR = #{creator},
+            CREATOR_ID = #{creatorId},
+            LAST_UPDATE_ID = #{lastUpdateId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            LAST_UPDATER = #{lastUpdater},
+            CONTENT = #{content},
+            TYPE = #{type},
+            DELETED = #{deleted},
+            SPARE1 = #{spare1},
+            SPARE2 = #{spare2},
+            SPARE3 = #{spare3},
+            SPARE4 = #{spare4},
+            SPARE5 = #{spare5},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from points_alliance.rule where ID
+        in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByIdNotTrue">
+        update points_alliance.rule
+        set DELETED = 1,
+        LAST_UPDATE_ID = #{updateId},
+        LAST_UPDATER = #{updater},
+        LAST_UPDATE_TIME = #{dateTime}
+        where ID in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

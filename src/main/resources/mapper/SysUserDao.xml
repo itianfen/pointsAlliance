@@ -1,0 +1,998 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.SysUserDao">
+    <resultMap id="BaseResultMap" type="com.jx.entity.SysUser">
+        <!--@mbg.generated-->
+        <!--@Table sys_user-->
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <result column="CREATED_TIME" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="CREATOR" jdbcType="VARCHAR" property="creator"/>
+        <result column="CREATOR_ID" jdbcType="VARCHAR" property="creatorId"/>
+        <result column="LAST_UPDATE_ID" jdbcType="VARCHAR" property="lastUpdateId"/>
+        <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime"/>
+        <result column="LAST_UPDATER" jdbcType="VARCHAR" property="lastUpdater"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="PHONE" jdbcType="VARCHAR" property="phone"/>
+        <result column="ACCOUNT" jdbcType="VARCHAR" property="account"/>
+        <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
+        <result column="USER_STATE" jdbcType="INTEGER" property="userState"/>
+        <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId"/>
+        <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName"/>
+        <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId"/>
+        <result column="COMPANY_ID" jdbcType="VARCHAR" property="companyId"/>
+        <result column="MEMBER_LEVEL" jdbcType="INTEGER" property="memberLevel"/>
+        <result column="COMPANY_LEVEL" jdbcType="INTEGER" property="companyLevel"/>
+        <result column="BALANCE" jdbcType="DECIMAL" property="balance"/>
+        <result column="CUMULATIVE_PROFIT" jdbcType="DECIMAL" property="cumulativeProfit"/>
+        <result column="CUMULATIVE_POINT" jdbcType="DECIMAL" property="cumulativePoint"/>
+        <result column="DELETED" jdbcType="INTEGER" property="deleted"/>
+        <result column="OPEN_ID" jdbcType="VARCHAR" property="openId"/>
+        <result column="INVITE_CODE" jdbcType="VARCHAR" property="inviteCode"/>
+        <result column="HEAD_URL" jdbcType="VARCHAR" property="headUrl"/>
+        <result column="SPARE4" jdbcType="VARCHAR" property="spare4"/>
+        <result column="SPARE5" jdbcType="VARCHAR" property="spare5"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER,
+        `NAME`, PHONE, ACCOUNT, `PASSWORD`, USER_STATE, ROLE_ID, ROLE_NAME, PARENT_ID, COMPANY_ID,
+        MEMBER_LEVEL, COMPANY_LEVEL, BALANCE, CUMULATIVE_PROFIT, CUMULATIVE_POINT, DELETED,
+        OPEN_ID, INVITE_CODE, HEAD_URL, SPARE4, SPARE5
+    </sql>
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from points_alliance.sys_user
+        where ID = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from points_alliance.sys_user
+        <!-- 模糊查询 -->
+        <if test="preciseOrFuzzy != 1">
+            <where>
+                <if test="sysUser.id != null and sysUser.id != ''">
+                    and ID like CONCAT('%', #{sysUser.id}, '%')
+                </if>
+                <if test="beginTime != null and endTime != null">
+                      and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="sysUser.creator != null and sysUser.creator != ''">
+                      and CREATOR like CONCAT('%', #{sysUser.creator}, '%')
+                </if>
+                <if test="sysUser.creatorId != null and sysUser.creatorId != ''">
+                      and CREATOR_ID like CONCAT('%', #{sysUser.creatorId}, '%')
+                </if>
+                <if test="sysUser.lastUpdateId != null and sysUser.lastUpdateId != ''">
+                      and LAST_UPDATE_ID like CONCAT('%', #{sysUser.lastUpdateId}, '%')
+                </if>
+                <if test="sysUser.lastUpdater != null and sysUser.lastUpdater != ''">
+                      and LAST_UPDATER like CONCAT('%', #{sysUser.lastUpdater}, '%')
+                </if>
+                <if test="sysUser.name != null and sysUser.name != ''">
+                      and NAME like CONCAT('%', #{sysUser.name}, '%')
+                </if>
+                <if test="sysUser.phone != null and sysUser.phone != ''">
+                      and PHONE like CONCAT('%', #{sysUser.phone}, '%')
+                </if>
+                <if test="sysUser.account != null and sysUser.account != ''">
+                      and ACCOUNT like CONCAT('%', #{sysUser.account}, '%')
+                </if>
+                <if test="sysUser.password != null and sysUser.password != ''">
+                      and PASSWORD like CONCAT('%', #{sysUser.password}, '%')
+                </if>
+                <if test="sysUser.roleId != null and sysUser.roleId != ''">
+                      and ROLE_ID = #{sysUser.roleId}
+                </if>
+                <if test="sysUser.roleName != null and sysUser.roleName != ''">
+                      and ROLE_NAME like CONCAT('%', #{sysUser.roleName}, '%')
+                </if>
+                <if test="sysUser.parentId != null and sysUser.parentId != ''">
+                      and PARENT_ID like CONCAT('%', #{sysUser.parentId}, '%')
+                </if>
+                <if test="sysUser.companyId != null and sysUser.companyId != ''">
+                      and COMPANY_ID = #{sysUser.companyId}
+                </if>
+                <if test="sysUser.openId != null and sysUser.openId != ''">
+                      and OPEN_ID like CONCAT('%', #{sysUser.openId}, '%')
+                </if>
+                <if test="sysUser.inviteCode != null and sysUser.inviteCode != ''">
+                      and INVITE_CODE like CONCAT('%', #{sysUser.inviteCode}, '%')
+                </if>
+                <if test="sysUser.headUrl != null and sysUser.headUrl != ''">
+                      and HEAD_URL like CONCAT('%', #{sysUser.headUrl}, '%')
+                </if>
+                <if test="sysUser.userState != null">
+                    and USER_STATE = #{sysUser.userState}
+                </if>
+                <if test="sysUser.memberLevel != null">
+                    and MEMBER_LEVEL = #{sysUser.memberLevel}
+                </if>
+                <if test="sysUser.companyLevel != null">
+                    and COMPANY_LEVEL = #{sysUser.companyLevel}
+                </if>
+                <if test="sysUser.deleted != null">
+                    and DELETED = #{sysUser.deleted}
+                </if>
+                <if test="sysUser.spare4 != null and sysUser.spare4 != ''">
+                      and SPARE4 like CONCAT('%', #{sysUser.spare4}, '%')
+                </if>
+                <if test="sysUser.spare5 != null and sysUser.spare5 != ''">
+                      and SPARE5 like CONCAT('%', #{sysUser.spare5}, '%')
+                </if>
+            </where>
+        </if>
+        <!-- 精确查询 -->
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="sysUser.id != null and sysUser.id != ''">
+                    and ID = #{sysUser.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                      and CREATED_TIME between #{beginTime}
+                      and #{endTime}
+                </if>
+                <if test="sysUser.creator != null and sysUser.creator != ''">
+                      and CREATOR = #{sysUser.creator}
+                </if>
+                <if test="sysUser.creatorId != null and sysUser.creatorId != ''">
+                      and CREATOR_ID = #{sysUser.creatorId}
+                </if>
+                <if test="sysUser.lastUpdateId != null and sysUser.lastUpdateId != ''">
+                      and LAST_UPDATE_ID = #{sysUser.lastUpdateId}
+                </if>
+                <if test="sysUser.lastUpdateTime != null">
+                      and LAST_UPDATE_TIME = #{sysUser.lastUpdateTime}
+                </if>
+                <if test="sysUser.lastUpdater != null and sysUser.lastUpdater != ''">
+                      and LAST_UPDATER = #{sysUser.lastUpdater}
+                </if>
+                <if test="sysUser.name != null and sysUser.name != ''">
+                      and NAME = #{sysUser.name}
+                </if>
+                <if test="sysUser.phone != null and sysUser.phone != ''">
+                      and PHONE = #{sysUser.phone}
+                </if>
+                <if test="sysUser.account != null and sysUser.account != ''">
+                      and ACCOUNT = #{sysUser.account}
+                </if>
+                <if test="sysUser.password != null and sysUser.password != ''">
+                      and PASSWORD = #{sysUser.password}
+                </if>
+                <if test="sysUser.userState != null">
+                      and USER_STATE = #{sysUser.userState}
+                </if>
+                <if test="sysUser.roleId != null and sysUser.roleId != ''">
+                      and ROLE_ID = #{sysUser.roleId}
+                </if>
+                <if test="sysUser.roleName != null and sysUser.roleName != ''">
+                      and ROLE_NAME = #{sysUser.roleName}
+                </if>
+                <if test="sysUser.parentId != null and sysUser.parentId != ''">
+                      and PARENT_ID = #{sysUser.parentId}
+                </if>
+                <if test="sysUser.companyId != null and sysUser.companyId != ''">
+                      and COMPANY_ID = #{sysUser.companyId}
+                </if>
+                <if test="sysUser.memberLevel != null">
+                      and MEMBER_LEVEL = #{sysUser.memberLevel}
+                </if>
+                <if test="sysUser.companyLevel != null">
+                      and COMPANY_LEVEL = #{sysUser.companyLevel}
+                </if>
+                <if test="sysUser.balance != null">
+                      and BALANCE = #{sysUser.balance}
+                </if>
+                <if test="sysUser.cumulativeProfit != null">
+                      and CUMULATIVE_PROFIT = #{sysUser.cumulativeProfit}
+                </if>
+                <if test="sysUser.cumulativePoint != null">
+                      and CUMULATIVE_POINT = #{sysUser.cumulativePoint}
+                </if>
+                <if test="sysUser.deleted != null">
+                      and DELETED = #{sysUser.deleted}
+                </if>
+                <if test="sysUser.openId != null and sysUser.openId != ''">
+                      and OPEN_ID = #{sysUser.openId}
+                </if>
+                <if test="sysUser.inviteCode != null and sysUser.inviteCode != ''">
+                      and INVITE_CODE = #{sysUser.inviteCode}
+                </if>
+                <if test="sysUser.headUrl != null and sysUser.headUrl != ''">
+                      and HEAD_URL = #{sysUser.headUrl}
+                </if>
+                <if test="sysUser.memberLevel != null">
+                    and MEMBER_LEVEL = #{sysUser.memberLevel}
+                </if>
+                <if test="sysUser.companyLevel != null">
+                    and COMPANY_LEVEL = #{sysUser.companyLevel}
+                </if>
+                <if test="sysUser.spare4 != null and sysUser.spare4 != ''">
+                      and SPARE4 = #{sysUser.spare4}
+                </if>
+                <if test="sysUser.spare5 != null and sysUser.spare5 != ''">
+                      and SPARE5 = #{sysUser.spare5}
+                </if>
+            </where>
+        </if>
+        order by CREATED_TIME DESC
+        limit #{offset}, #{limit}
+    </select>
+    <!--查询指定行数据-->
+    <select id="queryAllByLimitNot" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from points_alliance.sys_user
+        <!-- 模糊查询 -->
+        <if test="preciseOrFuzzy != 1">
+            <where>
+                <if test="sysUser.id != null and sysUser.id != ''">
+                    and ID like CONCAT('%', #{sysUser.id}, '%')
+                </if>
+                <if test="beginTime != null and endTime != null">
+                      and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="sysUser.creator != null and sysUser.creator != ''">
+                      and CREATOR like CONCAT('%', #{sysUser.creator}, '%')
+                </if>
+                <if test="sysUser.creatorId != null and sysUser.creatorId != ''">
+                      and CREATOR_ID like CONCAT('%', #{sysUser.creatorId}, '%')
+                </if>
+                <if test="sysUser.lastUpdateId != null and sysUser.lastUpdateId != ''">
+                      and LAST_UPDATE_ID like CONCAT('%', #{sysUser.lastUpdateId}, '%')
+                </if>
+                <if test="sysUser.lastUpdater != null and sysUser.lastUpdater != ''">
+                      and LAST_UPDATER like CONCAT('%', #{sysUser.lastUpdater}, '%')
+                </if>
+                <if test="sysUser.name != null and sysUser.name != ''">
+                      and NAME like CONCAT('%', #{sysUser.name}, '%')
+                </if>
+                <if test="sysUser.phone != null and sysUser.phone != ''">
+                      and PHONE like CONCAT('%', #{sysUser.phone}, '%')
+                </if>
+                <if test="sysUser.account != null and sysUser.account != ''">
+                      and ACCOUNT like CONCAT('%', #{sysUser.account}, '%')
+                </if>
+                <if test="sysUser.password != null and sysUser.password != ''">
+                      and PASSWORD like CONCAT('%', #{sysUser.password}, '%')
+                </if>
+                <if test="sysUser.roleId != null and sysUser.roleId != ''">
+                      and ROLE_ID = #{sysUser.roleId}
+                </if>
+                <if test="sysUser.roleName != null and sysUser.roleName != ''">
+                      and ROLE_NAME like CONCAT('%', #{sysUser.roleName}, '%')
+                </if>
+                <if test="sysUser.parentId != null and sysUser.parentId != ''">
+                      and PARENT_ID like CONCAT('%', #{sysUser.parentId}, '%')
+                </if>
+                <if test="sysUser.companyId != null and sysUser.companyId != ''">
+                      and COMPANY_ID = #{sysUser.companyId}
+                </if>
+                <if test="sysUser.openId != null and sysUser.openId != ''">
+                      and OPEN_ID like CONCAT('%', #{sysUser.openId}, '%')
+                </if>
+                <if test="sysUser.inviteCode != null and sysUser.inviteCode != ''">
+                      and INVITE_CODE like CONCAT('%', #{sysUser.inviteCode}, '%')
+                </if>
+                <if test="sysUser.headUrl != null and sysUser.headUrl != ''">
+                      and HEAD_URL like CONCAT('%', #{sysUser.headUrl}, '%')
+                </if>
+                <if test="sysUser.userState != null">
+                    and USER_STATE = #{sysUser.userState}
+                </if>
+                <if test="sysUser.deleted != null">
+                    and DELETED = #{sysUser.deleted}
+                </if>
+                <if test="sysUser.memberLevel != null">
+                    and MEMBER_LEVEL = #{sysUser.memberLevel}
+                </if>
+                <if test="sysUser.companyLevel != null">
+                    and COMPANY_LEVEL = #{sysUser.companyLevel}
+                </if>
+                <if test="sysUser.deleted != null">
+                    and DELETED = #{sysUser.deleted}
+                </if>
+                <if test="sysUser.spare4 != null and sysUser.spare4 != ''">
+                      and SPARE4 like CONCAT('%', #{sysUser.spare4}, '%')
+                </if>
+                <if test="sysUser.spare5 != null and sysUser.spare5 != ''">
+                      and SPARE5 like CONCAT('%', #{sysUser.spare5}, '%')
+                </if>
+                and ROLE_ID not in(2,3)
+            </where>
+        </if>
+        <!-- 精确查询 -->
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="sysUser.id != null and sysUser.id != ''">
+                    and ID = #{sysUser.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                      and CREATED_TIME between #{beginTime}
+                      and #{endTime}
+                </if>
+                <if test="sysUser.creator != null and sysUser.creator != ''">
+                      and CREATOR = #{sysUser.creator}
+                </if>
+                <if test="sysUser.creatorId != null and sysUser.creatorId != ''">
+                      and CREATOR_ID = #{sysUser.creatorId}
+                </if>
+                <if test="sysUser.lastUpdateId != null and sysUser.lastUpdateId != ''">
+                      and LAST_UPDATE_ID = #{sysUser.lastUpdateId}
+                </if>
+                <if test="sysUser.lastUpdateTime != null">
+                      and LAST_UPDATE_TIME = #{sysUser.lastUpdateTime}
+                </if>
+                <if test="sysUser.lastUpdater != null and sysUser.lastUpdater != ''">
+                      and LAST_UPDATER = #{sysUser.lastUpdater}
+                </if>
+                <if test="sysUser.name != null and sysUser.name != ''">
+                      and NAME = #{sysUser.name}
+                </if>
+                <if test="sysUser.phone != null and sysUser.phone != ''">
+                      and PHONE = #{sysUser.phone}
+                </if>
+                <if test="sysUser.account != null and sysUser.account != ''">
+                      and ACCOUNT = #{sysUser.account}
+                </if>
+                <if test="sysUser.password != null and sysUser.password != ''">
+                      and PASSWORD = #{sysUser.password}
+                </if>
+                <if test="sysUser.userState != null">
+                      and USER_STATE = #{sysUser.userState}
+                </if>
+                <if test="sysUser.roleId != null and sysUser.roleId != ''">
+                      and ROLE_ID = #{sysUser.roleId}
+                </if>
+                <if test="sysUser.roleName != null and sysUser.roleName != ''">
+                      and ROLE_NAME = #{sysUser.roleName}
+                </if>
+                <if test="sysUser.parentId != null and sysUser.parentId != ''">
+                      and PARENT_ID = #{sysUser.parentId}
+                </if>
+                <if test="sysUser.companyId != null and sysUser.companyId != ''">
+                      and COMPANY_ID = #{sysUser.companyId}
+                </if>
+                <if test="sysUser.memberLevel != null">
+                      and MEMBER_LEVEL = #{sysUser.memberLevel}
+                </if>
+                <if test="sysUser.companyLevel != null">
+                      and COMPANY_LEVEL = #{sysUser.companyLevel}
+                </if>
+                <if test="sysUser.balance != null">
+                      and BALANCE = #{sysUser.balance}
+                </if>
+                <if test="sysUser.cumulativeProfit != null">
+                      and CUMULATIVE_PROFIT = #{sysUser.cumulativeProfit}
+                </if>
+                <if test="sysUser.cumulativePoint != null">
+                      and CUMULATIVE_POINT = #{sysUser.cumulativePoint}
+                </if>
+                <if test="sysUser.memberLevel != null">
+                    and MEMBER_LEVEL = #{sysUser.memberLevel}
+                </if>
+                <if test="sysUser.companyLevel != null">
+                    and COMPANY_LEVEL = #{sysUser.companyLevel}
+                </if>
+                <if test="sysUser.deleted != null">
+                    and DELETED = #{sysUser.deleted}
+                </if>
+                <if test="sysUser.openId != null and sysUser.openId != ''">
+                      and OPEN_ID = #{sysUser.openId}
+                </if>
+                <if test="sysUser.inviteCode != null and sysUser.inviteCode != ''">
+                      and INVITE_CODE = #{sysUser.inviteCode}
+                </if>
+                <if test="sysUser.headUrl != null and sysUser.headUrl != ''">
+                      and HEAD_URL = #{sysUser.headUrl}
+                </if>
+                <if test="sysUser.spare4 != null and sysUser.spare4 != ''">
+                      and SPARE4 = #{sysUser.spare4}
+                </if>
+                <if test="sysUser.spare5 != null and sysUser.spare5 != ''">
+                      and SPARE5 = #{sysUser.spare5}
+                </if>
+                and ROLE_ID not in(2,3)
+            </where>
+        </if>
+        order by CREATED_TIME DESC
+        limit #{offset}, #{limit}
+    </select>
+    <!--根据条件查询总条数-->
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) from points_alliance.sys_user
+        <!-- 模糊查询 -->
+        <if test="preciseOrFuzzy != 1">
+            <where>
+                <if test="sysUser.id != null and sysUser.id != ''">
+                    and ID like CONCAT('%', #{sysUser.id}, '%')
+                </if>
+                <if test="beginTime != null and endTime != null">
+                      and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="sysUser.creator != null and sysUser.creator != ''">
+                      and CREATOR like CONCAT('%', #{sysUser.creator}, '%')
+                </if>
+                <if test="sysUser.creatorId != null and sysUser.creatorId != ''">
+                      and CREATOR_ID like CONCAT('%', #{sysUser.creatorId}, '%')
+                </if>
+                <if test="sysUser.lastUpdateId != null and sysUser.lastUpdateId != ''">
+                      and LAST_UPDATE_ID like CONCAT('%', #{sysUser.lastUpdateId}, '%')
+                </if>
+                <if test="sysUser.lastUpdater != null and sysUser.lastUpdater != ''">
+                      and LAST_UPDATER like CONCAT('%', #{sysUser.lastUpdater}, '%')
+                </if>
+                <if test="sysUser.name != null and sysUser.name != ''">
+                      and NAME like CONCAT('%', #{sysUser.name}, '%')
+                </if>
+                <if test="sysUser.phone != null and sysUser.phone != ''">
+                      and PHONE like CONCAT('%', #{sysUser.phone}, '%')
+                </if>
+                <if test="sysUser.account != null and sysUser.account != ''">
+                      and ACCOUNT like CONCAT('%', #{sysUser.account}, '%')
+                </if>
+                <if test="sysUser.password != null and sysUser.password != ''">
+                      and PASSWORD like CONCAT('%', #{sysUser.password}, '%')
+                </if>
+                <if test="sysUser.roleId != null and sysUser.roleId != ''">
+                      and ROLE_ID like CONCAT('%', #{sysUser.roleId}, '%')
+                </if>
+                <if test="sysUser.roleName != null and sysUser.roleName != ''">
+                      and ROLE_NAME like CONCAT('%', #{sysUser.roleName}, '%')
+                </if>
+                <if test="sysUser.parentId != null and sysUser.parentId != ''">
+                      and PARENT_ID like CONCAT('%', #{sysUser.parentId}, '%')
+                </if>
+                <if test="sysUser.companyId != null and sysUser.companyId != ''">
+                      and COMPANY_ID = #{sysUser.companyId}
+                </if>
+                <if test="sysUser.openId != null and sysUser.openId != ''">
+                      and OPEN_ID like CONCAT('%', #{sysUser.openId}, '%')
+                </if>
+                <if test="sysUser.inviteCode != null and sysUser.inviteCode != ''">
+                      and INVITE_CODE like CONCAT('%', #{sysUser.inviteCode}, '%')
+                </if>
+                <if test="sysUser.headUrl != null and sysUser.headUrl != ''">
+                      and HEAD_URL like CONCAT('%', #{sysUser.headUrl}, '%')
+                </if>
+                <if test="sysUser.deleted != null">
+                    and DELETED = #{sysUser.deleted}
+                </if>
+                <if test="sysUser.memberLevel != null">
+                    and MEMBER_LEVEL = #{sysUser.memberLevel}
+                </if>
+                <if test="sysUser.companyLevel != null">
+                    and COMPANY_LEVEL = #{sysUser.companyLevel}
+                </if>
+                <if test="sysUser.spare4 != null and sysUser.spare4 != ''">
+                      and SPARE4 like CONCAT('%', #{sysUser.spare4}, '%')
+                </if>
+                <if test="sysUser.spare5 != null and sysUser.spare5 != ''">
+                      and SPARE5 like CONCAT('%', #{sysUser.spare5}, '%')
+                </if>
+            </where>
+        </if>
+        <!-- 精确查询 -->
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="sysUser.id != null and sysUser.id != ''">
+                    and ID = #{sysUser.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                      and CREATED_TIME between #{beginTime}
+                      and #{endTime}
+                </if>
+                <if test="sysUser.creator != null and sysUser.creator != ''">
+                      and CREATOR = #{sysUser.creator}
+                </if>
+                <if test="sysUser.creatorId != null and sysUser.creatorId != ''">
+                      and CREATOR_ID = #{sysUser.creatorId}
+                </if>
+                <if test="sysUser.lastUpdateId != null and sysUser.lastUpdateId != ''">
+                      and LAST_UPDATE_ID = #{sysUser.lastUpdateId}
+                </if>
+                <if test="sysUser.lastUpdateTime != null">
+                      and LAST_UPDATE_TIME = #{sysUser.lastUpdateTime}
+                </if>
+                <if test="sysUser.lastUpdater != null and sysUser.lastUpdater != ''">
+                      and LAST_UPDATER = #{sysUser.lastUpdater}
+                </if>
+                <if test="sysUser.name != null and sysUser.name != ''">
+                      and NAME = #{sysUser.name}
+                </if>
+                <if test="sysUser.phone != null and sysUser.phone != ''">
+                      and PHONE = #{sysUser.phone}
+                </if>
+                <if test="sysUser.account != null and sysUser.account != ''">
+                      and ACCOUNT = #{sysUser.account}
+                </if>
+                <if test="sysUser.password != null and sysUser.password != ''">
+                      and PASSWORD = #{sysUser.password}
+                </if>
+                <if test="sysUser.userState != null">
+                      and USER_STATE = #{sysUser.userState}
+                </if>
+                <if test="sysUser.roleId != null and sysUser.roleId != ''">
+                      and ROLE_ID = #{sysUser.roleId}
+                </if>
+                <if test="sysUser.roleName != null and sysUser.roleName != ''">
+                      and ROLE_NAME = #{sysUser.roleName}
+                </if>
+                <if test="sysUser.parentId != null and sysUser.parentId != ''">
+                      and PARENT_ID = #{sysUser.parentId}
+                </if>
+                <if test="sysUser.companyId != null and sysUser.companyId != ''">
+                      and COMPANY_ID = #{sysUser.companyId}
+                </if>
+                <if test="sysUser.memberLevel != null">
+                      and MEMBER_LEVEL = #{sysUser.memberLevel}
+                </if>
+                <if test="sysUser.companyLevel != null">
+                      and COMPANY_LEVEL = #{sysUser.companyLevel}
+                </if>
+                <if test="sysUser.balance != null">
+                      and BALANCE = #{sysUser.balance}
+                </if>
+                <if test="sysUser.cumulativeProfit != null">
+                      and CUMULATIVE_PROFIT = #{sysUser.cumulativeProfit}
+                </if>
+                <if test="sysUser.cumulativePoint != null">
+                      and CUMULATIVE_POINT = #{sysUser.cumulativePoint}
+                </if>
+                <if test="sysUser.memberLevel != null">
+                    and MEMBER_LEVEL = #{sysUser.memberLevel}
+                </if>
+                <if test="sysUser.companyLevel != null">
+                    and COMPANY_LEVEL = #{sysUser.companyLevel}
+                </if>
+                <if test="sysUser.deleted != null">
+                    and DELETED = #{sysUser.deleted}
+                </if>
+                <if test="sysUser.openId != null and sysUser.openId != ''">
+                      and OPEN_ID = #{sysUser.openId}
+                </if>
+                <if test="sysUser.inviteCode != null and sysUser.inviteCode != ''">
+                      and INVITE_CODE = #{sysUser.inviteCode}
+                </if>
+                <if test="sysUser.headUrl != null and sysUser.headUrl != ''">
+                      and HEAD_URL = #{sysUser.headUrl}
+                </if>
+                <if test="sysUser.spare4 != null and sysUser.spare4 != ''">
+                      and SPARE4 = #{sysUser.spare4}
+                </if>
+                <if test="sysUser.spare5 != null and sysUser.spare5 != ''">
+                      and SPARE5 = #{sysUser.spare5}
+                </if>
+            </where>
+        </if>
+    </select>
+    <!--根据条件查询总条数-->
+    <select id="countByParamNot" resultType="java.lang.Long">
+        select count(*) from points_alliance.sys_user
+        <!-- 模糊查询 -->
+        <if test="preciseOrFuzzy != 1">
+            <where>
+                <if test="sysUser.id != null and sysUser.id != ''">
+                    and ID like CONCAT('%', #{sysUser.id}, '%')
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="sysUser.creator != null and sysUser.creator != ''">
+                    and CREATOR like CONCAT('%', #{sysUser.creator}, '%')
+                </if>
+                <if test="sysUser.creatorId != null and sysUser.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{sysUser.creatorId}, '%')
+                </if>
+                <if test="sysUser.lastUpdateId != null and sysUser.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{sysUser.lastUpdateId}, '%')
+                </if>
+                <if test="sysUser.lastUpdater != null and sysUser.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{sysUser.lastUpdater}, '%')
+                </if>
+                <if test="sysUser.name != null and sysUser.name != ''">
+                    and NAME like CONCAT('%', #{sysUser.name}, '%')
+                </if>
+                <if test="sysUser.phone != null and sysUser.phone != ''">
+                    and PHONE like CONCAT('%', #{sysUser.phone}, '%')
+                </if>
+                <if test="sysUser.account != null and sysUser.account != ''">
+                    and ACCOUNT like CONCAT('%', #{sysUser.account}, '%')
+                </if>
+                <if test="sysUser.password != null and sysUser.password != ''">
+                    and PASSWORD like CONCAT('%', #{sysUser.password}, '%')
+                </if>
+                <if test="sysUser.roleId != null and sysUser.roleId != ''">
+                    and ROLE_ID like CONCAT('%', #{sysUser.roleId}, '%')
+                </if>
+                <if test="sysUser.roleName != null and sysUser.roleName != ''">
+                    and ROLE_NAME like CONCAT('%', #{sysUser.roleName}, '%')
+                </if>
+                <if test="sysUser.parentId != null and sysUser.parentId != ''">
+                    and PARENT_ID like CONCAT('%', #{sysUser.parentId}, '%')
+                </if>
+                <if test="sysUser.companyId != null and sysUser.companyId != ''">
+                    and COMPANY_ID = #{sysUser.companyId}
+                </if>
+                <if test="sysUser.openId != null and sysUser.openId != ''">
+                    and OPEN_ID like CONCAT('%', #{sysUser.openId}, '%')
+                </if>
+                <if test="sysUser.inviteCode != null and sysUser.inviteCode != ''">
+                    and INVITE_CODE like CONCAT('%', #{sysUser.inviteCode}, '%')
+                </if>
+                <if test="sysUser.headUrl != null and sysUser.headUrl != ''">
+                    and HEAD_URL like CONCAT('%', #{sysUser.headUrl}, '%')
+                </if>
+                <if test="sysUser.deleted != null">
+                    and DELETED = #{sysUser.deleted}
+                </if>
+                <if test="sysUser.memberLevel != null">
+                    and MEMBER_LEVEL = #{sysUser.memberLevel}
+                </if>
+                <if test="sysUser.companyLevel != null">
+                    and COMPANY_LEVEL = #{sysUser.companyLevel}
+                </if>
+                <if test="sysUser.spare4 != null and sysUser.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{sysUser.spare4}, '%')
+                </if>
+                <if test="sysUser.spare5 != null and sysUser.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{sysUser.spare5}, '%')
+                </if>
+                and ROLE_ID not in(2,3)
+            </where>
+        </if>
+        <!-- 精确查询 -->
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="sysUser.id != null and sysUser.id != ''">
+                    and ID = #{sysUser.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime}
+                    and #{endTime}
+                </if>
+                <if test="sysUser.creator != null and sysUser.creator != ''">
+                    and CREATOR = #{sysUser.creator}
+                </if>
+                <if test="sysUser.creatorId != null and sysUser.creatorId != ''">
+                    and CREATOR_ID = #{sysUser.creatorId}
+                </if>
+                <if test="sysUser.lastUpdateId != null and sysUser.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{sysUser.lastUpdateId}
+                </if>
+                <if test="sysUser.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{sysUser.lastUpdateTime}
+                </if>
+                <if test="sysUser.lastUpdater != null and sysUser.lastUpdater != ''">
+                    and LAST_UPDATER = #{sysUser.lastUpdater}
+                </if>
+                <if test="sysUser.name != null and sysUser.name != ''">
+                    and NAME = #{sysUser.name}
+                </if>
+                <if test="sysUser.phone != null and sysUser.phone != ''">
+                    and PHONE = #{sysUser.phone}
+                </if>
+                <if test="sysUser.account != null and sysUser.account != ''">
+                    and ACCOUNT = #{sysUser.account}
+                </if>
+                <if test="sysUser.password != null and sysUser.password != ''">
+                    and PASSWORD = #{sysUser.password}
+                </if>
+                <if test="sysUser.userState != null">
+                    and USER_STATE = #{sysUser.userState}
+                </if>
+                <if test="sysUser.roleId != null and sysUser.roleId != ''">
+                    and ROLE_ID = #{sysUser.roleId}
+                </if>
+                <if test="sysUser.roleName != null and sysUser.roleName != ''">
+                    and ROLE_NAME = #{sysUser.roleName}
+                </if>
+                <if test="sysUser.parentId != null and sysUser.parentId != ''">
+                    and PARENT_ID = #{sysUser.parentId}
+                </if>
+                <if test="sysUser.companyId != null and sysUser.companyId != ''">
+                    and COMPANY_ID = #{sysUser.companyId}
+                </if>
+                <if test="sysUser.memberLevel != null">
+                    and MEMBER_LEVEL = #{sysUser.memberLevel}
+                </if>
+                <if test="sysUser.companyLevel != null">
+                    and COMPANY_LEVEL = #{sysUser.companyLevel}
+                </if>
+                <if test="sysUser.balance != null">
+                    and BALANCE = #{sysUser.balance}
+                </if>
+                <if test="sysUser.cumulativeProfit != null">
+                    and CUMULATIVE_PROFIT = #{sysUser.cumulativeProfit}
+                </if>
+                <if test="sysUser.cumulativePoint != null">
+                    and CUMULATIVE_POINT = #{sysUser.cumulativePoint}
+                </if>
+                <if test="sysUser.memberLevel != null">
+                    and MEMBER_LEVEL = #{sysUser.memberLevel}
+                </if>
+                <if test="sysUser.companyLevel != null">
+                    and COMPANY_LEVEL = #{sysUser.companyLevel}
+                </if>
+                <if test="sysUser.deleted != null">
+                    and DELETED = #{sysUser.deleted}
+                </if>
+                <if test="sysUser.openId != null and sysUser.openId != ''">
+                    and OPEN_ID = #{sysUser.openId}
+                </if>
+                <if test="sysUser.inviteCode != null and sysUser.inviteCode != ''">
+                    and INVITE_CODE = #{sysUser.inviteCode}
+                </if>
+                <if test="sysUser.headUrl != null and sysUser.headUrl != ''">
+                    and HEAD_URL = #{sysUser.headUrl}
+                </if>
+                <if test="sysUser.spare4 != null and sysUser.spare4 != ''">
+                    and SPARE4 = #{sysUser.spare4}
+                </if>
+                <if test="sysUser.spare5 != null and sysUser.spare5 != ''">
+                    and SPARE5 = #{sysUser.spare5}
+                </if>
+                and ROLE_ID not in(2,3)
+            </where>
+        </if>
+    </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from points_alliance.sys_user
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                  and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                  and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                  and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                  and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                  and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                  and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="name != null and name != ''">
+                  and NAME = #{name}
+            </if>
+            <if test="phone != null and phone != ''">
+                  and PHONE = #{phone}
+            </if>
+            <if test="account != null and account != ''">
+                  and ACCOUNT = #{account}
+            </if>
+            <if test="password != null and password != ''">
+                  and PASSWORD = #{password}
+            </if>
+            <if test="userState != null">
+                  and USER_STATE = #{userState}
+            </if>
+            <if test="roleId != null and roleId != ''">
+                  and ROLE_ID = #{roleId}
+            </if>
+            <if test="roleName != null and roleName != ''">
+                  and ROLE_NAME = #{roleName}
+            </if>
+            <if test="parentId != null and parentId != ''">
+                  and PARENT_ID = #{parentId}
+            </if>
+            <if test="companyId != null and companyId != ''">
+                  and COMPANY_ID = #{companyId}
+            </if>
+            <if test="memberLevel != null">
+                  and MEMBER_LEVEL = #{memberLevel}
+            </if>
+            <if test="companyLevel != null">
+                  and COMPANY_LEVEL = #{companyLevel}
+            </if>
+            <if test="balance != null">
+                  and BALANCE = #{balance}
+            </if>
+            <if test="cumulativeProfit != null">
+                  and CUMULATIVE_PROFIT = #{cumulativeProfit}
+            </if>
+            <if test="cumulativePoint != null">
+                  and CUMULATIVE_POINT = #{cumulativePoint}
+            </if>
+            <if test="deleted != null">
+                  and DELETED = #{deleted}
+            </if>
+            <if test="openId != null and openId != ''">
+                  and OPEN_ID = #{openId}
+            </if>
+            <if test="inviteCode != null and inviteCode != ''">
+                  and INVITE_CODE = #{inviteCode}
+            </if>
+            <if test="headUrl != null and headUrl != ''">
+                  and HEAD_URL = #{headUrl}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                  and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                  and SPARE5 = #{spare5}
+            </if>
+        </where>
+        order by CREATED_TIME DESC
+    </select>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update points_alliance.sys_user
+        <set>
+            <if test="createdTime != null">
+                CREATED_TIME = #{createdTime},
+            </if>
+            <if test="creator != null and creator != ''">
+                    CREATOR = #{creator},
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                    CREATOR_ID = #{creatorId},
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                    LAST_UPDATE_ID = #{lastUpdateId},
+            </if>
+            <if test="lastUpdateTime != null">
+                    LAST_UPDATE_TIME = #{lastUpdateTime},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                    LAST_UPDATER = #{lastUpdater},
+            </if>
+            <if test="name != null and name != ''">
+                    NAME = #{name},
+            </if>
+            <if test="phone != null and phone != ''">
+                    PHONE = #{phone},
+            </if>
+            <if test="account != null and account != ''">
+                    ACCOUNT = #{account},
+            </if>
+            <if test="password != null and password != ''">
+                    PASSWORD = #{password},
+            </if>
+            <if test="userState != null">
+                    USER_STATE = #{userState},
+            </if>
+            <if test="roleId != null and roleId != ''">
+                    ROLE_ID = #{roleId},
+            </if>
+            <if test="roleName != null and roleName != ''">
+                    ROLE_NAME = #{roleName},
+            </if>
+            <if test="parentId != null and parentId != ''">
+                    PARENT_ID = #{parentId},
+            </if>
+            <if test="companyId != null and companyId != ''">
+                    COMPANY_ID = #{companyId},
+            </if>
+            <if test="memberLevel != null">
+                    MEMBER_LEVEL = #{memberLevel},
+            </if>
+            <if test="companyLevel != null">
+                    COMPANY_LEVEL = #{companyLevel},
+            </if>
+            <if test="balance != null">
+                    BALANCE = #{balance},
+            </if>
+            <if test="cumulativeProfit != null">
+                    CUMULATIVE_PROFIT = #{cumulativeProfit},
+            </if>
+            <if test="cumulativePoint != null">
+                    CUMULATIVE_POINT = #{cumulativePoint},
+            </if>
+            <if test="deleted != null">
+                    DELETED = #{deleted},
+            </if>
+            <if test="openId != null and openId != ''">
+                    OPEN_ID = #{openId},
+            </if>
+            <if test="inviteCode != null and inviteCode != ''">
+                    INVITE_CODE = #{inviteCode},
+            </if>
+            <if test="headUrl != null and headUrl != ''">
+                    HEAD_URL = #{headUrl},
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                    SPARE4 = #{spare4},
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                SPARE5 = #{spare5},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <!--通过主键修改全部数据-->
+    <update id="updateAllColumn">
+        update points_alliance.sys_user
+        <set>
+            CREATED_TIME = #{createdTime},
+            CREATOR = #{creator},
+            CREATOR_ID = #{creatorId},
+            LAST_UPDATE_ID = #{lastUpdateId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            LAST_UPDATER = #{lastUpdater},
+            NAME = #{name},
+            PHONE = #{phone},
+            ACCOUNT = #{account},
+            PASSWORD = #{password},
+            USER_STATE = #{userState},
+            ROLE_ID = #{roleId},
+            ROLE_NAME = #{roleName},
+            PARENT_ID = #{parentId},
+            COMPANY_ID = #{companyId},
+            MEMBER_LEVEL = #{memberLevel},
+            COMPANY_LEVEL = #{companyLevel},
+            BALANCE = #{balance},
+            CUMULATIVE_PROFIT = #{cumulativeProfit},
+            CUMULATIVE_POINT = #{cumulativePoint},
+            DELETED = #{deleted},
+            OPEN_ID = #{openId},
+            INVITE_CODE = #{inviteCode},
+            HEAD_URL = #{headUrl},
+            SPARE4 = #{spare4},
+            SPARE5 = #{spare5},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from points_alliance.sys_user where ID
+        in
+        <foreach close=")" collection="ids" item="id" open="(" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--通过主键逻辑删除-->
+    <delete id="deleteByIdNotTrue">
+        update points_alliance.sys_user
+        set DELETED = 1,
+        LAST_UPDATE_ID = #{updateId},
+        LAST_UPDATER = #{updater},
+        LAST_UPDATE_TIME = #{dateTime}
+        where ID in
+        <foreach close=")" collection="ids" item="id" open="(" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--根据账户查询信息-->
+    <select id="queryByAccount" resultType="com.jx.entity.SysUser">
+        select
+        <include refid="Base_Column_List"/>
+        from points_alliance.sys_user
+        where ACCOUNT = #{account}
+    </select>
+
+    <select id="queryByInviteCode" resultType="com.jx.entity.SysUser">
+        select
+        <include refid="Base_Column_List"/>
+        from points_alliance.sys_user
+        where INVITE_CODE = #{inviteCode}
+    </select>
+
+    <select id="queryByInviteCodeOrPhoneNumber" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from points_alliance.sys_user
+        where INVITE_CODE=#{inviteCode}
+        or PHONE=#{inviteCode}
+    </select>
+</mapper>

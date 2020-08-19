@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.CapitalDetailDao">
+
+    <resultMap type="com.jx.entity.CapitalDetail" id="CapitalDetailMap">
+        <result property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="CREATED_TIME" jdbcType="TIMESTAMP"/>
+        <result property="creator" column="CREATOR" jdbcType="VARCHAR"/>
+        <result property="creatorId" column="CREATOR_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateId" column="LAST_UPDATE_ID" jdbcType="VARCHAR"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdater" column="LAST_UPDATER" jdbcType="VARCHAR"/>
+        <result property="userId" column="USER_ID" jdbcType="VARCHAR"/>
+        <result property="capitalType" column="CAPITAL_TYPE" jdbcType="INTEGER"/>
+        <result property="pointsDetail" column="POINTS_DETAIL" jdbcType="NUMERIC"/>
+        <result property="moneyDetail" column="MONEY_DETAIL" jdbcType="NUMERIC"/>
+        <result property="orderId" column="ORDER_ID" jdbcType="VARCHAR"/>
+        <result property="capitalContent" column="CAPITAL_CONTENT" jdbcType="VARCHAR"/>
+        <result property="deleted" column="DELETED" jdbcType="INTEGER"/>
+        <result property="spare1" column="SPARE1" jdbcType="VARCHAR"/>
+        <result property="spare2" column="SPARE2" jdbcType="VARCHAR"/>
+        <result property="spare3" column="SPARE3" jdbcType="VARCHAR"/>
+        <result property="spare4" column="SPARE4" jdbcType="VARCHAR"/>
+        <result property="spare5" column="SPARE5" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryById" resultMap="CapitalDetailMap">
+        select ID,
+               CREATED_TIME,
+               CREATOR,
+               CREATOR_ID,
+               LAST_UPDATE_ID,
+               LAST_UPDATE_TIME,
+               LAST_UPDATER,
+               USER_ID,
+               CAPITAL_TYPE,
+               POINTS_DETAIL,
+               MONEY_DETAIL,
+               ORDER_ID,
+               CAPITAL_CONTENT,
+               DELETED,
+               SPARE1,
+               SPARE2,
+               SPARE3,
+               SPARE4,
+               SPARE5
+        from points_alliance.capital_detail
+        where ID = #{id}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="CapitalDetailMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, USER_ID, CAPITAL_TYPE,
+        POINTS_DETAIL, MONEY_DETAIL, ORDER_ID, CAPITAL_CONTENT, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.capital_detail
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="capitalDetail.id != null and capitalDetail.id != ''">
+                    and ID like CONCAT('%', #{capitalDetail.id}, '%')
+                </if>
+
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="capitalDetail.createdTime != null ">
+                    and CREATED_TIME = #{capitalDetail.createdTime}
+                </if>
+
+
+                <if test="capitalDetail.creator != null and capitalDetail.creator != ''">
+                    and CREATOR like CONCAT('%', #{capitalDetail.creator}, '%')
+                </if>
+
+
+                <if test="capitalDetail.creatorId != null and capitalDetail.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{capitalDetail.creatorId}, '%')
+                </if>
+
+
+                <if test="capitalDetail.lastUpdateId != null and capitalDetail.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{capitalDetail.lastUpdateId}, '%')
+                </if>
+
+
+                <if test="capitalDetail.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{capitalDetail.lastUpdateTime}
+                </if>
+
+
+                <if test="capitalDetail.lastUpdater != null and capitalDetail.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{capitalDetail.lastUpdater}, '%')
+                </if>
+
+
+                <if test="capitalDetail.userId != null and capitalDetail.userId != ''">
+                    and USER_ID like CONCAT('%', #{capitalDetail.userId}, '%')
+                </if>
+
+
+                <if test="capitalDetail.capitalType != null ">
+                    and CAPITAL_TYPE = #{capitalDetail.capitalType}
+                </if>
+
+
+                <if test="capitalDetail.pointsDetail != null ">
+                    and POINTS_DETAIL = #{capitalDetail.pointsDetail}
+                </if>
+
+
+                <if test="capitalDetail.moneyDetail != null ">
+                    and MONEY_DETAIL = #{capitalDetail.moneyDetail}
+                </if>
+
+
+                <if test="capitalDetail.orderId != null and capitalDetail.orderId != ''">
+                    and ORDER_ID like CONCAT('%', #{capitalDetail.orderId}, '%')
+                </if>
+
+
+                <if test="capitalDetail.capitalContent != null and capitalDetail.capitalContent != ''">
+                    and CAPITAL_CONTENT like CONCAT('%', #{capitalDetail.capitalContent}, '%')
+                </if>
+
+
+                <if test="capitalDetail.deleted != null ">
+                    and DELETED = #{capitalDetail.deleted}
+                </if>
+
+
+                <if test="capitalDetail.spare1 != null and capitalDetail.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{capitalDetail.spare1}, '%')
+                </if>
+
+
+                <if test="capitalDetail.spare2 != null and capitalDetail.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{capitalDetail.spare2}, '%')
+                </if>
+
+
+                <if test="capitalDetail.spare3 != null and capitalDetail.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{capitalDetail.spare3}, '%')
+                </if>
+
+
+                <if test="capitalDetail.spare4 != null and capitalDetail.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{capitalDetail.spare4}, '%')
+                </if>
+
+
+                <if test="capitalDetail.spare5 != null and capitalDetail.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{capitalDetail.spare5}, '%')
+                </if>
+
+
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="capitalDetail.id != null and capitalDetail.id != ''">
+                    and ID = #{capitalDetail.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="capitalDetail.creator != null and capitalDetail.creator != ''">
+                    and CREATOR = #{capitalDetail.creator}
+                </if>
+                <if test="capitalDetail.creatorId != null and capitalDetail.creatorId != ''">
+                    and CREATOR_ID = #{capitalDetail.creatorId}
+                </if>
+                <if test="capitalDetail.lastUpdateId != null and capitalDetail.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{capitalDetail.lastUpdateId}
+                </if>
+                <if test="capitalDetail.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{capitalDetail.lastUpdateTime}
+                </if>
+                <if test="capitalDetail.lastUpdater != null and capitalDetail.lastUpdater != ''">
+                    and LAST_UPDATER = #{capitalDetail.lastUpdater}
+                </if>
+                <if test="capitalDetail.userId != null and capitalDetail.userId != ''">
+                    and USER_ID = #{capitalDetail.userId}
+                </if>
+                <if test="capitalDetail.capitalType != null">
+                    and CAPITAL_TYPE = #{capitalDetail.capitalType}
+                </if>
+                <if test="capitalDetail.pointsDetail != null">
+                    and POINTS_DETAIL = #{capitalDetail.pointsDetail}
+                </if>
+                <if test="capitalDetail.moneyDetail != null">
+                    and MONEY_DETAIL = #{capitalDetail.moneyDetail}
+                </if>
+                <if test="capitalDetail.orderId != null and capitalDetail.orderId != ''">
+                    and ORDER_ID = #{capitalDetail.orderId}
+                </if>
+                <if test="capitalDetail.capitalContent != null and capitalDetail.capitalContent != ''">
+                    and CAPITAL_CONTENT = #{capitalDetail.capitalContent}
+                </if>
+                <if test="capitalDetail.deleted != null">
+                    and DELETED = #{capitalDetail.deleted}
+                </if>
+                <if test="capitalDetail.spare1 != null and capitalDetail.spare1 != ''">
+                    and SPARE1 = #{capitalDetail.spare1}
+                </if>
+                <if test="capitalDetail.spare2 != null and capitalDetail.spare2 != ''">
+                    and SPARE2 = #{capitalDetail.spare2}
+                </if>
+                <if test="capitalDetail.spare3 != null and capitalDetail.spare3 != ''">
+                    and SPARE3 = #{capitalDetail.spare3}
+                </if>
+                <if test="capitalDetail.spare4 != null and capitalDetail.spare4 != ''">
+                    and SPARE4 = #{capitalDetail.spare4}
+                </if>
+                <if test="capitalDetail.spare5 != null and capitalDetail.spare5 != ''">
+                    and SPARE5 = #{capitalDetail.spare5}
+                </if>
+            </where>
+        </if>
+        order by CREATED_TIME DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) from points_alliance.capital_detail
+        <if test="preciseOrFuzzy != 1">
+            <where>
+
+                <if test="capitalDetail.id != null and capitalDetail.id != ''">
+                    and ID like CONCAT('%', #{capitalDetail.id}, '%')
+                </if>
+
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="capitalDetail.createdTime != null ">
+                    and CREATED_TIME = #{capitalDetail.createdTime}
+                </if>
+
+                <if test="capitalDetail.creator != null and capitalDetail.creator != ''">
+                    and CREATOR like CONCAT('%', #{capitalDetail.creator}, '%')
+                </if>
+
+                <if test="capitalDetail.creatorId != null and capitalDetail.creatorId != ''">
+                    and CREATOR_ID like CONCAT('%', #{capitalDetail.creatorId}, '%')
+                </if>
+
+                <if test="capitalDetail.lastUpdateId != null and capitalDetail.lastUpdateId != ''">
+                    and LAST_UPDATE_ID like CONCAT('%', #{capitalDetail.lastUpdateId}, '%')
+                </if>
+
+                <if test="capitalDetail.lastUpdateTime != null ">
+                    and LAST_UPDATE_TIME = #{capitalDetail.lastUpdateTime}
+                </if>
+
+                <if test="capitalDetail.lastUpdater != null and capitalDetail.lastUpdater != ''">
+                    and LAST_UPDATER like CONCAT('%', #{capitalDetail.lastUpdater}, '%')
+                </if>
+
+                <if test="capitalDetail.userId != null and capitalDetail.userId != ''">
+                    and USER_ID like CONCAT('%', #{capitalDetail.userId}, '%')
+                </if>
+
+                <if test="capitalDetail.capitalType != null ">
+                    and CAPITAL_TYPE = #{capitalDetail.capitalType}
+                </if>
+
+                <if test="capitalDetail.pointsDetail != null ">
+                    and POINTS_DETAIL = #{capitalDetail.pointsDetail}
+                </if>
+
+                <if test="capitalDetail.moneyDetail != null ">
+                    and MONEY_DETAIL = #{capitalDetail.moneyDetail}
+                </if>
+
+                <if test="capitalDetail.orderId != null and capitalDetail.orderId != ''">
+                    and ORDER_ID like CONCAT('%', #{capitalDetail.orderId}, '%')
+                </if>
+
+                <if test="capitalDetail.capitalContent != null and capitalDetail.capitalContent != ''">
+                    and CAPITAL_CONTENT like CONCAT('%', #{capitalDetail.capitalContent}, '%')
+                </if>
+
+                <if test="capitalDetail.deleted != null ">
+                    and DELETED = #{capitalDetail.deleted}
+                </if>
+
+                <if test="capitalDetail.spare1 != null and capitalDetail.spare1 != ''">
+                    and SPARE1 like CONCAT('%', #{capitalDetail.spare1}, '%')
+                </if>
+
+                <if test="capitalDetail.spare2 != null and capitalDetail.spare2 != ''">
+                    and SPARE2 like CONCAT('%', #{capitalDetail.spare2}, '%')
+                </if>
+
+                <if test="capitalDetail.spare3 != null and capitalDetail.spare3 != ''">
+                    and SPARE3 like CONCAT('%', #{capitalDetail.spare3}, '%')
+                </if>
+
+                <if test="capitalDetail.spare4 != null and capitalDetail.spare4 != ''">
+                    and SPARE4 like CONCAT('%', #{capitalDetail.spare4}, '%')
+                </if>
+
+                <if test="capitalDetail.spare5 != null and capitalDetail.spare5 != ''">
+                    and SPARE5 like CONCAT('%', #{capitalDetail.spare5}, '%')
+                </if>
+            </where>
+        </if>
+        <if test="preciseOrFuzzy == 1">
+            <where>
+                <if test="capitalDetail.id != null and capitalDetail.id != ''">
+                    and ID = #{capitalDetail.id}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and CREATED_TIME between #{beginTime} and #{endTime}
+                </if>
+                <if test="capitalDetail.creator != null and capitalDetail.creator != ''">
+                    and CREATOR = #{capitalDetail.creator}
+                </if>
+                <if test="capitalDetail.creatorId != null and capitalDetail.creatorId != ''">
+                    and CREATOR_ID = #{capitalDetail.creatorId}
+                </if>
+                <if test="capitalDetail.lastUpdateId != null and capitalDetail.lastUpdateId != ''">
+                    and LAST_UPDATE_ID = #{capitalDetail.lastUpdateId}
+                </if>
+                <if test="capitalDetail.lastUpdateTime != null">
+                    and LAST_UPDATE_TIME = #{capitalDetail.lastUpdateTime}
+                </if>
+                <if test="capitalDetail.lastUpdater != null and capitalDetail.lastUpdater != ''">
+                    and LAST_UPDATER = #{capitalDetail.lastUpdater}
+                </if>
+                <if test="capitalDetail.userId != null and capitalDetail.userId != ''">
+                    and USER_ID = #{capitalDetail.userId}
+                </if>
+                <if test="capitalDetail.capitalType != null">
+                    and CAPITAL_TYPE = #{capitalDetail.capitalType}
+                </if>
+                <if test="capitalDetail.pointsDetail != null">
+                    and POINTS_DETAIL = #{capitalDetail.pointsDetail}
+                </if>
+                <if test="capitalDetail.moneyDetail != null">
+                    and MONEY_DETAIL = #{capitalDetail.moneyDetail}
+                </if>
+                <if test="capitalDetail.orderId != null and capitalDetail.orderId != ''">
+                    and ORDER_ID = #{capitalDetail.orderId}
+                </if>
+                <if test="capitalDetail.capitalContent != null and capitalDetail.capitalContent != ''">
+                    and CAPITAL_CONTENT = #{capitalDetail.capitalContent}
+                </if>
+                <if test="capitalDetail.deleted != null">
+                    and DELETED = #{capitalDetail.deleted}
+                </if>
+                <if test="capitalDetail.spare1 != null and capitalDetail.spare1 != ''">
+                    and SPARE1 = #{capitalDetail.spare1}
+                </if>
+                <if test="capitalDetail.spare2 != null and capitalDetail.spare2 != ''">
+                    and SPARE2 = #{capitalDetail.spare2}
+                </if>
+                <if test="capitalDetail.spare3 != null and capitalDetail.spare3 != ''">
+                    and SPARE3 = #{capitalDetail.spare3}
+                </if>
+                <if test="capitalDetail.spare4 != null and capitalDetail.spare4 != ''">
+                    and SPARE4 = #{capitalDetail.spare4}
+                </if>
+                <if test="capitalDetail.spare5 != null and capitalDetail.spare5 != ''">
+                    and SPARE5 = #{capitalDetail.spare5}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="queryAll" resultMap="CapitalDetailMap">
+        select
+        ID, CREATED_TIME, CREATOR, CREATOR_ID, LAST_UPDATE_ID, LAST_UPDATE_TIME, LAST_UPDATER, USER_ID, CAPITAL_TYPE,
+        POINTS_DETAIL, MONEY_DETAIL, ORDER_ID, CAPITAL_CONTENT, DELETED, SPARE1, SPARE2, SPARE3, SPARE4, SPARE5
+        from points_alliance.capital_detail
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="createdTime != null">
+                and CREATED_TIME = #{createdTime}
+            </if>
+            <if test="creator != null and creator != ''">
+                and CREATOR = #{creator}
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                and CREATOR_ID = #{creatorId}
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                and LAST_UPDATE_ID = #{lastUpdateId}
+            </if>
+            <if test="lastUpdateTime != null">
+                and LAST_UPDATE_TIME = #{lastUpdateTime}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                and LAST_UPDATER = #{lastUpdater}
+            </if>
+            <if test="userId != null and userId != ''">
+                and USER_ID = #{userId}
+            </if>
+            <if test="capitalType != null">
+                and CAPITAL_TYPE = #{capitalType}
+            </if>
+            <if test="pointsDetail != null">
+                and POINTS_DETAIL = #{pointsDetail}
+            </if>
+            <if test="moneyDetail != null">
+                and MONEY_DETAIL = #{moneyDetail}
+            </if>
+            <if test="orderId != null and orderId != ''">
+                and ORDER_ID = #{orderId}
+            </if>
+            <if test="capitalContent != null and capitalContent != ''">
+                and CAPITAL_CONTENT = #{capitalContent}
+            </if>
+            <if test="deleted != null">
+                and DELETED = #{deleted}
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                and SPARE1 = #{spare1}
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                and SPARE2 = #{spare2}
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                and SPARE3 = #{spare3}
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                and SPARE4 = #{spare4}
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                and SPARE5 = #{spare5}
+            </if>
+        </where>
+        order by CREATED_TIME DESC
+    </select>
+
+
+    <update id="update">
+        update points_alliance.capital_detail
+        <set>
+            <if test="createdTime != null">
+                CREATED_TIME = #{createdTime},
+            </if>
+            <if test="creator != null and creator != ''">
+                CREATOR = #{creator},
+            </if>
+            <if test="creatorId != null and creatorId != ''">
+                CREATOR_ID = #{creatorId},
+            </if>
+            <if test="lastUpdateId != null and lastUpdateId != ''">
+                LAST_UPDATE_ID = #{lastUpdateId},
+            </if>
+            <if test="lastUpdateTime != null">
+                LAST_UPDATE_TIME = #{lastUpdateTime},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''">
+                LAST_UPDATER = #{lastUpdater},
+            </if>
+            <if test="userId != null and userId != ''">
+                USER_ID = #{userId},
+            </if>
+            <if test="capitalType != null">
+                CAPITAL_TYPE = #{capitalType},
+            </if>
+            <if test="pointsDetail != null">
+                POINTS_DETAIL = #{pointsDetail},
+            </if>
+            <if test="moneyDetail != null">
+                MONEY_DETAIL = #{moneyDetail},
+            </if>
+            <if test="orderId != null and orderId != ''">
+                ORDER_ID = #{orderId},
+            </if>
+            <if test="capitalContent != null and capitalContent != ''">
+                CAPITAL_CONTENT = #{capitalContent},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted},
+            </if>
+            <if test="spare1 != null and spare1 != ''">
+                SPARE1 = #{spare1},
+            </if>
+            <if test="spare2 != null and spare2 != ''">
+                SPARE2 = #{spare2},
+            </if>
+            <if test="spare3 != null and spare3 != ''">
+                SPARE3 = #{spare3},
+            </if>
+            <if test="spare4 != null and spare4 != ''">
+                SPARE4 = #{spare4},
+            </if>
+            <if test="spare5 != null and spare5 != ''">
+                SPARE5 = #{spare5},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <update id="updateAllColumn">
+        update points_alliance.capital_detail
+        <set>
+            CREATED_TIME = #{createdTime},
+            CREATOR = #{creator},
+            CREATOR_ID = #{creatorId},
+            LAST_UPDATE_ID = #{lastUpdateId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            LAST_UPDATER = #{lastUpdater},
+            USER_ID = #{userId},
+            CAPITAL_TYPE = #{capitalType},
+            POINTS_DETAIL = #{pointsDetail},
+            MONEY_DETAIL = #{moneyDetail},
+            ORDER_ID = #{orderId},
+            CAPITAL_CONTENT = #{capitalContent},
+            DELETED = #{deleted},
+            SPARE1 = #{spare1},
+            SPARE2 = #{spare2},
+            SPARE3 = #{spare3},
+            SPARE4 = #{spare4},
+            SPARE5 = #{spare5},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from points_alliance.capital_detail where ID
+        in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByIdNotTrue">
+        update points_alliance.capital_detail
+        set DELETED = 1,
+        LAST_UPDATE_ID = #{updateId},
+        LAST_UPDATER = #{updater},
+        LAST_UPDATE_TIME = #{dateTime}
+        where ID in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

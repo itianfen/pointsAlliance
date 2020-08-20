@@ -39,4 +39,14 @@ public class HomePageController {
         return homePageService.getHome(request.getHeader("Authorization"));
     }
 
+    /**
+     * 通过token获取首页信息
+     *
+     * @return 首页信息
+     */
+    @RequestMapping(value = "/tan", method = RequestMethod.GET)
+    public Map<String, Object> tan() {
+        return homePageService.tan(request.getHeader("Authorization"));
+    }
+
 }

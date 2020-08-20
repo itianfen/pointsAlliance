@@ -70,7 +70,7 @@ public class CardController {
     @Auth(user = "admin,member,company")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Map<String, Object> list(Card card, Integer currentPage, Integer pageSize, Integer preciseOrFuzzy, String timeArea) {
-        return this.cardService.queryAllByLimit(request.getHeader("Authorization"),card, currentPage, pageSize, preciseOrFuzzy, timeArea);
+        return this.cardService.queryAllByLimit(request.getHeader("Authorization"), card, currentPage, pageSize, preciseOrFuzzy, timeArea);
     }
 
     /**
@@ -160,7 +160,7 @@ public class CardController {
         sysUser.setRoleId("2");
         sysUser.setMemberLevel(1);
         String bankId = params.getString("bankId");
-        List<Card> list = cardService.list(new QueryWrapper<Card>().eq(Card.COL_BANK_ID, bankId).eq(Card.COL_COMPANY_ID, companyId));
+        List<Card> list = cardService.list(new QueryWrapper<Card>().eq(Card.COL_BANK_ID, bankId).eq(Card.COL_COMPANY_ID, companyId).eq(Card.COL_DELETED, 0));
 
         Map<String, Object> result = Response.success(PackageUtil.cardListPackage(list, sysUser));
         result.put("bankMsg", bankService.getById(bankId));

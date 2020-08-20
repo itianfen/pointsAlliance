@@ -7,15 +7,13 @@ import com.jx.entity.CustomerService;
 import com.jx.service.CustomerServiceService;
 import com.utils.ErrorItem;
 import com.utils.Response;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * 客服表(CustomerService)表控制层
@@ -24,7 +22,6 @@ import java.util.Map;
  * @since 2020-07-21 14:47:00
  */
 @RestController
-@Auth(user = "admin")
 @RequestMapping("customerService")
 public class CustomerServiceController {
     /**
@@ -116,5 +113,12 @@ public class CustomerServiceController {
         queryWrapper.eq("DELETED", "0");
         List<CustomerService> list = customerServiceService.list(queryWrapper);
         return list == null ? Response.fail(ErrorItem.SYSTEM_ERROR_MSG) : Response.success(list);
+    }
+
+    @PostMapping("/getRandomService")
+    public CustomerService getRandomService() {
+        List<CustomerService> list = customerServiceService.list(new QueryWrapper<CustomerService>().eq("DELETED", 0));
+        Random random = new Random();
+        return list.get(random.nextInt(list.size()));
     }
 }

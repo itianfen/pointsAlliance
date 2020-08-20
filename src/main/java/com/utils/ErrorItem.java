@@ -232,4 +232,9 @@ public interface ErrorItem {
      * 请先删除该银行下的商品
      */
     String DELETE_CARD_FIRST = "请先删除该银行下的商品";
+
+    /**
+     * 请先删除已存在的弹窗公告
+     */
+    String DELETE_NOTICE_TAN_FIRST = "请先删除已存在的弹窗公告";
 }

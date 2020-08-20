@@ -1,7 +1,9 @@
 package com.jx.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jx.dao.NoticeDao;
+import com.jx.entity.Article;
 import com.jx.entity.Notice;
 import com.jx.entity.Token;
 import com.jx.service.NoticeService;
@@ -105,6 +107,12 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeDao, Notice> implements
         notice.setLastUpdateId(tokenObj.getUserId());
         notice.setCompanyId(tokenObj.getUserId());
         notice.setDeleted(0);
+        if (notice.getSpare1().equals("1")) {
+            List<Notice> list = list(new QueryWrapper<Notice>().eq(Article.COL_SPARE1, "1"));
+            if (!list.isEmpty()) {
+                return Response.fail(ErrorItem.DELETE_NOTICE_TAN_FIRST);
+            }
+        }
         if (this.noticeDao.insert(notice) > 0) {
             return Response.success(notice);
         }
@@ -130,10 +138,14 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeDao, Notice> implements
         notice.setLastUpdater(tokenObj.getUserName());
         notice.setLastUpdateId(tokenObj.getUserId());
         notice.setDeleted(0);
-        if (this.noticeDao.update(notice) > 0) {
-            return this.queryById(notice.getId());
+        if (notice.getSpare1().equals("1")) {
+            List<Notice> list = list(new QueryWrapper<Notice>().eq(Article.COL_SPARE1, "1"));
+            if (!list.isEmpty()) {
+                return Response.fail(ErrorItem.DELETE_NOTICE_TAN_FIRST);
+            }
         }
-        return Response.fail(ErrorItem.UPDATE_ERROR);
+        notice.updateById();
+        return this.queryById(notice.getId());
     }
 
     /**

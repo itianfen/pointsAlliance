@@ -50,6 +50,7 @@ public class PackageUtil {
             temp.put("memberNormal", card.getMemberNormal());
             temp.put("memberGold", card.getMemberGold());
             temp.put("memberDiamond", card.getMemberDiamond());
+            temp.put("service", card.getService().compareTo(0) > 0 ? "实物" : "虚拟");
             Integer exchangeType = card.getExchangeType();
             Integer exchangeCount = card.getExchangeCount();
             String exchangeLimit;

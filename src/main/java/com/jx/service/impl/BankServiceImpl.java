@@ -134,7 +134,8 @@ public class BankServiceImpl extends ServiceImpl<BankDao, Bank> implements BankS
         bank.setLastUpdater(tokenObj.getUserName());
         bank.setLastUpdateId(tokenObj.getUserId());
         bank.setDeleted(0);
-        return this.bankDao.update(bank) > 0 ? Response.success() : Response.fail(ErrorItem.UPDATE_ERROR);
+        bank.updateById();
+        return Response.success();
     }
 
     /**

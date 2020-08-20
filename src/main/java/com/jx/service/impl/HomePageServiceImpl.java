@@ -51,7 +51,6 @@ public class HomePageServiceImpl implements HomePageService {
     public Map<String, Object> getHome(String token) {
         Map<String, Object> result = Response.success();
         String companyId = ConstantPool.PLATFORM_COMPANY_ID;
-        Notice notice = noticeService.getOne(new QueryWrapper<Notice>().eq(Article.COL_SPARE1, "1"));
         if (!StringUtils.isEmpty(token)) {
             //通过token获取对象
             Token tokenObj = Objects.requireNonNull(TokenUtils.getTokenObj(token));
@@ -59,24 +58,6 @@ public class HomePageServiceImpl implements HomePageService {
             companyId = tokenObj.getCompanyId();
             boolean sign = signService.checkSign(token);
             result.put("sign", sign);
-            //查询用户是否看过
-            List<NoticeTan> list = noticeTanService.list(new QueryWrapper<NoticeTan>().eq(NoticeTan.COL_NOTICE_ID, notice.getId()).eq(NoticeTan.COL_USER_ID, tokenObj.getUserId()));
-            if (list.isEmpty()) {
-                result.put("tan", notice);
-                NoticeTan noticeTan = new NoticeTan();
-                noticeTan.setId(UUIDUtils.generate());
-                noticeTan.setCreatedTime(DateFormatUtils.getCurrentDate());
-                noticeTan.setCreator(tokenObj.getUserName());
-                noticeTan.setCreatorId(tokenObj.getUserId());
-                noticeTan.setLastUpdater(tokenObj.getUserName());
-                noticeTan.setLastUpdateId(tokenObj.getUserId());
-                noticeTan.setLastUpdateTime(DateFormatUtils.getCurrentDate());
-                noticeTan.setUserId(tokenObj.getUserId());
-                noticeTan.setNoticeId(notice.getId());
-                noticeTan.insert();
-            }
-        } else {
-            result.put("tan", notice);
         }
         if (companyId == null || StringUtils.isEmpty(companyId)) {
             companyId = ConstantPool.PLATFORM_COMPANY_ID;
@@ -100,6 +81,35 @@ public class HomePageServiceImpl implements HomePageService {
         List<Bank> bankList = bankService.list(new QueryWrapper<Bank>().eq(Bank.COL_DELETED, 0).orderByAsc(Bank.COL_ORDER_ID));
         BatchListUtil<Bank> bankBatchListUtil = new BatchListUtil<>();
         result.put("bankList", bankList == null || bankList.isEmpty() ? new Bank[0] : bankBatchListUtil.batchToList(bankList, 10));
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> tan(String token) {
+        Map<String, Object> result = Response.success();
+        Notice notice = noticeService.getOne(new QueryWrapper<Notice>().eq(Article.COL_SPARE1, "1"));
+        if (!StringUtils.isEmpty(token)) {
+            //通过token获取对象
+            Token tokenObj = Objects.requireNonNull(TokenUtils.getTokenObj(token));
+            //查询用户是否看过
+            List<NoticeTan> list = noticeTanService.list(new QueryWrapper<NoticeTan>().eq(NoticeTan.COL_NOTICE_ID, notice.getId()).eq(NoticeTan.COL_USER_ID, tokenObj.getUserId()));
+            if (list.isEmpty()) {
+                result.put("tan", notice);
+                NoticeTan noticeTan = new NoticeTan();
+                noticeTan.setId(UUIDUtils.generate());
+                noticeTan.setCreatedTime(DateFormatUtils.getCurrentDate());
+                noticeTan.setCreator(tokenObj.getUserName());
+                noticeTan.setCreatorId(tokenObj.getUserId());
+                noticeTan.setLastUpdater(tokenObj.getUserName());
+                noticeTan.setLastUpdateId(tokenObj.getUserId());
+                noticeTan.setLastUpdateTime(DateFormatUtils.getCurrentDate());
+                noticeTan.setUserId(tokenObj.getUserId());
+                noticeTan.setNoticeId(notice.getId());
+                noticeTan.insert();
+            }
+        } else {
+            result.put("tan", notice);
+        }
         return result;
     }
 }

@@ -197,7 +197,7 @@
                 </if>
             </where>
         </if>
-        order by CREATED_TIME DESC
+        ORDER BY notice.SPARE1 desc,notice.CREATED_TIME desc
         limit #{offset}, #{limit}
     </select>
 

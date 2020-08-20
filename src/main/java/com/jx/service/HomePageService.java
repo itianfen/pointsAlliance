@@ -19,4 +19,11 @@ public interface HomePageService {
      */
     Map<String, Object> getHome(String token);
 
+    /**
+     * 通过token获取弹窗
+     *
+     * @param token token
+     * @return 首页信息
+     */
+    Map<String, Object> tan(String token);
 }

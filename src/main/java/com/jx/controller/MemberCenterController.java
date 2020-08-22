@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -61,14 +62,14 @@ public class MemberCenterController {
             user.put("companyLevel", sysUser.getCompanyLevel());
             result.put("user", user);
         }
-        List<Card> list = cardService.list(new QueryWrapper<Card>().eq(Card.COL_COMPANY_ID, companyId));
+        List<Card> list = cardService.list(new QueryWrapper<Card>().eq(Card.COL_COMPANY_ID, companyId).eq(Card.COL_DELETED, 0));
         List<Map<String, Object>> cards = new ArrayList<>();
         for (Card card : list) {
             HashMap<String, Object> temp = new HashMap<>(16);
             temp.put("cardName", card.getBankName() + "-" + card.getName());
-            temp.put("normalMemberPrice", card.getMemberNormal());
-            temp.put("goldMemberPrice", card.getMemberGold());
-            temp.put("diamondMemberPrice", card.getMemberDiamond());
+            temp.put("normalMemberPrice", card.getMemberNormal().multiply(new BigDecimal("10000")).divide(card.getLimitLine(), 2, BigDecimal.ROUND_DOWN));
+            temp.put("goldMemberPrice", card.getMemberGold().multiply(new BigDecimal("10000")).divide(card.getLimitLine(), 2, BigDecimal.ROUND_DOWN));
+            temp.put("diamondMemberPrice", card.getMemberDiamond().multiply(new BigDecimal("10000")).divide(card.getLimitLine(), 2, BigDecimal.ROUND_DOWN));
             cards.add(temp);
         }
         result.put("cards", cards);

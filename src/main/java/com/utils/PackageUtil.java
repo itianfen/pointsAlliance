@@ -45,6 +45,7 @@ public class PackageUtil {
             temp.put("name", card.getName());
             temp.put("odds", card.getOdds());
             temp.put("limitLine", card.getLimitLine());
+            temp.put("memberLevel", sysUser.getMemberLevel());
             BigDecimal uniPrice = getExchangeRate(card, sysUser);
             temp.put("uniPrice", uniPrice);
             temp.put("memberNormal", card.getMemberNormal());

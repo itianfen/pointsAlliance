@@ -148,17 +148,18 @@ public class CardController {
         String token = request.getHeader("Authorization");
         Token tokenObj = TokenUtils.getTokenObj(token);
         String companyId = "999";
-        SysUser sysUser;
+        SysUser sysUser = new SysUser();
         if (tokenObj != null) {
+            sysUser = sysUserService.getById(tokenObj.getUserId());
             if (ConstantPool.COMPANY_ROLE_ID.equals(tokenObj.getRoleId())) {
                 companyId = tokenObj.getUserId();
             } else {
                 companyId = StringUtils.isNotEmpty(tokenObj.getCompanyId()) ? tokenObj.getCompanyId() : "999";
             }
+        } else {
+            sysUser.setRoleId("2");
+            sysUser.setMemberLevel(1);
         }
-        sysUser = new SysUser();
-        sysUser.setRoleId("2");
-        sysUser.setMemberLevel(1);
         String bankId = params.getString("bankId");
         List<Card> list = cardService.list(new QueryWrapper<Card>().eq(Card.COL_BANK_ID, bankId).eq(Card.COL_COMPANY_ID, companyId).eq(Card.COL_DELETED, 0));
 

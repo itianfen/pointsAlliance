@@ -87,7 +87,7 @@ public class HomePageServiceImpl implements HomePageService {
     @Override
     public Map<String, Object> tan(String token) {
         Map<String, Object> result = Response.success();
-        Notice notice = noticeService.getOne(new QueryWrapper<Notice>().eq(Article.COL_SPARE1, "1"));
+        Notice notice = noticeService.getOne(new QueryWrapper<Notice>().eq(Article.COL_SPARE1, "1").eq(Article.COL_DELETED, 0));
         if (!StringUtils.isEmpty(token)) {
             //通过token获取对象
             Token tokenObj = Objects.requireNonNull(TokenUtils.getTokenObj(token));

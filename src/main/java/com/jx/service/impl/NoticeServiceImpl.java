@@ -139,7 +139,7 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeDao, Notice> implements
         notice.setLastUpdateId(tokenObj.getUserId());
         notice.setDeleted(0);
         if (notice.getSpare1().equals("1")) {
-            List<Notice> list = list(new QueryWrapper<Notice>().eq(Article.COL_SPARE1, "1"));
+            List<Notice> list = list(new QueryWrapper<Notice>().eq(Article.COL_SPARE1, "1").eq(Article.COL_DELETED, 0));
             if (!list.isEmpty()) {
                 return Response.fail(ErrorItem.DELETE_NOTICE_TAN_FIRST);
             }
